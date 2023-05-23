@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./prisma/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  app:
+    container_name: app
+    build: 
+      context: .
+      dockerfile: app.dockerfile
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 5555:5555
+      - 5173:5173
+    volumes:
+      - ./:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
