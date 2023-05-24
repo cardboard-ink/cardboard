@@ -1,7 +1,9 @@
-import { fail, redirect } from '@sveltejs/kit'
+import { redirect } from '@sveltejs/kit'
 
 import { db } from '$lib/server/database'
-import type { Session } from '@prisma/client'
+
+import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton'
+import type { GuildedAuthSession } from '@prisma/client'
 
 export const load = async ({ locals, cookies }) => {
 	// redirect user if logged in
@@ -9,10 +11,10 @@ export const load = async ({ locals, cookies }) => {
 		throw redirect(302, '/')
 	}
 
-  let sessions = await db.user.findUnique({
-    where: { username: locals.user.name},
+  const sessions = await db.guildedUser.findUnique({
+    where: { id: locals.user.id},
     select: { sessions: {
-      select: { id: true, createdAt: true, expiresAt: true, manipulator: true }
+      select: { id: true, createdAt: true, expiresAt: true }
     } }
   })
 
@@ -23,39 +25,47 @@ export const load = async ({ locals, cookies }) => {
   if (!sessions.sessions) {
     throw redirect(302, '/')
   }
+  
+  type ActiveSession = GuildedAuthSession & { current: boolean }
 
-  sessions = sessions.sessions as Session[]
+  const activeSessions = sessions.sessions as ActiveSession[]
 
-  if (!sessions) {
+  if (!activeSessions) {
     throw redirect(302, '/')
   }
 
-  sessions.forEach(session => {
-    session.current = session.id === cookies.get('session')
-    if (session.current) {
-      delete session.manipulator
-    }
-    delete session.id
+  activeSessions.forEach(session => {
+    session.current = session.id === cookies.get('guildedAuthSession')
   })
 
-  return {sessions}
+  return {activeSessions}
 }
 
 export const actions = {
-	revoke: async({ request }) => {
+	revoke: async({ request, cookies }) => {
 
 		const data = await request.formData()
-    const manipulator = data.get('manipulator')
+    const id = data.get('identifier') as string
 
-		if (!manipulator) {
+    if (id === cookies.get('guildedAuthSession')) {
+      const t: ToastSettings = {
+        message: "Can't terminate current session.",
+        background: 'variant-filled-error',
+        timeout: 3000,
+      }
+      toastStore.trigger(t);
+      throw redirect(302, '/settings/sessions')
+    }
+
+		if (!id) {
 			throw redirect(302, '/settings/sessions')
 		}
 
 		//remove from db
-		await db.session.delete({ where: { manipulator } })
+		await db.guildedAuthSession.delete({ where: { id } })
 
 		// seems like a nice place to clean up expired sessions
-		await db.session.deleteMany({ where: { expiresAt: { lt: new Date() } } })
+		await db.guildedAuthSession.deleteMany({ where: { expiresAt: { lt: new Date() } } })
 
 		// redirect the user
 		throw redirect(302, '/settings/sessions')

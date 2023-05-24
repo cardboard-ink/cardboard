@@ -1,6 +1,5 @@
 <div class="settingsContainer">
   <nav>
-    <a href="/settings/profile">Profile</a>
     <a href="/settings/sessions">Sessions</a>
   </nav>
   <main>

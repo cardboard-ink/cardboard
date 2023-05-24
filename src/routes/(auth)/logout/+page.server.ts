@@ -10,14 +10,14 @@ export const load = async () => {
 export const actions = {
 	default: async({ cookies }) => {
 
-		const session = cookies.get('session')
+		const session = cookies.get('guildedAuthSession')
 
 		if (!session) {
 			throw redirect(302, '/login')
 		}
 
 		//remove from db
-		await db.session.delete({ where: { id: session } })
+		await db.guildedAuthSession.delete({ where: { id: session } })
 		
 		// eat the cookie
 		cookies.set('session', '', {
@@ -26,7 +26,7 @@ export const actions = {
 		})
 
 		// seems like a nice place to clean up expired sessions
-		await db.session.deleteMany({ where: { expiresAt: { lt: new Date() } } })
+		await db.guildedAuthSession.deleteMany({ where: { expiresAt: { lt: new Date() } } })
 
 		// redirect the user
 		throw redirect(302, '/login')

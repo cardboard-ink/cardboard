@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/server/database'
+import type { User } from '@prisma/client'
 
 /*
 	You can use a custom redirect if you want...
@@ -27,7 +28,9 @@ import { db } from '$lib/server/database'
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
-	const session = event.cookies.get('session')
+	// const session = event.cookies.get('session')
+
+	const session = event.cookies.get('guildedAuthSession')
 
 	if (!session) {
 		// if there is no session load page as normal
@@ -35,9 +38,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	// find the user based on the session
-	let user = await db.session.findUnique({
+	const user = await db.guildedAuthSession.findUnique({
 		where: { id: session },
-		select: { expiresAt: true, User: {select: {username: true, role: true, avatar: true, displayName: true}}},
+		select: { expiresAt: true, User: {select: {id: true, username: true, avatar: true, banner: true}}},
 	})
 
 	if (!user) {
@@ -59,15 +62,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 		})
 		return await resolve(event)
 	}
-	user = user?.User
+
+	const sessionUser = user.User
 
 	// if `user` exists set `events.local`
 	if (user) {
 		event.locals.user = {
-			name: user.username,
-			role: user.role.name,
-			displayName: user.displayName !== "" ? user.displayName : user.username,
-			avatar: user.avatar,
+			id: sessionUser.id,
+			name: sessionUser.username,
+			displayName: sessionUser.username,
+			avatar: sessionUser.avatar,
+			banner: sessionUser.banner,
 		}
 	}
 	// load page as normal

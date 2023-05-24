@@ -4,7 +4,7 @@
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import { theme } from '$lib/client/localStore';
 	import { onMount } from 'svelte';
-
+	import { Toast } from '@skeletonlabs/skeleton';
 	let modalVisible = false
 	let themeModalVisible = false
 	const toggleModalVisibility = () => {
@@ -15,7 +15,7 @@
 		themeModalVisible = !themeModalVisible
 	}
 
-	import '@skeletonlabs/skeleton/themes/theme-vintage.css'
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
 	import '@skeletonlabs/skeleton/styles/skeleton.css'
 	import '../app.postcss';
 </script>
@@ -23,11 +23,12 @@
 <svelte:head>
 	<title>SvelteKit Auth</title>
 </svelte:head>
-
+<Toast />
 <nav class="nav p-8">
 	<a class="a" href="/">Home</a>
 	<div class="rhs">
-		<div class="themeContainer">
+		<LightSwitch />
+		<!-- <div class="themeContainer">
 			<button on:click={() => toggleThemeModalVisibility()}>
 				Select Theme 🔽
 			</button>
@@ -40,13 +41,12 @@
 					📺 Vintage
 				</button>
 			</div>
-		</div>
-	{#if !$page.data.user}
-			<a href="/login">Login</a>
-			<a href="/register">Register</a>
-	{/if}
-	
-	{#if $page.data.user}
+		</div> -->
+		{#if !$page.data.user}
+				<a href="/login">Login with Guilded</a>
+		{/if}
+		
+		{#if $page.data.user}
 			<a href="/profile">{$page.data.user.displayName}</a>
 			<div class="settingsContainer">
 				<button on:click={() => toggleModalVisibility()} on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
