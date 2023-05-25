@@ -1,6 +1,5 @@
 import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/server/database'
-import type { User } from '@prisma/client'
 
 /*
 	You can use a custom redirect if you want...
@@ -55,7 +54,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// if the session has expired
 	if (user?.expiresAt < new Date()) {
 		// delete the session
-		await db.session.delete({ where: { id: session } })
+		await db.guildedAuthSession.delete({ where: { id: session } })
 		event.cookies.set('session', '', {
 			path: '/',
 			expires: new Date(0),

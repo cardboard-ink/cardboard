@@ -2,7 +2,7 @@
   import { page } from '$app/stores'
 </script>
 
-<h1>Home</h1>
+<h2>Home</h2>
 
 {#if $page.data.user}
   <p class="p">Welcome {$page.data.user.displayName}! 👋</p>

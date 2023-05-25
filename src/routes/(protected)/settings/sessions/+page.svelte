@@ -5,16 +5,16 @@
 
 </script>
 
-<h1>
+<h2>
   Manage Your Cardboard Sessions
-</h1>
+</h2>
 
 {#if sessions.length === 0}
   <p>
     You have no active sessions.
   </p>
 {:else}
-  <ul class="card variant-glass-primary p-4 min-h-full overflow-auto">
+  <ul>
     {#each sessions as session}
       <li>
         <div class="card card-hover bg-initial modal p-4 m-2 rounded-md">

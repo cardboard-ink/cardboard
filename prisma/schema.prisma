@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model GuildedAuthSession {
   id          String @id @unique @default(uuid())
   createdAt DateTime @default(now())
@@ -12,16 +14,51 @@ model GuildedAuthSession {
   userId    String 
   User      GuildedUser     @relation(references: [id], fields: [userId])
 }
+
 model GuildedUser {
   id String @id @unique
   username String 
   avatar String @default("/poop.png")
   banner String @default("https://img.guildedcdn.com/asset/Default/ProfileBannerLarge.png")
   sessions GuildedAuthSession[]
+  myApps App[]
+  AuthorizedApps AuthorizedApp[]
 }
+
 model GuildedVerificationSessions {
   id          String @id @unique @default(uuid())
   createdAt DateTime @default(now())
   expiresAt DateTime
   userId    String @unique
+}
+
+model App {
+  id         String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  ownerUser GuildedUser @relation(fields: [owner], references: [id])
+  owner String
+  name String
+  description String @default("A cardboard app.")
+  icon String @default("/poop.png")
+  banner String @default("https://img.guildedcdn.com/asset/Default/ProfileBannerLarge.png")
+  secret String @unique @default(uuid())
+  redirectUri String
+  supportServer String
+  vanityCode String @unique @default(uuid())
+  authorizedSessions AuthorizedApp[]
+}
+
+model AuthorizedApp {
+  id         String @id @unique @default(uuid())
+  app App @relation(fields: [appId], references: [id])
+  appId String
+  user GuildedUser @relation(fields: [userId], references: [id])
+  userId String
+  code String @unique @default(uuid())
+  active Boolean @default(false)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  refreshedAt DateTime @default(now())
+  refreshToken String @unique @default(uuid())
+  authToken String @unique @default(uuid())
 }

@@ -10,6 +10,7 @@ declare namespace App {
 			banner:string
 			avatar: string
 		}
+		form?: any
 	}
 
 	// interface PageData {}

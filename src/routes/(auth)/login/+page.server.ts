@@ -1,5 +1,4 @@
 import { fail, redirect } from '@sveltejs/kit'
-import bcrypt from 'bcrypt'
 
 import {z} from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
