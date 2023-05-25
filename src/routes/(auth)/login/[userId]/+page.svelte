@@ -24,6 +24,6 @@
   </li>
 </ol>
 <form action="?/check" method="post">
-  <button class="card card-hover" type="submit">Check</button>
+  <button class="btn variant-ghost-primary rounded-md" type="submit">Check</button>
 </form>
 

@@ -47,7 +47,7 @@
 							</button>
 							<div class="modal card bg-inital z-10" class:visible="{modalVisible}" on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
 								<form class="flex-col flex gap-4" action="/logout" method="POST">
-									<button class="p-2 justify-center variant-ghost-surface " type="submit">Log out</button>
+									<button class="btn p-2 justify-center variant-ghost-surface " type="submit">Log out</button>
 								</form>
 							</div>
 						</div>
@@ -90,10 +90,6 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		.auth {
-			display: flex;
-			gap: 16px;
-		}
 		.rhs {
 			display: flex;
 			gap: 16px;

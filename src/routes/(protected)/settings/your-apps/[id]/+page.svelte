@@ -59,16 +59,16 @@
                     <p class=" text-error-500">{$errors.description}</p>
                 {/if}
             </label>
-            <button class="variant-filled" type="submit">
+            <button class="btn variant-filled" type="submit">
                 Update App
             </button>
         </div>
     </form>
     <form class="w-full flex justify-center gap-4" action="?/regenerateSecret" method="post">
-        <button class="variant-filled-secondary" type="submit">Regenerate Secret</button>
-        <button class="variant-ghost-success" use:clipboard={$form.secret} type="button">Copy Secret</button>
+        <button class="btn variant-filled-secondary" type="submit">Regenerate Secret</button>
+        <button class="btn variant-ghost-success" use:clipboard={$form.secret} type="button">Copy Secret</button>
     </form>
     <form class="w-full flex justify-center" action="?/deleteApp" method="post">
-        <button class="variant-filled-error">Delete App</button>
+        <button class="btn variant-filled-error">Delete App</button>
     </form>
 </div>

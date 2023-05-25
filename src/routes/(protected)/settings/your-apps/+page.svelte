@@ -36,11 +36,11 @@
             <h5>
               {app.id}
             </h5>
-            <button class="btn-icon variant-ghost-primary rounded-md" use:clipboard={app.id}>
+            <button class="btn btn-icon variant-ghost-primary rounded-md" use:clipboard={app.id}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24px" class="fill-token"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"/></svg>
             </button>
           </div>
-          <button class="variant-ghost-error rounded-md" use:clipboard={app.secret}>
+          <button class="btn variant-ghost-error rounded-md" use:clipboard={app.secret}>
             <span class="flex gap-2 w-fit">
               Copy Secret
               <svg xmlns="http://www.w3.org/2000/svg" width="24px" class="fill-token" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z"/></svg>

@@ -35,7 +35,7 @@
             <p class=" text-error-500">{$errors.vanityCode}</p>
         {/if}
     </label>
-    <button type="submit">
+    <button class="btn variant-ghost-primary" type="submit">
         Create App
     </button>
 </form>

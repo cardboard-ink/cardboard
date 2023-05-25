@@ -42,7 +42,7 @@
     <form action="?/linkGuilded" method="POST">
       <label for="guildedId" />
       <input type="text" class="hidden" name="guildedId" value={user.id} />
-      <button class="md:w-full lg:w-1/2 flex flex-row card card-hover variant-glass" type="submit">
+      <button class="btn md:w-full lg:w-1/2 flex flex-row card card-hover variant-glass" type="submit">
         <Avatar src={user.profilePicture} fallback={"/poop.png"} />
         <span class="flex-auto">
           <dt>{user.name}</dt>
