@@ -5,12 +5,12 @@
 
 </script>
 
-<h2>
+<h2 class="h2">
   Manage Your Cardboard Sessions
 </h2>
 
 {#if sessions.length === 0}
-  <p>
+  <p class="p">
     You have no active sessions.
   </p>
 {:else}
@@ -24,10 +24,10 @@
             </svg>
           {/if}
           <div class="details">
-            <p>
+            <p class="p">
               {session.createdAt}
             </p>
-            <p>
+            <p class="p">
               {session.expiresAt}
             </p>
           </div>

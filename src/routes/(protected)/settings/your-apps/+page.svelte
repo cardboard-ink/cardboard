@@ -12,7 +12,7 @@
 
 <div class="flex s"></div>
 <div class="flex w-full gap-4">
-  <h2>
+  <h2 class="h2">
     Your Apps
   </h2>
   <a class="btn-icon w-16" href="/settings/your-apps/new">
@@ -27,13 +27,13 @@
       <div class="flex justify-between w-full">
         <header class="flex gap-4 w-max">
           <Avatar src={app.icon} />
-          <h3>
+          <h3 class="h3">
             {app.name}
           </h3>
         </header>
         <main class="flex items-center justify-end w-full gap-4 pl-4 pr-4 ">
           <div class="flex gap-4">
-            <h5>
+            <h5 class="h5">
               {app.id}
             </h5>
             <button class="btn btn-icon variant-ghost-primary rounded-md" use:clipboard={app.id}>
@@ -65,7 +65,7 @@
 </div>
 {#if myApps.length === 0}
   <div class="card p-4">
-    <h3>
+    <h3 class="h3">
       You don't have any apps yet.
     </h3>
     <p>

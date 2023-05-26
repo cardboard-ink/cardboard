@@ -8,7 +8,7 @@
 </script>
 
 
-<h1>Your Profile</h1>
+<h1 class="h1">Your Profile</h1>
 <div class="flex justify-center">
   <div class="card card-hover bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center">
     <header>
@@ -19,7 +19,7 @@
         <div class="grid justify-center">
           <Avatar src={avatar} width="w-[100px]" />
         </div>
-        <h3>
+        <h3 class="h3">
           {displayName}
         </h3>
       </div>

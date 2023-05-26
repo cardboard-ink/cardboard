@@ -6,7 +6,7 @@
     const {app} = data
 </script>
 
-<h2>
+<h2 class="h2">
     Authorizing
 </h2>
 
@@ -25,10 +25,10 @@
         </h2>
       </div>
       <div class="-translate-y-20 min-h-[150px] overflow-y-auto">
-          <h3>
+          <h3 class="h3">
             Description
           </h3>
-          <p>
+          <p class="p">
             {app.description}
             </p>
       </div>

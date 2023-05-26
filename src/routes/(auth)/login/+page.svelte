@@ -31,7 +31,7 @@
 </script>
 
 <main class="px-8">
-  <h1>Login to Guilded</h1>
+  <h1 class="h1">Login to Guilded</h1>
   <div class="md:w-full lg:w-1/2">
     <label class="label snap-center" for="Guilded Username">Guilded Username</label>
     <input class="input" id="Guilded Username" name="Guilded Username" type="text" placeholder="Username" bind:value={userSearch} on:keyup={() => searchForUsername()} />

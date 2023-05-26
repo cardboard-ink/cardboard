@@ -24,9 +24,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd ~/ghorde
+          cd ~/cardboard
           git pull origin main
-          git submodule update
-          docker-compose -f docker-compose.prod.yml down --remove-orphans
-          docker-compose -f docker-compose.prod.yml up --build -d
+          docker-compose -f prod.docker-compose.yml down --remove-orphans
+          docker-compose -f prod.docker-compose.yml up --build -d
           

@@ -5,10 +5,10 @@
 
 </script>
 <main class="px-8 flex flex-col w-full gap-4">
-  <h1>
+  <h1 class="h1">
     Are you really who you say you are?
   </h1>
-  <p>
+  <p class="p">
     We need to confirm that you are really the person you claim to issue the cookie which will be used for verification later.
     However, we require you to do the following steps to confirm your identity:
   </p>
@@ -21,7 +21,7 @@
     </li>
     <li>
       Make the title of the post 
-      <code style="flex gap-1">
+      <code style="code flex gap-0.5">
         {data.userAuthToken}
         <button class="btn btn-icon" use:clipboard={data.userAuthToken}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12px" class="fill-token"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"/></svg>

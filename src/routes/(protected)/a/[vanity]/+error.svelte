@@ -1,9 +1,9 @@
 <script>
 	import { page } from "$app/stores";
 </script>
-<h1 class="text-error-500">
+<h1 class="h1 text-error-500">
     Error
 </h1>
-<p>
+<p class="p">
     {$page.error.message}
 </p>

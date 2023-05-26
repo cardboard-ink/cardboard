@@ -5,7 +5,7 @@
     const {apps} = data
 </script>
 
-<h2>
+<h2 class="h2">
     Authorized Apps
 </h2>
 <div class="flex justify-evenly flex-wrap gap-4">
@@ -19,15 +19,15 @@
                 <div class="grid justify-center">
                 <Avatar src={app.icon} width="w-[100px]" />
                 </div>
-                <h2 class="flex items-end ">
+                <h2 class="h2 flex items-end ">
                     {app.name}
                 </h2>
             </div>
             <div class="-translate-y-20">
-                <h4>
+                <h4 class="h4">
                     Description
                 </h4>
-                <p>
+                <p class="p">
                     {app.description}
                     </p>
             </div>
@@ -63,7 +63,7 @@
         {/each}
     </div>
 {#if apps.length < 1}
-    <p class="text-error-500">
+    <p class="p text-error-500">
         You have no authorized apps.
     </p>
 {/if}

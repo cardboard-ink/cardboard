@@ -1,16 +1,24 @@
 <script lang="ts">
+	// Handling Live Updates
+	import { beforeNavigate } from '$app/navigation';
+    import { updated } from '$app/stores';
+
+    beforeNavigate(({ willUnload, to }) => {
+        if ($updated && !willUnload && to?.url) {
+            location.href = to.url.href;
+        }
+    });
+	
+	// Page from here
 	import { page } from '$app/stores'
 	import Avatar from '$lib/client/ui/Avatar.svelte'
 	import { LightSwitch, Toast, Modal, AppShell } from '@skeletonlabs/skeleton';
 	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+
 	let modalVisible = false
 	let themeModalVisible = false
 	const toggleModalVisibility = () => {
 		modalVisible = !modalVisible
-	}
-
-	const toggleThemeModalVisibility = () => {
-		themeModalVisible = !themeModalVisible
 	}
 
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
@@ -18,7 +26,7 @@
 	import '../app.postcss';
 	import { goto } from '$app/navigation';
 
-	let sidebar: string = ''
+	let sidebar: string = 'sidebar'
 </script>
 
 <svelte:head>
@@ -32,7 +40,7 @@
 		<header>
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<h1 class="a cursor-pointer" on:click={() => goto('/')}>📜 Cardboard</h1>
+				<h1 class=" h1 a cursor-pointer" on:click={() => goto('/')}>📜 Cardboard</h1>
 				<div class="rhs">
 					<Modal />
 					<LightSwitch />
@@ -60,7 +68,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.user}
 		<ListBox class="pr-4 pl-8 flex flex-col gap-2">
-			<h2>Browse</h2>
+			<h2 class="h2">Browse</h2>
 			<ListBoxItem bind:group={sidebar} name="route" value="/" on:click={() => goto('/')}>
 				🏠 Home
 			</ListBoxItem>
