@@ -1,11 +1,34 @@
 # How to run (dev)
 
-Make sure ports 5555 and 5173 are free.
+Welcome to CardBoard! This readme will guide you on how to set up and run the project in a development environment. Follow the instructions below to get started.
 
-Install Docker on your machine with compose and cd into the project dir and run `docker-compose up` or `docker compose up` depending on your docker + compose installation.
+## Prerequisites
 
-Now open your web browser and go to url http://localhost:5555 (prisma studio). Here open the Roles model and add the roles USER and ADMIN. 
+Before you begin, make sure you have the following:
 
-Now you can open http://localhost:5173 (svelte app) and make your user account and assign it ADMIN role from prisma studio.
+- Ports ```5555``` and ```5173``` are free.
 
-Congrats! Setup is complete, happy developing!
+## Installation
+
+1. Install Docker on your machine with compose.
+
+2. Navigate to the project directory.
+
+3. Run the following command, depending on your Docker + Compose installation:
+
+`docker-compose up` or `docker compose up`
+
+
+## Running the Application
+
+1. Open your web browser and go to the following URL: [http://localhost:5555](http://localhost:5555) (Prisma Studio).
+
+2. In Prisma Studio, navigate to the "Roles" model and add the roles "USER" and "ADMIN".
+
+3. Now, open [http://localhost:5173](http://localhost:5173) in your web browser. This will open the Svelte app.
+
+4. Create a user account and assign it the "ADMIN" role from Prisma Studio.
+
+## Congratulations!
+
+Congratulations! The setup is complete, and you are ready to start developing. Happy coding!
