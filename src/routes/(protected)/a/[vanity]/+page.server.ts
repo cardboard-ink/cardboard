@@ -50,7 +50,7 @@ export const actions = {
                 redirectUri: true
             }
         })
-
+        console.log(appExists)
         if (!appExists) {
             throw error(404, 'App not found')
         }
@@ -90,7 +90,6 @@ export const actions = {
                 expiresAt: new Date(Date.now() + 1000 * 60 * 1),
             }
         })
-
         throw redirect(302, `${appExists.redirectUri}?code=${authorizedApp.id}`)
     }
 }

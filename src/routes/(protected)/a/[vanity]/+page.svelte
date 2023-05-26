@@ -12,7 +12,7 @@
 
 <div class="flex justify-center">
   <div class="card card-hover container bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center">
-    <header>
+    <header class="min-h-[210px]">
       <img src={app.banner} alt="User Banner" class="bg-black/50 w-full object-cover">
     </header>
     <div class="w-full p-8 overflow-visible">
@@ -24,7 +24,7 @@
             {app.name}
         </h2>
       </div>
-      <div class="-translate-y-20">
+      <div class="-translate-y-20 min-h-[150px] overflow-y-auto">
           <h3>
             Description
           </h3>

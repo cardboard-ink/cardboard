@@ -23,6 +23,7 @@
 
 <svelte:head>
 	<title>Cardboard</title>
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </svelte:head>
 <Toast />
 
