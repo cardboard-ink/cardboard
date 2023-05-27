@@ -15,12 +15,16 @@
     Editing ➡️ {app.name}
 </h2>
 
+<!--  -->
+<!-- translate-y-20 -->
 <div class="flex flex-col gap-4">
-    <form class="flex flex-col card p-4 gap-4 justify-center" style="height: min-height" action="?/updateApp" method="post">
-        <div class="w-full flex justify-center translate-y-20">
-            <BannerInput name="banner" value={$form.banner} />
+    <form class="flex flex-col card p-4 gap-4 justify-center" style="position: relative; height: 73rem" action="?/updateApp" method="post">
+        <div class="w-full flex justify-center">
+            <div style="position: absolute; top:1rem; padding: 0.5rem; transform: translateY(2.5%)">
+                <BannerInput name="banner" value={$form.banner} />
+            </div>
         </div>
-        <div class=" -translate-y-14 flex flex-col p-4 gap-4 justify-center">
+        <div class="flex flex-col p-4 gap-4 justify-center" style="transform: translateY(15rem)">
             <div class="w-full flex justify-center">
                 <AvatarInput name="icon" value={$form.icon} />
             </div>

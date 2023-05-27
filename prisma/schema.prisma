@@ -55,8 +55,6 @@ model AuthorizedApp {
   appId String
   user GuildedUser @relation(fields: [userId], references: [id])
   userId String
-  code String? @unique @default(uuid())
-  active Boolean @default(false)
   createdAt DateTime @default(now())
   expiresAt DateTime
   refreshedAt DateTime @default(now())

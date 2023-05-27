@@ -34,7 +34,7 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </svelte:head>
 <Toast />
-
+<Modal />
 <AppShell>
 	<svelte:fragment slot="header">
 		<header>
@@ -42,10 +42,9 @@
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<h1 class=" h1 a cursor-pointer" on:click={() => goto('/')}>📜 Cardboard</h1>
 				<div class="rhs">
-					<Modal />
-					<LightSwitch />
 					{#if !$page.data.user}
-							<a href="/login">Login with Guilded</a>
+						<LightSwitch />
+						<a href="/login">Login with Guilded</a>
 					{/if}
 					
 					{#if $page.data.user}
@@ -55,6 +54,13 @@
 								<Avatar src={$page.data.user.avatar} size={50}></Avatar>
 							</button>
 							<div class="modal card bg-inital z-10" class:visible="{modalVisible}" on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
+								<LightSwitch />
+								<div class="lg:hidden flex flex-col gap-4">
+									<a href="/">🏠 Home</a>
+									<a href="/settings/sessions">🏛️ Sessions</a>
+									<a href="/settings/your-apps">💻 Your Apps</a>
+									<a href="/settings/authorized-apps">🔑 Authorized Apps</a>
+								</div>
 								<form class="flex-col flex gap-4" action="/logout" method="POST">
 									<button class="btn p-2 justify-center variant-ghost-surface " type="submit">Log out</button>
 								</form>
@@ -67,7 +73,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.user}
-		<ListBox class="pr-4 pl-8 flex flex-col gap-2">
+		<ListBox class="pr-4 pl-8 flex-col gap-2 hidden lg:flex">
 			<h2 class="h2">Browse</h2>
 			<ListBoxItem bind:group={sidebar} name="route" value="/" on:click={() => goto('/')}>
 				🏠 Home
@@ -115,13 +121,13 @@
 				}
 				.modal {
 					width: 200px;
-					transform: translateX(calc(-50% - 2rem)) translateY(75%);
+					transform: translateX(calc(-50% - 2rem)) translateY(55%);
 					position: absolute;
 					display: none;
 					flex-direction: column;
 					&.visible{
 						display: flex;
-						gap: 8px;
+						gap: 10px;
 						padding: 16px;
 					}
 				}

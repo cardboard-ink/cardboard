@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex s"></div>
-<div class="flex w-full gap-4">
+<div class="flex w-full gap-4 items-center">
   <h2 class="h2">
     Your Apps
   </h2>
@@ -23,16 +23,25 @@
 </div>
 <div class="flex flex-col gap-4">
   {#each myApps as app}
-    <a href={`/settings/your-apps/${app.id}`} class=" block card card-hover p-4 overflow-hidden w-full justify-normal text-base" style={`background-image: url(${app.banner}); background-position: center center; background-repeat: no-repeat; background-size: cover; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);`}>
-      <div class="flex justify-between w-full">
-        <header class="flex gap-4 w-max">
+    <a href={`/settings/your-apps/${app.id}`} 
+    class="block card card-hover p-4 overflow-hidden w-full justify-normal h-fit text-base items-center" 
+    style={`
+        background-image: url(${app.banner}); 
+        background-position: center center; 
+        background-repeat: no-repeat; 
+        background-size: cover; backdrop-filter: 
+        blur(10px); -webkit-backdrop-filter: 
+        blur(10px);`
+      }>
+      <div class="block lg:flex justify-between w-full ">
+        <header class="flex justify-center flex-col lg:flex-row lg:justify-start gap-4 w-full lg:w-max items-center">
           <Avatar src={app.icon} />
           <h3 class="h3">
             {app.name}
           </h3>
         </header>
-        <main class="flex items-center justify-end w-full gap-4 pl-4 pr-4 ">
-          <div class="flex gap-4">
+        <main class="flex flex-col lg:flex-row items-center justify-end w-full gap-4 pl-4 pr-4">
+          <div class="flex flex-col lg:flex-row py-2 gap-4 items-center">
             <h5 class="h5">
               {app.id}
             </h5>
@@ -47,12 +56,12 @@
             </span>
           </button>
         </main>
-        <footer class="flex align-middle">
+        <footer class="flex align-middle w-full lg:w-fit justify-center py-4">
           <div class="flex gap-4">
             <a class="btn variant-ghost-secondary rounded-md py-0" href={`/settings/your-apps/${app.id}`}>
               Edit
             </a>
-            <a class="btn-icon variant-ghost-surface" href={`/a/${app.vanityCode}`}>
+            <a class="btn-icon variant-ghost-surface rounded" href={`/a/${app.vanityCode}`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16px" viewBox="0 0 512 512" class="fill-token">
                 <path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/>
               </svg>

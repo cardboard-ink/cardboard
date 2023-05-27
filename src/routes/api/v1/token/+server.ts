@@ -10,7 +10,7 @@ export const POST = async ({request}) => {
     const clientId = data.get('client_id')
     const clientSecret = data.get('client_secret')
     const grantType = data.get('grant_type')
-    const code = data.get('code')
+    const authToken = data.get('code')
     const refreshToken = data.get('refresh_token')
 
     if ( 
@@ -28,7 +28,7 @@ export const POST = async ({request}) => {
     await cleanupAuths()
 
     if (grantType === 'authorization_code') {
-        if (!code || typeof code !== 'string') {
+        if (!authToken || typeof authToken !== 'string') {
             throw error(400, 'invalid request')
         }
         const app = await db.app.findUnique({
@@ -45,7 +45,7 @@ export const POST = async ({request}) => {
         }
         const pre = await db.authorizedApp.findUnique({
             where: {
-                code,
+                authToken,
             },
             select: {
                 id: true,
@@ -59,7 +59,6 @@ export const POST = async ({request}) => {
                 id: pre.id,
             },
             data: {
-                code: null,
                 authToken: randomUUID(),
                 refreshToken: randomUUID(),
                 expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
