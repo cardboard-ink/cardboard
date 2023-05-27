@@ -1,6 +1,16 @@
-/*Write your global styles here, in PostCSS syntax */
-/*place global styles here */
+/* Write your global styles here, in PostCSS syntax */
+/* place global styles here */
+
+/* Import Poppins font */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 html,
 body {
-	@apply h-full;
+  @apply h-full;
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
 }
