@@ -49,6 +49,13 @@ export const actions = {
         if (app.owner !== locals.user.id) {
             throw redirect(302, '/settings/your-apps')
         }
+
+        await db.authorizedApp.deleteMany({
+            where: {
+                appId: appId,
+            }
+        })
+
         await db.app.delete({
             where: {
                 id: appId,

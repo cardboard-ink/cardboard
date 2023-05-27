@@ -18,7 +18,7 @@
 <div class="flex flex-col gap-4">
     <form class="flex flex-col card p-4 gap-4 justify-center" style="height: min-height" action="?/updateApp" method="post">
         <div class="w-full flex justify-center translate-y-20">
-            <BannerInput name="banner" value={$form.banner} height={540} width={960} />
+            <BannerInput name="banner" value={$form.banner} />
         </div>
         <div class=" -translate-y-14 flex flex-col p-4 gap-4 justify-center">
             <div class="w-full flex justify-center">
