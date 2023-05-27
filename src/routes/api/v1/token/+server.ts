@@ -4,7 +4,9 @@ import { error } from "@sveltejs/kit"
 import { randomUUID } from "crypto"
 
 export const POST = async ({request}) => {
-    const data = await request.formData()
+    const data = await request.formData().catch(() => {
+        throw error(400, `invalid format, needs to be multipart/form-data`)
+    })
     const clientId = data.get('client_id')
     const clientSecret = data.get('client_secret')
     const grantType = data.get('grant_type')

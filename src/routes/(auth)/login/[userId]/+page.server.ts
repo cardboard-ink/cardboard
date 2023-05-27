@@ -30,7 +30,7 @@ export const load = async({params}) => {
 export const actions = {
   check:async ({ cookies, request, params }) => {
     const userId = params.userId;
-    const posts = await fetch('https://www.guilded.gg/api/users/EdV9p2a4/posts?maxPosts=10', {method: 'GET'})
+    const posts = await fetch(`https://www.guilded.gg/api/users/${userId}/posts?maxPosts=10`, {method: 'GET'})
     const data = await posts.json();
     const firstPostTitle = data[0].title
     db.guildedVerificationSessions.deleteMany({
