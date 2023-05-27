@@ -75,8 +75,8 @@ export const actions = {
         data: {
           id: userId,
           username: me.name,
-          avatar: me.profilePictureLg ? me.profilePictureLg : null,
-          banner: me.profileBannerLg ? me.profileBannerLg : null,
+          avatar: me.profilePictureLg ? me.profilePictureLg : undefined,
+          banner: me.profileBannerLg ? me.profileBannerLg : undefined,
         }
       })
     } else {
@@ -87,8 +87,8 @@ export const actions = {
         },
         data: {
           username: me.name,
-          avatar: me.profilePictureLg ? me.profilePictureLg : null,
-          banner: me.profileBannerLg ? me.profileBannerLg : null,
+          avatar: me.profilePictureLg ? me.profilePictureLg : undefined,
+          banner: me.profileBannerLg ? me.profileBannerLg : undefined,
         }
       })
     }
