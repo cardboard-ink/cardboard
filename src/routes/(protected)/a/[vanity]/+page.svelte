@@ -10,17 +10,17 @@
     Authorizing
 </h2>
 
-<div class="flex justify-center">
+<div class="flex justify-center mt-4">
   <div class="card card-hover container bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center">
     <header class="min-h-[210px]">
-      <img src={app.banner} alt="User Banner" class="bg-black/50 h-full object-cover">
+      <img src={app.banner} alt="User Banner" class="bg-black/50 w-full aspect-[16/9] object-cover">
     </header>
     <div class="w-full p-8 overflow-visible">
       <div class="flex -translate-y-20 gap-4 overflow-visible">
         <div class="grid justify-center">
           <Avatar src={app.icon} width="w-[100px]" />
         </div>
-        <h2 class="flex items-end ">
+        <h2 class="h2 mt-10 flex items-center">
             {app.name}
         </h2>
       </div>
