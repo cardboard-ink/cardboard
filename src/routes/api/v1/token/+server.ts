@@ -81,13 +81,13 @@ export const POST = async ({request}) => {
                 expiresAt: true,
             }
         })
-        const data = new URLSearchParams(JSON.stringify({
+        const data = {
             access_token: auth.authToken,
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
-        }))
-        return new Response(data)
+        }
+        return new Response(JSON.stringify(data))
     } else if (grantType === 'refresh_token') {
         if (!refreshToken || typeof refreshToken !== 'string') {
             throw error(400, 'invalid request')
@@ -141,13 +141,13 @@ export const POST = async ({request}) => {
                 expiresAt: true,
             }
         })
-        const data = new URLSearchParams(JSON.stringify({
+        const data = {
             access_token: auth.authToken,
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
-        }))
-        return new Response(data)
+        }
+        return new Response(JSON.stringify(data))
     }
     throw error(400, 'unsupported grant_type')
 }
