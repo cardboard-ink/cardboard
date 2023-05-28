@@ -32,18 +32,21 @@ export const POST = async ({request}) => {
         }
     })
     if (!app) {
-        throw error(400, 'invalid client')
+        throw error(400, 'invalid app')
     }
-
     const pre = await db.authorizedApp.findUnique({
         where: {
             authToken: token,
         },
         select: {
             id: true,
+            app: {select: {id: true}}
         }
     })
     if (!pre) {
+        throw error(400, 'invalid token')
+    }
+    if (app.id !== pre.app.id) {
         throw error(400, 'invalid token')
     }
     await db.authorizedApp.delete({

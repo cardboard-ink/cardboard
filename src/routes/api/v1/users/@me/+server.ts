@@ -4,7 +4,14 @@ import { error } from "@sveltejs/kit"
 
 export const POST = async ({request}) => {
     const headers = request.headers
-    const authToken = headers['Authorization']
+    let authToken = headers['Authorization']
+    if (!authToken || typeof authToken !== 'string') {
+        throw error(400, 'invalid request')
+    }
+    if (!authToken.startsWith('Bearer ')) {
+        throw error(400, 'invalid request')
+    }
+    authToken = authToken.slice(7)
     await cleanupAuths()
     const verify = await db.authorizedApp.findUnique({
         where: {
