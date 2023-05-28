@@ -3,6 +3,7 @@ import { fail, redirect } from "@sveltejs/kit"
 import { z } from "zod";
 import {randomUUID} from "crypto";
 import { setError, superValidate } from "sveltekit-superforms/server";
+import bcrypt from "bcrypt";
 
 const schema = z.object({
     name: z.string(),
@@ -63,38 +64,6 @@ export const actions = {
         })
 
         throw redirect(302, '/settings/your-apps')
-    },
-    regenerateSecret: async ({locals, params}) => {
-        const appId = params.id;
-        const app = await db.app.findUnique({
-            where: {
-                id: appId,
-            }
-        })
-        if (!app) {
-            throw redirect(302, '/settings/your-apps')
-        }
-        if (app.owner !== locals.user.id) {
-            throw redirect(302, '/settings/your-apps')
-        }
-        const getNewSecret = () => {
-            const newSecret = randomUUID();
-            return newSecret;
-        }
-        const currentSecret = app.secret;
-        let newSecret = getNewSecret();
-        while (currentSecret === newSecret) {
-            newSecret = getNewSecret();
-        }
-        await db.app.update({
-            where: {
-                id: appId,
-            },
-            data: {
-                secret: newSecret,
-            }
-        })
-        throw redirect(302, `/settings/your-apps/${appId}`)
     },
     updateApp: async ({request, locals, params}) => {
         const appId = params.id;

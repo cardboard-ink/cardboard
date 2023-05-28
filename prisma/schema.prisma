@@ -42,7 +42,7 @@ model App {
   description String @default("A cardboard app.")
   icon String @default("/poop.png")
   banner String @default("https://img.guildedcdn.com/asset/Default/ProfileBannerLarge.png")
-  secret String @unique @default(uuid())
+  secret String?
   redirectUri String
   supportServer String
   vanityCode String @unique @default(uuid())

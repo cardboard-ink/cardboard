@@ -2,6 +2,7 @@ import { cleanupAuths } from "$lib/server/authclean"
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
 import { randomUUID } from "crypto"
+import bcrypt from 'bcrypt'
 
 export const POST = async ({request}) => {
     const data = await request.formData().catch(() => {
@@ -34,13 +35,19 @@ export const POST = async ({request}) => {
         const app = await db.app.findUnique({
             where: {
                 id: clientId,
-                secret: clientSecret,
             },
             select: {
                 id: true,
+                secret: true,
             }
         })
         if (!app) {
+            throw error(400, 'invalid client')
+        }
+        if(!app.secret) {
+            throw error(400, 'invalid client')
+        }
+        if (!bcrypt.compare(clientSecret, app.secret)) {
             throw error(400, 'invalid client')
         }
         const pre = await db.authorizedApp.findUnique({
@@ -88,13 +95,19 @@ export const POST = async ({request}) => {
         const app = await db.app.findUnique({
             where: {
                 id: clientId,
-                secret: clientSecret,
             },
             select: {
                 id: true,
+                secret: true,
             }
         })
         if (!app) {
+            throw error(400, 'invalid client')
+        }
+        if(!app.secret) {
+            throw error(400, 'invalid client')
+        }
+        if (!bcrypt.compare(clientSecret, app.secret)) {
             throw error(400, 'invalid client')
         }
         const pre = await db.authorizedApp.findUnique({

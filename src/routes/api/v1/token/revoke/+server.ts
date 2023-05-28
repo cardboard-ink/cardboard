@@ -1,9 +1,12 @@
 import { cleanupAuths } from "$lib/server/authclean"
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
+import bcrypt from 'bcrypt';
 
 export const POST = async ({request}) => {
-    const data = await request.formData()
+    const data = await request.formData().catch(() => {
+        throw error(400, `invalid format, needs to be multipart/form-data`)
+    })
     const clientId = data.get('client_id')
     const clientSecret = data.get('client_secret')
     const token = data.get('token')
@@ -25,14 +28,20 @@ export const POST = async ({request}) => {
     const app = await db.app.findUnique({
         where: {
             id: clientId,
-            secret: clientSecret,
         },
         select: {
             id: true,
+            secret: true,
         }
     })
     if (!app) {
         throw error(400, 'invalid app')
+    }
+    if(!app.secret) {
+        throw error(400, 'invalid client')
+    }
+    if (!bcrypt.compare(clientSecret, app.secret)) {
+        throw error(400, 'invalid client')
     }
     const pre = await db.authorizedApp.findUnique({
         where: {

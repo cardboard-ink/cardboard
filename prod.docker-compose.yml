@@ -25,6 +25,7 @@ services:
     volumes:
       - ./:/app
     environment:
+      - SALT-ROUNDS=10 # change this to something very random and hard to guess
       - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
       - ORIGIN=https://cardboard.ink
       - PROTOCOL_HEADER=x-forwarded-proto # remove this if you're not using a reverse proxy (nginx, cloudflare etc.)

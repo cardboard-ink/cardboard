@@ -1,13 +1,39 @@
 <script lang="ts">
 	import AvatarInput from '$lib/client/ui/AvatarInput.svelte';
 	import BannerInput from '$lib/client/ui/BannerInput.svelte';
-	import { clipboard } from '@skeletonlabs/skeleton';
+	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
     export let data;
 
     const {app} = data
     const {form, errors, constraints} = superForm(app);
+    
+    const newSecret = async (id: string) => {
+        const req = await fetch(`/settings/your-apps/${id}/secret`, {
+        method: 'PATCH',
+        }).catch(() =>
+        toastStore.trigger({
+            message: 'Failed to update secret!',
+            background: 'variant-filled-error',
+            timeout: 3000,
+        })
+        );
+        if (!req) return;
+        const {secret} = await req.json().catch(() => {
+        toastStore.trigger({
+            message: 'Failed to update secret, please update again!',
+            background: 'variant-filled-error',
+            timeout: 3000,
+        });
+        });
+        navigator.clipboard.writeText(secret);
+        toastStore.trigger({
+            message: 'Successfully updated secret and copied to clipboard!',
+            background: 'variant-filled-success',
+            timeout: 3000,
+        });
+    }
     
 </script>
 
@@ -68,10 +94,9 @@
             </button>
         </div>
     </form>
-    <form class="w-full flex justify-center gap-4" action="?/regenerateSecret" method="post">
-        <button class="btn variant-filled-secondary" type="submit">Regenerate Secret</button>
-        <button class="btn variant-ghost-success" use:clipboard={$form.secret} type="button">Copy Secret</button>
-    </form>
+    <div class="w-full flex justify-center gap-4">
+        <button class="btn variant-filled-secondary" on:click={() => newSecret(app.id)}>Regenerate Secret</button>
+    </div>
     <form class="w-full flex justify-center" action="?/deleteApp" method="post">
         <button class="btn variant-filled-error">Delete App</button>
     </form>
