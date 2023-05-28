@@ -1,4 +1,4 @@
-# [Cardboard.ink](Cardboard.ink)
+# [Cardboard.ink](https://Cardboard.ink)
 
 ### How to contribute.
 
