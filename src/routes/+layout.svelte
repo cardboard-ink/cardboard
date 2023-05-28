@@ -95,7 +95,7 @@
 	</main>
 	<svelte:fragment slot="pageFooter">
 		<footer class="flex justify-center p-8">
-			Cardboard has been developed with ❤️ by TooMuchHam
+			This is an independently developed project and is not affiliated with Guilded.gg in any way.
 		</footer>
 	</svelte:fragment>
 </AppShell>

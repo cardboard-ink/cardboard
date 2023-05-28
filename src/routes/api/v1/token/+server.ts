@@ -49,9 +49,14 @@ export const POST = async ({request}) => {
             },
             select: {
                 id: true,
+                app: {select: {id: true}}
             }
         })
         if (!pre) {
+            throw error(400, 'invalid code, has it expired?')
+        }
+        const accessibleApp = pre.app.id === app.id
+        if (!accessibleApp) {
             throw error(400, 'invalid code, has it expired?')
         }
         const auth = await db.authorizedApp.update({
@@ -98,9 +103,14 @@ export const POST = async ({request}) => {
             },
             select: {
                 id: true,
+                app: {select: {id: true}}
             }
         })
         if (!pre) {
+            throw error(400, 'invalid code, has it expired?')
+        }
+        const accessibleApp = pre.app.id === app.id
+        if (!accessibleApp) {
             throw error(400, 'invalid code, has it expired?')
         }
         const auth = await db.authorizedApp.update({
