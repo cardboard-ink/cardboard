@@ -19,3 +19,5 @@ Now open your web browser and go to url http://localhost:5555 (prisma studio). H
 Now you can open http://localhost:5173 (svelte app) and make your user account and assign it ADMIN role from prisma studio.
 
 Congrats! Setup is complete, happy developing!
+
+#
