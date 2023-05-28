@@ -90,6 +90,7 @@ export const actions = {
                 expiresAt: new Date(Date.now() + 1000 * 60 * 1),
             }
         })
-        throw redirect(302, `${appExists.redirectUri}?code=${authorizedApp.id}`)
+        const redirURL = new URL(appExists.redirectUri)
+        throw redirect(302, `${appExists.redirectUri}?code=${authorizedApp.authToken}`)
     }
 }
