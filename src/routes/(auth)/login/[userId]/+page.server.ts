@@ -1,6 +1,5 @@
 import { db } from '$lib/server/database';
 import type { GuildedVerificationSessions } from '@prisma/client';
-import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async({params}) => {
@@ -50,20 +49,8 @@ export const actions = {
     }
     sessionAuthToken = sessionAuthToken?.id;
     if (firstPostTitle !== sessionAuthToken) {
-      const t: ToastSettings = {
-        message: 'Could not authenticate you! Please check details & try again.',
-        background: 'variant-filled-error',
-        timeout: 3000,
-      }
-      toastStore.trigger(t);
       throw redirect(302, '/login');
     } 
-    const t: ToastSettings = {
-      message: 'Successfully authenticated you! Please wait for redirect!',
-      background: 'variant-filled-success',
-      timeout: 3000,
-    }
-    toastStore.trigger(t);
     let user = await db.guildedUser.findUnique({
       where: {
         id: userId,

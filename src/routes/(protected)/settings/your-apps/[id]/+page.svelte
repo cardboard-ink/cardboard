@@ -3,11 +3,14 @@
 	import BannerInput from '$lib/client/ui/BannerInput.svelte';
 	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
+    import {clipboard} from '@skeletonlabs/skeleton'
 
     export let data;
 
     const {app} = data
     const {form, errors, constraints} = superForm(app);
+
+    $: regeneratedSecret = '';
     
     const newSecret = async (id: string) => {
         const req = await fetch(`/settings/your-apps/${id}/secret`, {
@@ -20,16 +23,16 @@
         })
         );
         if (!req) return;
-        const {secret} = await req.json().catch(() => {
+        const data = await req.json().catch(() => {
         toastStore.trigger({
             message: 'Failed to update secret, please update again!',
             background: 'variant-filled-error',
             timeout: 3000,
         });
         });
-        navigator.clipboard.writeText(secret);
+        regeneratedSecret = data.secret;
         toastStore.trigger({
-            message: 'Successfully updated secret and copied to clipboard!',
+            message: 'Successfully updated secret, please copy to clipboard!',
             background: 'variant-filled-success',
             timeout: 3000,
         });
@@ -94,8 +97,18 @@
             </button>
         </div>
     </form>
-    <div class="w-full flex justify-center gap-4">
-        <button class="btn variant-filled-secondary" on:click={() => newSecret(app.id)}>Regenerate Secret</button>
+    <div class="w-full flex justify-center gap-4 flex-wrap">
+        <div class="flex flex-col">
+            <button class="btn variant-filled-secondary" on:click={() => newSecret(app.id)}>Regenerate Secret</button>
+            {#if regeneratedSecret !== ''}
+                <code class="flex gap-1 items-center">
+                    <span class="p">{regeneratedSecret}</span>
+                    <button class="btn btn-icon" use:clipboard={regeneratedSecret}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12px" class="fill-token"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"/></svg>
+                    </button>
+                </code>
+            {/if}
+        </div>
     </div>
     <form class="w-full flex justify-center" action="?/deleteApp" method="post">
         <button class="btn variant-filled-error">Delete App</button>
