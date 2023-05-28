@@ -1,4 +1,12 @@
-# How to run (dev)
+# Cardboard.ink
+
+### How to contribute.
+
+Fork this repo, then make the changes that are needed then make a pull requst
+
+Create a copy of this repository, then modify it as required and submit a request to merge your changes.
+
+### How to test the application.
 
 Make sure ports 5555 and 5173 are free.
 
