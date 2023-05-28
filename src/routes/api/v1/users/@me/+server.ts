@@ -6,10 +6,10 @@ export const POST = async ({request}) => {
     const headers = request.headers
     let authToken = headers['Authorization']
     if (!authToken || typeof authToken !== 'string') {
-        throw error(400, 'invalid request')
+        throw error(400, 'invalid header')
     }
     if (!authToken.startsWith('Bearer ')) {
-        throw error(400, 'invalid request')
+        throw error(400, 'invalid header format')
     }
     authToken = authToken.slice(7)
     await cleanupAuths()
