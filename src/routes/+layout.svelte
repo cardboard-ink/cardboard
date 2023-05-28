@@ -40,7 +40,11 @@
 		<header>
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<h1 class=" h1 a cursor-pointer" on:click={() => goto('/')}>📜 Cardboard</h1>
+				<h1 class=" h1 a cursor-pointer flex gap-1" on:click={() => goto('/')}>📜 
+					<span class="hidden lg:block">
+						Cardboard
+					</span>
+				</h1>
 				<div class="rhs">
 					{#if !$page.data.user}
 						<LightSwitch />
