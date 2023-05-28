@@ -10,8 +10,8 @@ const schema = z.object({
     description: z.string(),
     icon: z.string(),
     banner: z.string(),
-    redirectUri: z.string(),
-    supportServer: z.string(),
+    redirectUri: z.string().url(),
+    supportServer: z.string().url(),
     vanityCode: z.string().optional(),
 });
 

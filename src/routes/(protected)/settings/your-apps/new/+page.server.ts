@@ -5,8 +5,8 @@ import { z } from "zod";
 
 const newAppSchema = z.object({
   name: z.string(),
-  redirectUri: z.string(),
-  supportServer: z.string(),
+  redirectUri: z.string().url(),
+  supportServer: z.string().url(),
   vanityCode: z.string().optional(),
 });
 
