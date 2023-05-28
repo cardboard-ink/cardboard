@@ -68,11 +68,19 @@ export const actions = {
             where: {
                 userId: user.id,
                 appId: appExists.id,
+            },
+            select: {
+                id: true,
             }
         })
 
         if (checkExisting) {
-            throw error(400, 'You have already authorized this app')
+            //delete old
+            await db.authorizedApp.deleteMany({
+                where: {
+                    id: checkExisting.id,
+                }
+            })
         }
 
         const authorizedApp = await db.authorizedApp.create({
