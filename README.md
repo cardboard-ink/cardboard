@@ -1,4 +1,14 @@
-# How to run (dev)
+# [Cardboard.ink](https://Cardboard.ink)
+
+### How to contribute.
+
+Create a copy of this repository, then modify it as required and submit a request to merge your changes.
+
+You can also join our Guilded [server](https://guilded.gg/CardBoard) and chat with other contributors.
+
+#
+
+### How to test the application.
 
 Make sure ports 5555 and 5173 are free.
 
@@ -9,3 +19,5 @@ Now open your web browser and go to url http://localhost:5555 (prisma studio). H
 Now you can open http://localhost:5173 (svelte app) and make your user account and assign it ADMIN role from prisma studio.
 
 Congrats! Setup is complete, happy developing!
+
+#
