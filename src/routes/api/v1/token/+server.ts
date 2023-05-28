@@ -47,7 +47,8 @@ export const POST = async ({request}) => {
         if(!app.secret) {
             throw error(400, 'invalid client')
         }
-        if (!bcrypt.compare(clientSecret, app.secret)) {
+        const comparision = await bcrypt.compare(clientSecret, app.secret)
+        if (!comparision) {
             throw error(400, 'invalid client')
         }
         const pre = await db.authorizedApp.findUnique({
@@ -107,7 +108,8 @@ export const POST = async ({request}) => {
         if(!app.secret) {
             throw error(400, 'invalid client')
         }
-        if (!bcrypt.compare(clientSecret, app.secret)) {
+        const comparision = await bcrypt.compare(clientSecret, app.secret)
+        if (!comparision) {
             throw error(400, 'invalid client')
         }
         const pre = await db.authorizedApp.findUnique({

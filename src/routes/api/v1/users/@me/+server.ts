@@ -4,7 +4,8 @@ import { error } from "@sveltejs/kit"
 
 export const POST = async ({request}) => {
     const headers = request.headers
-    let authToken = headers['Authorization']
+    console.log(headers)
+    let authToken = headers.get('authorization')
     if (!authToken || typeof authToken !== 'string') {
         throw error(400, 'invalid header')
     }
