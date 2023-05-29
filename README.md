@@ -1,5 +1,7 @@
 # 📄 [Cardboard.ink](https://Cardboard.ink)
 
+![GitHub](https://img.shields.io/github/license/sohamjaiswal/cardboard?style=flat-square)
+
 ### 🐛 How to contribute.
 
 Create a copy of this repository, then modify it as required and submit a request to merge your changes.
