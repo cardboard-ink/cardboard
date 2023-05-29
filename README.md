@@ -2,6 +2,8 @@
 
 ![GitHub issues](https://img.shields.io/github/issues-raw/sohamjaiswal/cardboard?style=for-the-badge) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/sohamjaiswal/cardboard?style=for-the-badge) ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/sohamjaiswal/cardboard?style=for-the-badge) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/sohamjaiswal/cardboard?style=for-the-badge)
 
+![GitHub top language](https://img.shields.io/github/languages/top/sohamjaiswal/cardboard?style=for-the-badge)
+
 ### 🐛 How to contribute.
 
 Create a copy of this repository, then modify it as required and submit a request to merge your changes.
