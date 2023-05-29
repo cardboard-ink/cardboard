@@ -1,6 +1,6 @@
 # 📄 [Cardboard.ink](https://Cardboard.ink)
 
-![GitHub](https://img.shields.io/github/license/sohamjaiswal/cardboard?style=flat-square) ![GitHub language count](https://img.shields.io/github/languages/count/sohamjaiswal/cardboard?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/sohamjaiswal/cardboard) ![GitHub language count](https://img.shields.io/github/languages/count/sohamjaiswal/cardboard) ![GitHub](https://img.shields.io/github/license/sohamjaiswal/cardboard)
 
 ### 🐛 How to contribute.
 
