@@ -9,7 +9,7 @@
     <h2 class="h2">
         Authorized Apps
     </h2>
-    <div class="flex justify-evenly flex-wrap gap-4">
+    <div class="flex justify-evenly flex-wrap gap-1">
     {#each appManagers as appManager}
             <a href={`/settings/authorized-apps/${appManager.app.id}`} class="card card-hover container bg-initial overflow-hidden flex flex-col w-[420px] justify-self-center">
                 <header class=" min-h-[210px]">
