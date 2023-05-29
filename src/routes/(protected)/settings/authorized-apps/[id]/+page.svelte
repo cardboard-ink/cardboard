@@ -32,16 +32,24 @@
           </div>
           <div class="details">
             <div class="flex flex-col gap-1 items-center lg:flex-row">
-              Created At:
-              <p class="p">
-                {session.createdAt}
-              </p>
+              <span class="flex gap-1">
+                <strong>
+                  Created At:
+                </strong>
+                <p class="p">
+                  {session.createdAt}
+                </p>
+              </span>
             </div>
             <div class="flex flex-col gap-1 items-center lg:flex-row">
-              Expires At:
-              <p class="p">
-                {session.expiresAt}
-              </p>
+              <span class="flex gap-1">
+                <strong>
+                  Expires At:
+                </strong>
+                <p class="p">
+                  {session.expiresAt}
+                </p>
+              </span>
             </div>
           </div>
           <form class=" w-12" action="?/revoke" method="POST">
