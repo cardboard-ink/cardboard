@@ -1,6 +1,6 @@
-# [Cardboard.ink](https://Cardboard.ink)
+# 📄 [Cardboard.ink](https://Cardboard.ink)
 
-### How to contribute.
+### 🐛 How to contribute.
 
 <p align="center">Create a copy of this repository, then modify it as required and submit a request to merge your changes.</p>
 
@@ -8,7 +8,7 @@
 
 #
 
-### How to test the application.
+### 🛠️ How to test the application.
 
 <p align="center">Make sure ports 5555 and 5173 are free.</p>
 
