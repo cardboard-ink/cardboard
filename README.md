@@ -2,7 +2,7 @@
 
 <h1>🐛 How to contribute.</h1>
 
-<p align="left">Create a copy of this repository, then modify it as required and submit a request to merge your changes.</p>
+<p align="left" size="5">Create a copy of this repository, then modify it as required and submit a request to merge your changes.</p>
 
 <p align="left">You can also join our Guilded [server](https://guilded.gg/CardBoard) and chat with other contributors.</p>
 
