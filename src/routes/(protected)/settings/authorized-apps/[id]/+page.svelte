@@ -7,7 +7,7 @@
 </script>
 
 
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
   <h2 class="h2">
     Manage Your {appName?.name} Sessions
   </h2>

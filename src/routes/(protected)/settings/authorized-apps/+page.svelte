@@ -3,7 +3,6 @@
 
     export let data
     const {appManagers} = data
-    $: appUserCount = data.appUserCount
 </script>
 
 <div class="flex flex-col gap-4">
@@ -47,9 +46,11 @@
                                     <small>
                                         Created At: {appManager.app.createdAt.toLocaleString()}
                                     </small>
-                                    <small>
-                                        App Trusted By: {appUserCount[appManager.app.id]} user(s)
-                                    </small>
+                                    {#if appManager.app.supportServer != ''} 
+                                        <small>
+                                            App Support: <a href={appManager.app.supportServer} target="_blank" rel="noopener noreferrer">{appManager.app.supportServer}</a>
+                                        </small>
+                                    {/if}
                                 </div>
                             </div>
                         </div>

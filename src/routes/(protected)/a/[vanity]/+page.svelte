@@ -45,17 +45,14 @@
                     <small>
                         Created At: {app.createdAt.toLocaleString()}
                     </small>
+                    {#if app.supportServer != ''} 
                     <small>
-                        App Trusted By: {app.sessionManagers.length} user(s)
+                        App Support: <a href={app.supportServer} target="_blank" rel="noopener noreferrer">{app.supportServer}</a>
                     </small>
+                    {/if}
                 </div>
             </div>
             <div class="flex gap-4">
-                {#if app.supportServer != ''} 
-                <div class="flex items-center">
-                    <a class="btn variant-ghost-secondary rounded-md" href={app.supportServer} target="_blank" rel="noopener noreferrer">Support Server</a>
-                </div>
-                {/if}
                 <form class="flex items-center" action="?/authorizeApp" method="post">
                     <button class="btn variant-ghost-primary rounded-md" type="submit">Authorize ⏩</button>
                 </form>

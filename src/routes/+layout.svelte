@@ -16,7 +16,6 @@
 	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
 
 	let modalVisible = false
-	let themeModalVisible = false
 	const toggleModalVisibility = () => {
 		modalVisible = !modalVisible
 	}
@@ -27,6 +26,8 @@
 	import { goto } from '$app/navigation';
 
 	let sidebar: string = 'sidebar'
+
+	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
 </script>
 
 <svelte:head>
@@ -59,11 +60,13 @@
 							</button>
 							<div class="modal card bg-inital z-10" class:visible="{modalVisible}" on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
 								<LightSwitch />
-								<div class="lg:hidden flex flex-col gap-4">
-									<a href="/">🏠 Home</a>
-									<a href="/settings/sessions">🏛️ Sessions</a>
-									<a href="/settings/your-apps">💻 Your Apps</a>
-									<a href="/settings/authorized-apps">🔑 Authorized Apps</a>
+								<div class="lg:hidden">
+									<nav class="list-nav flex flex-col gap-2">
+										<a href="/" class="{classesActive('/')}">🏠 Home</a>
+										<a href="/settings/sessions" class="{classesActive('/settings/sessions')}">🏛️ Sessions</a>
+										<a href="/settings/your-apps" class="{classesActive('/settings/your-apps')}">💻 Your Apps</a>
+										<a href="/settings/authorized-apps" class="{classesActive('/settings/authorized-apps')}">🔑 Authorized Apps</a>
+									</nav>
 								</div>
 								<form class="flex-col flex gap-4" action="/logout" method="POST">
 									<button class="btn p-2 justify-center variant-ghost-surface " type="submit">Log out</button>
@@ -79,16 +82,16 @@
 		{#if $page.data.user}
 		<ListBox class="pr-4 pl-8 flex-col gap-2 hidden lg:flex">
 			<h2 class="h2">Browse</h2>
-			<ListBoxItem bind:group={sidebar} name="route" value="/" on:click={() => goto('/')}>
+			<ListBoxItem class="{classesActive('/')}" bind:group={sidebar} name="route" value="/" on:click={() => goto('/')}>
 				🏠 Home
 			</ListBoxItem>
-			<ListBoxItem bind:group={sidebar} name="route" value="/settings/sessions" on:click={() => goto('/settings/sessions')}>
+			<ListBoxItem class="{classesActive('/settings/sessions')}" bind:group={sidebar} name="route" value="/settings/sessions" on:click={() => goto('/settings/sessions')}>
 				🏛️ Sessions
 			</ListBoxItem>
-			<ListBoxItem bind:group={sidebar} name="route" value="/settings/your-apps" on:click={() => goto('/settings/your-apps')}>
+			<ListBoxItem class="{classesActive('/settings/your-apps')}" bind:group={sidebar} name="route" value="/settings/your-apps" on:click={() => goto('/settings/your-apps')}>
 				💻 Your Apps
 			</ListBoxItem>
-			<ListBoxItem bind:group={sidebar} name="route" value="/settings/authorized-apps" on:click={() => goto('/settings/authorized-apps')}>
+			<ListBoxItem class="{classesActive('/settings/authorized-apps')}" bind:group={sidebar} name="route" value="/settings/authorized-apps" on:click={() => goto('/settings/authorized-apps')}>
 				🔑 Authorized Apps
 			</ListBoxItem>
 		</ListBox>
