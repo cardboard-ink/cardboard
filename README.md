@@ -1,6 +1,6 @@
 # 📄 [Cardboard.ink](https://Cardboard.ink)
 
-<p>### 🐛 How to contribute.</p>
+<h1>🐛 How to contribute.</p>
 
 <p align="left">Create a copy of this repository, then modify it as required and submit a request to merge your changes.</p>
 
