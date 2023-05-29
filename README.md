@@ -8,7 +8,7 @@
 
 #
 
-<h1>🛠️ How to test the application.</h1>
+<h3>🛠️ How to test the application.</h1>
 
 <p align="left">Make sure ports 5555 and 5173 are free.</p>
 
