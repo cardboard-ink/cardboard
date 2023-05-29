@@ -49,17 +49,34 @@ export const actions = {
             throw redirect(302, '/settings/your-apps')
         }
 
-        await db.authorizedAppSession.deleteMany({
+        const appManagers = await db.authorizedAppSession.findMany({
             where: {
                 userAppManager: {
-                    appId
+                    appId,
                 }
             }
         })
 
+        // delete sessions for app managers
+        for (const appManager of appManagers) {
+            await db.authorizedAppSession.delete({
+                where: {
+                    id: appManager.id
+                }
+            })
+        }
+
+        // delete app managers
+        await db.userAppManager.deleteMany({
+            where: {
+                appId,
+            }
+        })
+
+        // delete app
         await db.app.delete({
             where: {
-                id: appId,
+                id: appId
             }
         })
 
