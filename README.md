@@ -1,8 +1,8 @@
 # 📄 [Cardboard.ink](https://Cardboard.ink)
 
-#
-
-<p align="center"><h3>🐛 How to contribute.</h3></p>
+<p align="center">
+  <h3>🐛 How to contribute.</h3></p>
+</p>
 
 <p align="left" size="5">Create a copy of this repository, then modify it as required and submit a request to merge your changes.</p>
 
@@ -10,7 +10,9 @@
 
 #
 
-<p align="center"><h3>🛠️ How to test the application.</h3></p>
+<p align="center">
+  <h3>🛠️ How to test the application.</h3>
+</p>
 
 <p align="left">Make sure ports 5555 and 5173 are free.</p>
 
