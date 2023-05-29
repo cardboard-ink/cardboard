@@ -8,7 +8,7 @@ export const load = async ({locals, params}) => {
 
     const myApps = await db.app.findMany({
         where:{
-            owner: locals.user.id
+            ownerId: locals.user.id
         }
     })
 

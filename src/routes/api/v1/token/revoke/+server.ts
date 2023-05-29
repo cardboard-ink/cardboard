@@ -1,4 +1,3 @@
-import { cleanupAuths } from "$lib/server/authclean"
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
 import bcrypt from 'bcrypt';
@@ -23,8 +22,6 @@ export const POST = async ({request}) => {
         throw error(400, 'invalid request')
     }
 
-    await cleanupAuths()
-
     const app = await db.app.findUnique({
         where: {
             id: clientId,
@@ -43,22 +40,30 @@ export const POST = async ({request}) => {
     if (!bcrypt.compare(clientSecret, app.secret)) {
         throw error(400, 'invalid client')
     }
-    const pre = await db.authorizedApp.findUnique({
+    const pre = await db.authorizedAppSession.findUnique({
         where: {
             authToken: token,
         },
         select: {
             id: true,
-            app: {select: {id: true}}
+            userAppManager: {
+                select: {
+                    app: {
+                        select: {
+                            id: true,
+                        }
+                    }
+                }
+            }
         }
     })
     if (!pre) {
         throw error(400, 'invalid token')
     }
-    if (app.id !== pre.app.id) {
+    if (app.id !== pre.userAppManager.app.id) {
         throw error(400, 'invalid token')
     }
-    await db.authorizedApp.delete({
+    await db.authorizedAppSession.delete({
         where: {
             id: pre.id,
         } 

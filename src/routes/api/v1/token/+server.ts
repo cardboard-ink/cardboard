@@ -1,4 +1,3 @@
-import { cleanupAuths } from "$lib/server/authclean"
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
 import { randomUUID } from "crypto"
@@ -26,8 +25,6 @@ export const POST = async ({request}) => {
         throw error(400, 'invalid request')
     }
 
-    await cleanupAuths()
-
     if (grantType === 'authorization_code') {
         if (!authToken || typeof authToken !== 'string') {
             throw error(400, 'invalid request')
@@ -51,23 +48,30 @@ export const POST = async ({request}) => {
         if (!comparision) {
             throw error(400, 'invalid client')
         }
-        const pre = await db.authorizedApp.findUnique({
+        const pre = await db.authorizedAppSession.findUnique({
             where: {
                 authToken,
             },
             select: {
                 id: true,
-                app: {select: {id: true}}
+                userAppManager: {
+                    select: {
+                        app: {
+                            select: {
+                                id: true,
+                            }
+                        }
+                    }
+                }
             }
         })
         if (!pre) {
             throw error(400, 'invalid code, has it expired?')
         }
-        const accessibleApp = pre.app.id === app.id
-        if (!accessibleApp) {
+        if (!(pre.userAppManager.app.id === app.id)) {
             throw error(400, 'invalid code, has it expired?')
         }
-        const auth = await db.authorizedApp.update({
+        const auth = await db.authorizedAppSession.update({
             where: {
                 id: pre.id,
             },
@@ -112,23 +116,31 @@ export const POST = async ({request}) => {
         if (!comparision) {
             throw error(400, 'invalid client')
         }
-        const pre = await db.authorizedApp.findUnique({
+        const pre = await db.authorizedAppSession.findUnique({
             where: {
                 refreshToken,
             },
             select: {
                 id: true,
-                app: {select: {id: true}}
+                userAppManager: {
+                    select: {
+                        app: {
+                            select: {
+                                id: true,
+                            }
+                        }
+                    }
+                }
             }
         })
         if (!pre) {
             throw error(400, 'invalid code, has it expired?')
         }
-        const accessibleApp = pre.app.id === app.id
+        const accessibleApp = pre.userAppManager.app.id === app.id
         if (!accessibleApp) {
             throw error(400, 'invalid code, has it expired?')
         }
-        const auth = await db.authorizedApp.update({
+        const auth = await db.authorizedAppSession.update({
             where: {
                 id: pre.id,
             },

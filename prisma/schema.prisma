@@ -13,7 +13,7 @@ model GuildedAuthSession {
   createdAt DateTime @default(now())
   expiresAt DateTime
   userId    String 
-  User      GuildedUser     @relation(references: [id], fields: [userId])
+  user      GuildedUser     @relation(references: [id], fields: [userId])
 }
 
 model GuildedUser {
@@ -22,8 +22,8 @@ model GuildedUser {
   avatar String @default("/poop.png")
   banner String @default("https://img.guildedcdn.com/asset/Default/ProfileBannerLarge.png")
   sessions GuildedAuthSession[]
+  myAuthApps UserAppManager[]
   myApps App[]
-  AuthorizedApps AuthorizedApp[]
 }
 
 model GuildedVerificationSessions {
@@ -33,11 +33,21 @@ model GuildedVerificationSessions {
   userId    String @unique
 }
 
+model UserAppManager {
+  id String @id @unique @default(uuid())
+  user GuildedUser @relation(fields: [userId], references: [id])
+  userId String
+  app App @relation(fields: [appId], references: [id])
+  appId String
+  authorizedSessions AuthorizedAppSession[]
+}
+
 model App {
   id         String @id @unique @default(uuid())
   createdAt DateTime @default(now())
-  ownerUser GuildedUser @relation(fields: [owner], references: [id])
-  owner String
+  ownerUser GuildedUser @relation(fields: [ownerId], references: [id])
+  ownerId String
+  sessionManagers UserAppManager[]
   name String
   description String @default("A cardboard app.")
   icon String @default("/poop.png")
@@ -46,15 +56,12 @@ model App {
   redirectUri String
   supportServer String
   vanityCode String @unique @default(uuid())
-  authorizedSessions AuthorizedApp[]
 }
 
-model AuthorizedApp {
+model AuthorizedAppSession {
   id         String @id @unique @default(uuid())
-  app App @relation(fields: [appId], references: [id])
-  appId String
-  user GuildedUser @relation(fields: [userId], references: [id])
-  userId String
+  userAppManager UserAppManager @relation(fields: [userAppManagerId], references: [id])
+  userAppManagerId String
   createdAt DateTime @default(now())
   expiresAt DateTime
   refreshedAt DateTime @default(now())

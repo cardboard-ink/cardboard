@@ -99,7 +99,7 @@
 	</main>
 	<svelte:fragment slot="pageFooter">
 		<footer class="flex justify-center p-8">
-			This is an independently developed project and is not affiliated with Guilded.gg in any way.
+			This is an independently developed project and is not affiliated with any public auth provider/validator in any way.
 		</footer>
 	</svelte:fragment>
 </AppShell>

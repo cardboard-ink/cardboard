@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/server/database'
+import { cleanupAuths } from '$lib/server/authclean'
 
 /*
 	You can use a custom redirect if you want...
@@ -29,6 +30,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
 	// const session = event.cookies.get('session')
 
+	cleanupAuths()
 	const session = event.cookies.get('guildedAuthSession')
 
 	if (!session) {
@@ -39,7 +41,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// find the user based on the session
 	const user = await db.guildedAuthSession.findUnique({
 		where: { id: session },
-		select: { expiresAt: true, User: {select: {id: true, username: true, avatar: true, banner: true}}},
+		select: { expiresAt: true, user: {select: {id: true, username: true, avatar: true, banner: true}}},
 	})
 
 	if (!user) {
@@ -62,7 +64,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event)
 	}
 
-	const sessionUser = user.User
+	const sessionUser = user.user
 
 	// if `user` exists set `events.local`
 	if (user) {

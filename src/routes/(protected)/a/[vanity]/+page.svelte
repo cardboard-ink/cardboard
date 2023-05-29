@@ -13,7 +13,7 @@
 <div class="flex justify-center mt-4">
   <div class="card card-hover container bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center">
     <header class="min-h-[210px]">
-      <img src={app.banner} alt="User Banner" class="bg-black/50 w-full aspect-[16/9] object-cover">
+      <img src={app.banner} alt="User Banner" class="w-full aspect-[21/9] object-cover">
     </header>
     <div class="w-full p-8 overflow-visible">
       <div class="flex -translate-y-20 gap-4 overflow-visible">
@@ -46,7 +46,7 @@
                         Created At: {app.createdAt.toLocaleString()}
                     </small>
                     <small>
-                        App Trusted By: {app.authorizedSessions.length} user(s)
+                        App Trusted By: {app.sessionManagers.length} user(s)
                     </small>
                 </div>
             </div>

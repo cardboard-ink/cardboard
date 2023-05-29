@@ -22,7 +22,7 @@ export const load = async ({ locals, params }) => {
             redirectUri: true,
             supportServer: true,
             vanityCode: true,
-            authorizedSessions: {
+            sessionManagers: {
                 select: {
                     id: true
                 }
@@ -60,11 +60,12 @@ export const actions = {
                 id: locals.user.id,
             },
         })
+
         if (!user) {
             throw error(404, 'User not found')
         }
 
-        const checkExisting = await db.authorizedApp.findFirst({
+        let manager = await db.userAppManager.findFirst({
             where: {
                 userId: user.id,
                 appId: appExists.id,
@@ -73,31 +74,20 @@ export const actions = {
                 id: true,
             }
         })
-
-        if (checkExisting) {
-            //delete old
-            await db.authorizedApp.deleteMany({
-                where: {
-                    id: checkExisting.id,
+        if (!manager) {
+            manager = await db.userAppManager.create({
+                data: {
+                    userId: user.id,
+                    appId: appExists.id,
                 }
             })
         }
-
-        const authorizedApp = await db.authorizedApp.create({
+        const newSession = await db.authorizedAppSession.create({
             data: {
-                app: {
-                    connect: {
-                        id: appExists.id,
-                    }
-                },
-                user: {
-                    connect: {
-                        id: user.id,
-                    }
-                },
-                expiresAt: new Date(Date.now() + 1000 * 60 * 1),
+                userAppManagerId: manager.id,
+                expiresAt: new Date(Date.now() + 1000 * 60),
             }
         })
-        throw redirect(302, `${appExists.redirectUri}?code=${authorizedApp.authToken}`)
+        throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`)
     }
 }

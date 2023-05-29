@@ -20,7 +20,7 @@ export const PATCH = async ({locals, params}) => {
     if (!app) {
         throw redirect(302, '/settings/your-apps')
     }
-    if (app.owner !== locals.user.id) {
+    if (app.ownerId !== locals.user.id) {
         throw redirect(302, '/settings/your-apps')
     }
 

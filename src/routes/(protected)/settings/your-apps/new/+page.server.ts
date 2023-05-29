@@ -39,7 +39,7 @@ export const actions = {
 
     const app = await db.app.create({
       data: {
-        owner: locals.user.id,
+        ownerId: locals.user.id,
         name: form.data.name,
         redirectUri: form.data.redirectUri,
         supportServer: form.data.supportServer,

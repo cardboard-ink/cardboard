@@ -7,55 +7,70 @@ export const load = async ({ locals }) => {
 		throw redirect(302, '/')
 	}
 
-    const approvedApps = await db.authorizedApp.findMany({
+    const appManagers = await db.userAppManager.findMany({
         where: {
-            userId: locals.user.id,
+            userId: locals.user.id as string,
         },
         select: {
             app: {
                 select: {
                     id: true,
-                    createdAt: true,
-                    ownerUser: true,
                     name: true,
                     description: true,
                     icon: true,
+                    createdAt: true,
+                    ownerUser: true,
                     banner: true,
-                    supportServer: true,
-                    authorizedSessions: {
-                        select: {
-                            id: true
-                        }
-                    }
+                }
+            },
+            authorizedSessions: true,
+        }
+    })
+
+    const userApps = await db.guildedUser.findUnique({
+        where: {
+            id: locals.user.id as string,
+        },
+        select: {
+            myAuthApps: {
+                select: {
+                    appId: true,
                 }
             }
         }
     })
-    const apps = approvedApps.map((app) => app.app)
-    return {apps}
-}
 
-export const actions = {
-    revokeAuth: async ({request, locals}) => {
-        const data = await request.formData()
-        const appId = data.get('appId')
-        if (!locals.user.id) {
-            throw redirect(302, '/settings/authorized-apps')
-        }
-        const authApp = await db.authorizedApp.findFirst({
-            where: {
-                userId: locals.user.id as string,
-                appId: appId as string,
-            },
-        })
-        if (!authApp) {
-            throw redirect(302, '/settings/authorized-apps')
-        }
-        await db.authorizedApp.delete({
-            where: {
-                id: authApp.id,
-            } 
-        })
-        throw redirect(302, '/settings/authorized-apps')
+    if (!userApps) {
+        throw redirect(302, '/')
     }
+
+    const userAppsUnwrapped = userApps.myAuthApps.map((app) => app.appId)
+
+    const getAppManagerFromAppId = async (appId: string) => {
+        const managers = await db.userAppManager.findMany({
+            where: {
+                appId
+            },
+            select: {
+                id: true,
+            }
+        })
+        // IDK WTF IS HAPPENING HERE, IF I DONT CONSOLE LOG THIS SHIT DOES NOT WORK
+        // TODO: CLEAN THIS 
+        console.log(managers)
+        return managers
+    }
+
+    const getAppUserCount: (appIds: string[]) => Promise<Record<string, number>> | Record<string, number> = (appIds) => {
+        const appUserCount: Record<string, number> = {}
+        appIds.forEach(async (appId) => {
+            const managers = await getAppManagerFromAppId(appId)
+            appUserCount[appId] = managers.length
+        })
+        return appUserCount
+    }
+
+    const appUserCount = await getAppUserCount(userAppsUnwrapped)
+
+    return {appManagers, appUserCount}
 }

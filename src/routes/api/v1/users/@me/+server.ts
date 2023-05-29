@@ -1,10 +1,8 @@
-import { cleanupAuths } from "$lib/server/authclean"
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
 
 export const POST = async ({request}) => {
     const headers = request.headers
-    console.log(headers)
     let authToken = headers.get('authorization')
     if (!authToken || typeof authToken !== 'string') {
         throw error(400, 'invalid header')
@@ -13,20 +11,27 @@ export const POST = async ({request}) => {
         throw error(400, 'invalid header format')
     }
     authToken = authToken.slice(7)
-    await cleanupAuths()
-    const verify = await db.authorizedApp.findUnique({
+    const verify = await db.authorizedAppSession.findUnique({
         where: {
             authToken,
         },
         select: {
             id: true,
-            userId: true,
+            userAppManager: {
+                select: {
+                    user: {
+                        select: {
+                            id: true,
+                        }
+                    }   
+                }   
+            }
         }
     })
     if (!verify) {
         throw error(401, 'invalid token')
     }
-    const {userId} = verify
+    const userId = verify.userAppManager.user.id
     const data = await fetch(`https://www.guilded.gg/api/users/${userId}/profilev3`, {method: 'GET'}).catch((e) => {
         throw error(500, `internal server error: ${e}`)
     })

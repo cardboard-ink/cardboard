@@ -1,7 +1,8 @@
 import { db } from "./database"
 
 export const cleanupAuths = async () => {
-    db.authorizedApp.deleteMany({
+    console.log('cleaning up auths')
+    await db.authorizedAppSession.deleteMany({
         where: {
             expiresAt: {
                 lte: new Date()

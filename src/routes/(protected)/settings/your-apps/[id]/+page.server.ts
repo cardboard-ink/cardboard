@@ -1,9 +1,7 @@
 import { db } from "$lib/server/database";
 import { fail, redirect } from "@sveltejs/kit"
 import { z } from "zod";
-import {randomUUID} from "crypto";
 import { setError, superValidate } from "sveltekit-superforms/server";
-import bcrypt from "bcrypt";
 
 const schema = z.object({
     name: z.string(),
@@ -28,7 +26,7 @@ export const load = async ({locals, params}) => {
     if (!app) {
         throw redirect(302, '/settings/your-apps')
     }
-    if (app.owner !== locals.user.id) {
+    if (app.ownerId !== locals.user.id) {
         throw redirect(302, '/settings/your-apps')
     }
 
@@ -47,13 +45,15 @@ export const actions = {
         if (!app) {
             throw redirect(302, '/settings/your-apps')
         }
-        if (app.owner !== locals.user.id) {
+        if (app.ownerId !== locals.user.id) {
             throw redirect(302, '/settings/your-apps')
         }
 
-        await db.authorizedApp.deleteMany({
+        await db.authorizedAppSession.deleteMany({
             where: {
-                appId: appId,
+                userAppManager: {
+                    appId
+                }
             }
         })
 
@@ -75,7 +75,7 @@ export const actions = {
         if (!app) {
             throw redirect(302, '/settings/your-apps')
         }
-        if (app.owner !== locals.user.id) {
+        if (app.ownerId !== locals.user.id) {
             throw redirect(302, '/settings/your-apps')
         }
         let form = await superValidate(request, schema)
