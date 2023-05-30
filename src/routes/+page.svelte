@@ -29,9 +29,10 @@
 <main class="px-4">
   <h2 class="h2">Home</h2>
   {#if $page.data.user}
-  <p class="p">Welcome {$page.data.user.displayName}! 👋</p>
+    <p class="p">Welcome {$page.data.user.displayName}! 👋</p>
   {:else}
-  <p class="p">Welcome! 👋</p>
+    <p class="p">Welcome! 👋</p>
+  {/if}
   <div class="flex flex-col gap-4 mb-4 md-4 relative">
     <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374601">
       <h3>
@@ -49,6 +50,5 @@
         </h3>
       </a>
     </div>
-    {/if}
     <img class="rounded h-64 object-scale-down" src={getRandomFromList(firstGifs)} alt="Box">
 </main>
