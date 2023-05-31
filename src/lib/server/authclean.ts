@@ -8,4 +8,18 @@ export const cleanupAuths = async () => {
             }
         }
     })
+    await db.guildedVerificationSessions.deleteMany({
+        where: {
+            expiresAt: {
+                lt: new Date(Date.now())
+            } 
+        }
+    })
+    await db.guildedAuthSession.deleteMany({
+        where: {
+            expiresAt: {
+                lt: new Date(Date.now())
+            }
+        }
+    })
 }

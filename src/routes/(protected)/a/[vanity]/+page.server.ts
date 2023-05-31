@@ -50,7 +50,7 @@ export const actions = {
                 redirectUri: true
             }
         })
-        console.log(appExists)
+        
         if (!appExists) {
             throw error(404, 'App not found')
         }
