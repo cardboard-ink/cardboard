@@ -27,6 +27,7 @@ export const POST = async ({request}) => {
             id: true,
             secret: true,
             name: true,
+            vanityCode: true,
         }
     })
     if (!app) {
@@ -41,6 +42,7 @@ export const POST = async ({request}) => {
     }
     const retData = {
         name: app.name,
+        vanity: app.vanityCode
     }
     return new Response(JSON.stringify(retData), {headers: {'Content-Type': 'application/json'}})
 }
