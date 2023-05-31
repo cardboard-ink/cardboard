@@ -92,7 +92,7 @@ export const POST = async ({request}) => {
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
         }
-        return new Response(JSON.stringify(data))
+        return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     } else if (grantType === 'refresh_token') {
         if (!refreshToken || typeof refreshToken !== 'string') {
             throw error(400, 'invalid request')
@@ -161,7 +161,7 @@ export const POST = async ({request}) => {
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
         }
-        return new Response(JSON.stringify(data))
+        return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     }
     throw error(400, 'unsupported grant_type')
 }

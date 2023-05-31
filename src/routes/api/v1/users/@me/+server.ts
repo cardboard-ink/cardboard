@@ -49,5 +49,5 @@ export const POST = async ({request}) => {
         aboutInfo: userData.aboutInfo,
         userTransientStatus: userData.userTransientStatus,
     }
-    return new Response(JSON.stringify(resData))
+    return new Response(JSON.stringify(resData), {headers: {'Content-Type': 'application/json'}})
 }

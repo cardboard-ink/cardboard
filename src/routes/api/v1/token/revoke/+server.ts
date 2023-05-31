@@ -68,5 +68,5 @@ export const POST = async ({request}) => {
             id: pre.id,
         } 
     })
-    return new Response()
+    return new Response(JSON.stringify({}), {headers: {'Content-Type': 'application/json'}})
 }
