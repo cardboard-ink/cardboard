@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
 
-import {z} from 'zod';
+import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { db } from '$lib/server/database'
 
