@@ -1,7 +1,7 @@
 import { db } from "$lib/server/database"
 import { error } from "@sveltejs/kit"
 
-export const POST = async ({request}) => {
+export const GET = async ({request}) => {
     const headers = request.headers
     let authToken = headers.get('authorization')
     if (!authToken || typeof authToken !== 'string') {
