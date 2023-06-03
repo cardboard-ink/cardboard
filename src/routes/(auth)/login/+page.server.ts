@@ -3,6 +3,7 @@ import { fail, redirect } from '@sveltejs/kit'
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { db } from '$lib/server/database'
+import { handleIdLoginRedirect } from '$lib/server/loginredirect.js';
 
 const linkGuildedSchema = z.object({
   guildedId: z.string(),
@@ -17,7 +18,7 @@ export const load = async () => {
 };
 
 export const actions = {
-	linkGuilded: async ({ cookies, request }) => {
+	linkGuilded: async ({ cookies, request, url }) => {
 		const data = await request.formData()
 		const guildedId = data.get('guildedId')
 
@@ -57,7 +58,10 @@ export const actions = {
         userId: guildedId,
       }
     });
+    const redirectTo = url.searchParams.get('redirectTo') || '';
+    console.log(url)
     // successfully redirect to userId path of login flow
-    throw redirect(302, `/login/${guildedId}`);
+    // throw redirect(302, `/login/${guildedId}`);
+    throw redirect(302, handleIdLoginRedirect(guildedId, redirectTo))
 	},
 }

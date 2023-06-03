@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
+	import { page } from '$app/stores';
 	import { clipboard } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 
   export let data
 
+  let redirectTo: string | null
+  $: redirectTo = ''
+
+  onMount(() => {
+    redirectTo = $page.url.searchParams.get('redirectTo') 
+  })
 </script>
 <main class="px-8 flex flex-col w-full gap-4">
   <h1 class="h1">
@@ -33,7 +41,7 @@
       Click <strong>"Post"</strong> and then press <strong>"Check"</strong> over here.
     </li>
   </ol>
-  <form action="?/check" method="post">
+  <form action={`?/check${redirectTo ? "&redirectTo=" + redirectTo : ''}`} method="post">
     <button class="btn variant-ghost-primary rounded-md" type="submit">Check</button>
   </form>
 </main>  

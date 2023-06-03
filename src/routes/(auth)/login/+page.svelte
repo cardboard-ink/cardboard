@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { page } from "$app/stores";
 	import { Avatar } from "@skeletonlabs/skeleton";
+	import { onMount } from "svelte";
 
   let userSearch = "";
 
@@ -28,9 +30,26 @@
       }
     });
   }
+
+  let message: string | null
+  let redirectTo: string | null
+
+  $: message = ''
+  $: redirectTo = ''
+
+  onMount(() => {
+    redirectTo = $page.url.searchParams.get('redirectTo') 
+    message = $page.url.searchParams.get('message') 
+  })
+
 </script>
 
 <main class="px-8 flex flex-col gap-4">
+  {#if message}
+  <p class="text-error-500">
+    {message}
+  </p>
+  {/if}
   <h2 class="h1">Login to Guilded</h2>
   <div class="md:w-full lg:w-1/2">
     <label class="label snap-center" for="Guilded Username">Guilded Username</label>
@@ -40,7 +59,7 @@
   <div class="max-h-80 overflow-y-auto w-full lg:w-1/2 overflow-x-visible">
     <dl class="list-dl mt-5">
       {#each users as user}
-      <form action="?/linkGuilded" method="POST">
+      <form action={`?/linkGuilded${redirectTo ? "&redirectTo=" + redirectTo : ''}`} method="POST">
         <label for="guildedId" />
         <input type="text" class="hidden" name="guildedId" value={user.id} />
         <button class="btn w-full flex flex-row card card-hover variant-glass" type="submit">
@@ -62,7 +81,7 @@
   </div>
 
   <h3 class="h3">Or</h3>
-  <form action="?/linkGuilded" method="post" class="flex flex-col gap-4 w-full lg:w-1/2">
+  <form action={`?/linkGuilded${redirectTo ? "&redirectTo=" + redirectTo : ''}`} method="post" class="flex flex-col gap-4 w-full lg:w-1/2">
     <label for="guildedId">
       Enter your Guilded ID directly
       <input type="text" name="guildedId" class="input" placeholder="EdV9p2a4" />

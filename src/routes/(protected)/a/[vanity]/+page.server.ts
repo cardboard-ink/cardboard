@@ -1,10 +1,11 @@
 import { db } from "$lib/server/database";
+import { handleLoginRedirect } from "$lib/server/loginredirect.js";
 import { error, redirect } from "@sveltejs/kit"
 
-export const load = async ({ locals, params }) => {
+export const load = async ({ locals, params, url }) => {
 	// redirect user if logged in
 	if (!locals.user) {
-		throw redirect(302, '/')
+		throw redirect(302, handleLoginRedirect(url, 'You must login to authorize the app.'))
 	}
     const vanity = params.vanity;
     const app = await db.app.findUnique({

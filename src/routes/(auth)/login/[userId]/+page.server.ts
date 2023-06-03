@@ -27,7 +27,7 @@ export const load = async({params}) => {
 }
 
 export const actions = {
-  check:async ({ cookies, request, params }) => {
+  check:async ({ cookies, params, url }) => {
     const userId = params.userId;
     const posts = await fetch(`https://www.guilded.gg/api/users/${userId}/posts?maxPosts=10`, {method: 'GET'})
     const data = await posts.json();
@@ -98,6 +98,10 @@ export const actions = {
 			// set cookie to expire after a month
 			maxAge: 60 * 60 * 24 * 30,
 		})
+    const redirectTo = url.searchParams.get('redirectTo');
+    if (redirectTo) {
+      throw redirect(302, `/${redirectTo.slice(1)}`)
+    }
     throw redirect(302, '/');
   }
 }
