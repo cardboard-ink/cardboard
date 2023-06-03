@@ -18,7 +18,7 @@ export const load = async () => {
 };
 
 export const actions = {
-	linkGuilded: async ({ cookies, request, url }) => {
+	linkGuilded: async ({ request, url }) => {
 		const data = await request.formData()
 		const guildedId = data.get('guildedId')
 
