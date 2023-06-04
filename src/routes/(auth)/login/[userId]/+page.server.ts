@@ -92,7 +92,7 @@ export const actions = {
 			httpOnly: true,
 			// only requests from same site can send cookies
 			// https://developer.mozilla.org/en-US/docs/Glossary/CSRF
-			sameSite: 'strict',
+			sameSite: 'lax',
 			// only sent over HTTPS in production
 			secure: process.env.NODE_ENV === 'production',
 			// set cookie to expire after a month
