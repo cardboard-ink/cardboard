@@ -1,8 +1,8 @@
 import { db } from '$lib/server/database';
 import { error, redirect } from '@sveltejs/kit';
 
-export const GET = ({ url }) => {
-	const client_id = url.searchParams.get('client_id');
+export const GET = async({ url }) => {
+	const client_id = await url.searchParams.get('client_id');
 	// const redirect_uri = url.searchParams.get('redirect_uri')
 	// const response_type = url.searchParams.get('response_type')
 	// const scope = url.searchParams.get('scope')
@@ -12,7 +12,7 @@ export const GET = ({ url }) => {
 		throw error(400, 'client_id is required');
 	}
 
-	const app = db.app.findUnique({
+	const app = await db.app.findUnique({
 		where: {
 			id: client_id
 		}
