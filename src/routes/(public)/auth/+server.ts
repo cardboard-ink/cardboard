@@ -19,7 +19,7 @@ export const GET = ({ url }) => {
 	});
 
 	if (!app) {
-		throw error(404, 'app not found!');
+		throw error(404, `app not found!, ${client_id}, ${app}`);
 	}
 
 	throw redirect(302, `/a/${app.vanityCode}`);
