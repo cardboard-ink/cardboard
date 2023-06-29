@@ -8,7 +8,7 @@ export const POST = async ({request}) => {
     let clientSecret: string | undefined | null 
     let token: string | undefined | null
     
-    if (contentType === 'multipart/form-data') {
+    if (contentType === 'application/x-www-form-urlencoded') {
         const data = await request.formData().catch(() => {
             throw error(400, `invalid format, needs to be multipart/form-data`)
         })
