@@ -9,17 +9,9 @@ export const POST = async ({request}) => {
     })
     const grantType = data.get('grant_type')
     const authToken = data.get('code')
-    const redirectUri = data.get('redirect_uri')
     const refreshToken = data.get('refresh_token')
 
-    if ( 
-        !authToken ||
-        !redirectUri || 
-        !grantType || 
-        typeof grantType !== 'string' || 
-        typeof authToken !== 'string' || 
-        typeof redirectUri !== 'string'
-        ) 
+    if (!grantType || typeof grantType !== 'string') 
     {
         throw error(400, 'invalid request')
     }
