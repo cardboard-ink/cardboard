@@ -8,6 +8,9 @@ export const load = async ({ locals, params, url }) => {
 		throw redirect(302, handleLoginRedirect(url, 'You must login to authorize the app.'))
 	}
     const vanity = params.vanity;
+    
+    let redirect_uri = await url.searchParams.get('redirect_uri')
+    
     const app = await db.app.findUnique({
         where: {
             vanityCode: vanity,
@@ -33,14 +36,30 @@ export const load = async ({ locals, params, url }) => {
     if (!app) {
         throw error(404, 'App not found')
     }
+
+    const app_redirect_uri = (await new URL(app.redirectUri)).catch((e) => {
+        throw error(400, `Invalid app config redirect_uri,\n${e}`)
+    })
+
+    if (redirect_uri) {
+        redirect_uri = (await new URL(redirect_uri)).catch((e) => {
+            throw error(400, `Invalid redirect_uri,\n${e}`)
+        })
+        if (redirect_uri && redirect_uri.origin !== app_redirect_uri.origin) {
+            throw error(400, `Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`)
+        }
+    }
+
     return {app}
 }
 
 export const actions = {
-    authorizeApp: async ({locals, params}) => {
+    authorizeApp: async ({locals, params, url}) => {
         if (!locals.user) {
             throw redirect(302, '/')
         }
+
+        const redirect_uri = await url.searchParams.get('redirect_uri')
 
         const appExists = await db.app.findUnique({
             where: {
@@ -89,6 +108,9 @@ export const actions = {
                 expiresAt: new Date(Date.now() + 1000 * 60),
             }
         })
+        if (redirect_uri) {
+            throw redirect(302, `${redirect_uri}?code=${newSession.authToken}`)
+        }
         throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`)
     }
 }

@@ -24,5 +24,5 @@ export const GET = async({ url }) => {
 		throw error(404, `app not found!, ${client_id}, ${app}`);
 	}
 
-	throw redirect(302, `/a/${app.vanityCode}`);
+	throw redirect(302, `/a/${app.vanityCode}?redirect_uri=${redirect_uri}`);
 };
