@@ -10,6 +10,9 @@ export const load = async ({ locals, params, url }) => {
 	const vanity = params.vanity;
 
 	let redirect_uri: string | URL | null = url.searchParams.get('redirect_uri');
+	const scope = url.searchParams.get('scope');
+	const state = url.searchParams.get('state');
+	const response_type = url.searchParams.get('response_type');
 
 	const app = await db.app.findUnique({
 		where: {
@@ -47,12 +50,13 @@ export const load = async ({ locals, params, url }) => {
 					`Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`
 				);
 			}
+			redirect_uri = redirect_uri.toString();
 		} catch (e) {
 			throw error(400, `Invalid redirect_uri,\n${e}`);
 		}
 	}
 
-	return { app, redirect_uri };
+	return { app, redirect_uri, scope, state, response_type };
 };
 
 export const actions = {
