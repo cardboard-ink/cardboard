@@ -52,7 +52,7 @@ export const load = async ({ locals, params, url }) => {
 		}
 	}
 
-	return { app };
+	return { app, redirect_uri };
 };
 
 export const actions = {
@@ -116,10 +116,7 @@ export const actions = {
 			}
 		});
 		if (!redirect_uri) {
-			throw redirect(
-				302,
-				`${appExists.redirectUri}?code=${newSession.authToken}&state=${state}&response_type=${response_type}&scope=${scope}`
-			);
+			throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
 		}
 		throw redirect(
 			302,

@@ -1,9 +1,22 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
     export let data
 
-    const {app} = data
+    const {app, redirect_uri} = data
+
+    let redirect_uri_here: string | null;
+    let scope: string | null;
+    let state: string | null;
+    let response_type: string | null;
+
+    if (redirect_uri) {
+      redirect_uri_here = $page.url.searchParams.get('redirect_uri')
+      scope = $page.url.searchParams.get('scope')
+      state = $page.url.searchParams.get('state')
+      response_type = $page.url.searchParams.get('response_type')
+    }
 </script>
 
 <h2 class="h2">
@@ -45,7 +58,7 @@
                     <small>
                         Created At: {app.createdAt.toLocaleString()}
                     </small>
-                    {#if app.supportServer != ''} 
+                    {#if app.supportServer != ''}
                     <small>
                         App Support: <a href={app.supportServer} target="_blank" rel="noopener noreferrer">{app.supportServer}</a>
                     </small>
@@ -53,7 +66,7 @@
                 </div>
             </div>
             <div class="flex gap-4">
-                <form class="flex items-center" action="?/authorizeApp" method="post">
+                <form class="flex items-center" action={`?/authorizeApp${redirect_uri ?? `&redirect_uri=${redirect_uri_here}&scope=${scope}&state=${state}&response_type=${response_type}`}`} method="post">
                     <button class="btn variant-ghost-primary rounded-md" type="submit">Authorize ⏩</button>
                 </form>
             </div>
