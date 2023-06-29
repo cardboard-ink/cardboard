@@ -115,12 +115,12 @@ export const actions = {
 				expiresAt: new Date(Date.now() + 1000 * 60)
 			}
 		});
-		if (redirect_uri) {
-			throw redirect(
-				302,
-				`${redirect_uri}?code=${newSession.authToken}&state=${state}&response_type=${response_type}&scope=${scope}`
-			);
+		if (!redirect_uri) {
+			throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
 		}
-		throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
+		throw redirect(
+			302,
+			`${redirect_uri}?code=${newSession.authToken}&state=${state}&response_type=${response_type}&scope=${scope}`
+		);
 	}
 };
