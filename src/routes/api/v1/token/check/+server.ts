@@ -6,7 +6,7 @@ export const POST = async({request}) => {
     const contentType = request.headers.get('content-type')
     let token: string | undefined | null
     
-    if (contentType === 'application/x-www-form-urlencoded') {
+    if (contentType === 'application/x-www-form-urlencoded;charset=utf-8') {
         const data = await request.formData().catch(() => {
             throw error(400, `invalid format, needs to be multipart/form-data`)
         })
