@@ -11,6 +11,7 @@ export const POST = async ({request}) => {
     const clientSecret = data.get('client_secret')
     const grantType = data.get('grant_type')
     const authToken = data.get('code')
+    const state = data.get('state')
     const refreshToken = data.get('refresh_token')
 
     if ( 
@@ -91,6 +92,7 @@ export const POST = async ({request}) => {
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
+            state
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     } else if (grantType === 'refresh_token') {
@@ -160,6 +162,7 @@ export const POST = async ({request}) => {
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
+            state
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     }
