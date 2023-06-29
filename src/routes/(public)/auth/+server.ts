@@ -3,10 +3,12 @@ import { error, redirect } from '@sveltejs/kit';
 
 export const GET = async({ url }) => {
 	const client_id = await url.searchParams.get('client_id');
-	// const redirect_uri = url.searchParams.get('redirect_uri')
+	const redirect_uri = await url.searchParams.get('redirect_uri')
 	// const response_type = url.searchParams.get('response_type')
 	// const scope = url.searchParams.get('scope')
 	// const state = url.searchParams.get('state')
+
+	console.log(redirect_uri)
 
 	if (!client_id || typeof client_id !== 'string') {
 		throw error(400, 'client_id is required');
