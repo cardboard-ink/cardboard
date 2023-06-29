@@ -9,7 +9,7 @@ export const load = async ({ locals, params, url }) => {
 	}
     const vanity = params.vanity;
 
-    let redirect_uri: string | URL | null = await url.searchParams.get('redirect_uri')
+    let redirect_uri: string | URL | null = url.searchParams.get('redirect_uri')
     
     const app = await db.app.findUnique({
         where: {
@@ -58,7 +58,9 @@ export const actions = {
             throw redirect(302, '/')
         }
 
-        const redirect_uri = await url.searchParams.get('redirect_uri')
+        const redirect_uri = url.searchParams.get('redirect_uri')
+
+        console.log(redirect_uri)
 
         const appExists = await db.app.findUnique({
             where: {
@@ -108,8 +110,8 @@ export const actions = {
             }
         })
         if (!redirect_uri) {
-            throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`)
+            throw redirect(302, `${redirect_uri}?code=${newSession.authToken}`)
         }
-        throw redirect(302, `${redirect_uri}?code=${newSession.authToken}`)
+        throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`)
     }
 }
