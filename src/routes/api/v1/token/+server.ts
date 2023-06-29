@@ -4,39 +4,15 @@ import { randomUUID } from "crypto"
 import bcrypt from 'bcrypt'
 
 export const POST = async ({request}) => {
-
-    const contentType = request.headers.get('content-type')
-    console.log(contentType)
-    let clientId: string | undefined | null 
-    let clientSecret: string | undefined | null 
-    let grantType: string | undefined | null 
-    let authToken: string | undefined | null 
-    let state: string | undefined | null 
-    let refreshToken: string | undefined | null 
-    
-    if (contentType === 'application/x-www-form-urlencoded;charset=utf-8') {
-        const data = await request.formData().catch(() => {
-            throw error(400, `invalid format, needs to be multipart/form-data`)
-        })
-        clientId = data.get('client_id') as string
-        clientSecret = data.get('client_secret') as string
-        grantType = data.get('grant_type') as string
-        authToken = data.get('code') as string
-        state = data.get('state') as string
-        refreshToken = data.get('refresh_token') as string
-    } else if (contentType === 'application/json') {
-        const data = await request.json().catch(() => {
-            throw error(400, `invalid format, needs to be application/json`)
-        })
-        clientId = data.client_id
-        clientSecret = data.client_secret
-        grantType = data.grant_type
-        authToken = data.code
-        state = data.state
-        refreshToken = data.refresh_token
-    } else {
-        throw error(400, `invalid format, needs to be multipart/form-data or application/json`)
-    }
+    console.log(request)
+    const data = await request.formData().catch(() => {
+        throw error(400, `invalid format, needs to be multipart/form-data`)
+    })
+    const clientId = data.get('client_id')
+    const clientSecret = data.get('client_secret')
+    const grantType = data.get('grant_type')
+    const authToken = data.get('code')
+    const refreshToken = data.get('refresh_token')
 
     if ( 
         !clientId ||
@@ -116,7 +92,6 @@ export const POST = async ({request}) => {
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
-            state
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     } else if (grantType === 'refresh_token') {
@@ -186,7 +161,6 @@ export const POST = async ({request}) => {
             expires_in: Math.floor((auth.expiresAt.getTime() - Date.now()) / 1000),
             refresh_token: auth.refreshToken,
             token_type: 'Bearer',
-            state
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     }

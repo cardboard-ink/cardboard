@@ -3,22 +3,11 @@ import { error } from "@sveltejs/kit"
 
 export const POST = async({request}) => {
 
-    const contentType = request.headers.get('content-type')
-    let token: string | undefined | null
-    
-    if (contentType === 'application/x-www-form-urlencoded;charset=utf-8') {
-        const data = await request.formData().catch(() => {
-            throw error(400, `invalid format, needs to be multipart/form-data`)
-        })
-        token = data.get('token') as string
-    } else if (contentType === 'application/json') {
-        const data = await request.json().catch(() => {
-            throw error(400, `invalid format, needs to be application/json`)
-        })
-        token = data.token
-    } else {
-        throw error(400, `invalid format, needs to be multipart/form-data or application/json`)
-    }
+    const data = await request.formData().catch(() => {
+        throw error(400, `invalid format, needs to be multipart/form-data`)
+    })
+
+    const token = data.get('token')
 
     if (!token || typeof token !== 'string') {
         throw error(400, 'invalid request')
