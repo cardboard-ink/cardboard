@@ -35,7 +35,7 @@
     </div>
     <hr class="opacity-50">
     <footer class="p-4">
-        <div class="flex justify-between">
+        <div class="flex flex-col gap-4 h-auto sm:flex-row justify-between">
             <div class="flex gap-4 items-center">
                 <Avatar src={app.ownerUser.avatar} width="w-[75px]" />
                 <div class="flex flex-col">
@@ -53,8 +53,8 @@
                 </div>
             </div>
             <div class="flex gap-4">
-                <form class="flex items-center" action={`?/authorizeApp${redirect_uri&&scope&&state&&response_type ? `&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`: ''}`} method="post">
-                    <button class="btn variant-ghost-primary rounded-md" type="submit">Authorize ⏩</button>
+                <form class="flex items-center w-full" action={`?/authorizeApp${redirect_uri&&scope&&state&&response_type ? `&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`: ''}`} method="post">
+                    <button class="btn variant-ghost-primary rounded-md w-full" type="submit">Authorize ⏩</button>
                 </form>
             </div>
         </div>
