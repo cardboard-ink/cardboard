@@ -28,11 +28,11 @@
   <div class="flex flex-col gap-4 mb-4 md-4 relative">
     {#if $page.data.user}
       <br>
-      <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610">
+      <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610" target="_blank">
         <button class="rounded bg-primary-500 p-2">Learn the ropes of CardBoard. ✨</button>
       </a>
       <br>
-      <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610">
+      <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610" target="_blank">
         <button class="rounded bg-primary-500 p-2">Get started with developing on CardBoard. 💻</button>
       </a>
     {/if}
