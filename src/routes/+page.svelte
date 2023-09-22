@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
+  // Greeter function
   function greeting () {
-    // Simple function to return a greeting based on the time of day
     const date = new Date()
     const hours = date.getHours()
     if (hours < 12) {
