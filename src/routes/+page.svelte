@@ -21,8 +21,8 @@
   {#if $page.data.user}
     <p class="p">{greeting()}, {$page.data.user.displayName}! 👋</p>
   {:else}
-    <h2 class="p">Howdy! 👋</h2>
-    <p>Welcome to CardBoard, the all in one Guilded authentication and API serivce. Get started by signing in!</p>
+    <h2 class="p">{greeting()}, visitor! 👋</h2>
+    <p>Welcome to CardBoard, the all in one Guilded authentication serivce. Get started by signing in!</p>
     <a href="/login"><button class="rounded bg-primary-500 p-2">Sign in</button></a>
   {/if}
   <div class="flex flex-col gap-4 mb-4 md-4 relative">
