@@ -30,7 +30,7 @@
     </label>
     <label for="vanityCode" class="label">
         <span>Vanity Code</span>
-        <input class="input" type="text" name="vanityCode" bind:value={$form.vanityCode} {...$constraints.vanityCode}  placeholder="cardboard.com/a/code (leave blank for random)" />
+        <input class="input" type="text" name="vanityCode" bind:value={$form.vanityCode} {...$constraints.vanityCode}  placeholder="cardboard.ink/a/code (leave blank for random)" />
         {#if $errors.vanityCode}
             <p class="p text-error-500">{$errors.vanityCode}</p>
         {/if}
