@@ -23,7 +23,10 @@
   {:else}
     <h2 class="p">{greeting()}, visitor! 👋</h2>
     <p>Welcome to CardBoard, the all in one Guilded authentication serivce. Get started by signing in!</p>
-    <a href="/login"><button class="rounded bg-primary-500 p-3">Sign in 🔑</button></a>
+    <a href="/login"><button class="rounded bg-primary-500 p-3 mr-2 mt-2">Sign in to CardBoard. 🔑</button></a>
+    <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610" target="_blank">
+      <button class="rounded bg-primary-500 p-3 mt-2">Learn the ropes of CardBoard. ✨</button>
+    </a>
   {/if}
   <div class="flex flex-col gap-4 mb-4 md-4 relative">
     {#if $page.data.user}
