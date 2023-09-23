@@ -38,6 +38,6 @@
       <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610" target="_blank">
         <button class="rounded bg-primary-500 p-3">Get started with developing on CardBoard. 💻</button>
       </a>
-    {/if}
+      {/if}
   </div>
 </main>
