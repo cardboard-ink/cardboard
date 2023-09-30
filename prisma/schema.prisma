@@ -8,6 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  GUEST
+}
+
 model GuildedAuthSession {
   id          String @id @unique @default(uuid())
   createdAt DateTime @default(now())
@@ -24,6 +29,7 @@ model GuildedUser {
   sessions GuildedAuthSession[]
   myAuthApps UserAppManager[]
   myApps App[]
+  role UserRole @default(GUEST)
 }
 
 model GuildedVerificationSessions {
@@ -56,6 +62,7 @@ model App {
   redirectUri String
   supportServer String
   vanityCode String @unique @default(uuid())
+  isVerified Boolean @default(false)
 }
 
 model AuthorizedAppSession {

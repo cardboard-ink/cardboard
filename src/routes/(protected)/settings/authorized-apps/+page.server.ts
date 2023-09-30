@@ -21,7 +21,8 @@ export const load = async ({ locals }) => {
                     createdAt: true,
                     ownerUser: true,
                     banner: true,
-                    supportServer: true
+                    supportServer: true,
+                    isVerified: true,
                 }
             },
             authorizedSessions: true,

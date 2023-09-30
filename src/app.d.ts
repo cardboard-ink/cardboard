@@ -9,8 +9,8 @@ declare namespace App {
 			displayName: string
 			banner:string
 			avatar: string
+			role: string
 		}
-		form?: any
 	}
 
 	// interface PageData {}

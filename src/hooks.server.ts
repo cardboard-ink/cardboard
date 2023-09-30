@@ -41,7 +41,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// find the user based on the session
 	const user = await db.guildedAuthSession.findUnique({
 		where: { id: session },
-		select: { expiresAt: true, user: {select: {id: true, username: true, avatar: true, banner: true}}},
+		select: { expiresAt: true, user: {select: {id: true, username: true, avatar: true, banner: true, role: true}}},
 	})
 
 	if (!user) {
@@ -74,6 +74,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			displayName: sessionUser.username,
 			avatar: sessionUser.avatar,
 			banner: sessionUser.banner,
+			role: sessionUser.role
 		}
 	}
 	// load page as normal

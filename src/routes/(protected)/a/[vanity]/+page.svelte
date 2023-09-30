@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+import { Avatar } from '@skeletonlabs/skeleton';
 
     export let data
 
@@ -20,9 +22,28 @@
         <div class="grid justify-center">
           <Avatar src={app.icon} width="w-[100px]" />
         </div>
-        <h2 class="h2 mt-10 flex items-center">
+        <div class="mt-10 flex items-center justify-between w-full flex-wrap">
+          <h2 class="h2">
             {app.name}
-        </h2>
+          </h2>
+          <div class="flex flex-col">
+            {#if app.isVerified}
+              ✅ This app is verified.
+            {/if}
+            {#if $page.data.user.role === "ADMIN"}
+              <form class="flex items-center w-full" action={`?/toggleAppVerification`} method="post">
+                <button class="btn variant-ghost-tertiary rounded-md w-full" type="submit">
+                  {#if app.isVerified}
+                    Unverify ❌
+                  {:else}
+                    Verify ✅
+                  {/if}
+                </button>
+              </form>
+            {/if}
+          </div>
+
+        </div>
       </div>
       <div class="-translate-y-20 min-h-[150px] overflow-y-auto">
           <h3 class="h3">

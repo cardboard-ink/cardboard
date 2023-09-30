@@ -29,6 +29,7 @@ export const load = async ({ locals, params, url }) => {
 			redirectUri: true,
 			supportServer: true,
 			vanityCode: true,
+			isVerified: true,
 			sessionManagers: {
 				select: {
 					id: true
@@ -123,5 +124,45 @@ export const actions = {
 			throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
 		}
 		throw redirect(302, `${redirect_uri}?code=${newSession.authToken}&state=${state}`);
+	},
+	toggleAppVerification: async ({ locals, params }) => {
+		const appExists = await db.app.findUnique({
+			where: {
+				vanityCode: params.vanity
+			},
+			select: {
+				id: true,
+				redirectUri: true,
+				isVerified: true
+			}
+		});
+
+		if (!appExists) {
+			throw error(404, 'App not found');
+		}
+
+		const user = await db.guildedUser.findUnique({
+			where: {
+				id: locals.user.id
+			}
+		});
+
+		if (!user) {
+			throw error(404, 'User not found');
+		}
+
+		if (user.role !== "ADMIN") {
+			throw error(403, 'You must be an admin to toggle app verification.')
+		}
+
+		await db.app.update({
+			where: {
+				id: appExists.id
+			},
+			data: {
+				isVerified: !appExists.isVerified
+			}
+		})
+
 	}
 };
