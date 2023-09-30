@@ -1,6 +1,6 @@
 import { db } from '$lib/server/database';
 import type { GuildedVerificationSessions } from '@prisma/client';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
 export const load = async({params}) => {
   const userId = params.userId;
@@ -32,6 +32,10 @@ export const actions = {
     const posts = await fetch(`https://www.guilded.gg/api/users/${userId}/posts?maxPosts=10`, {method: 'GET'})
     const data = await posts.json();
     const firstPostTitle = data[0].title
+    const createdBy = data[0].createdBy
+    if (createdBy !== userId) {
+      throw error(403, 'hehe, acting smug eh? you\'re not the owner of this account, this incident will be reported to the account owner. have a nice day :) ');
+    }
     db.guildedVerificationSessions.deleteMany({
       where: {
         expiresAt: {
