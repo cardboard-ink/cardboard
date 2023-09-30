@@ -6,7 +6,7 @@ services:
     image: postgres:15.4-alpine
     restart: always
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: ${DB_PASSWORD-password}
     volumes:
       - ./prisma/db:/var/lib/postgresql/data
     ports:
@@ -26,7 +26,7 @@ services:
       - ./:/app
     environment:
       - SALT-ROUNDS=10 # change this to something very random and hard to guess
-      - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD-password}@db:5432/postgres
       - ORIGIN=https://cardboard.ink
       - PROTOCOL_HEADER=x-forwarded-proto # remove this if you're not using a reverse proxy (nginx, cloudflare etc.)
       - HOST_HEADER=x-forwarded-host # remove this if you're not using a reverse proxy (nginx, cloudflare etc.)
