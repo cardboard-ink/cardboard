@@ -17,8 +17,8 @@
     Are you really who you say you are?
   </h1>
   <p class="p">
-    We need to confirm that you are really the person you claim to issue the cookie which will be used for verification later.
-    However, we require you to do the following steps to confirm your identity:
+    We need to verify your identity!
+    Please complete following steps to confirm your identity:
   </p>
   <ol class="list-decimal">
     <li>
