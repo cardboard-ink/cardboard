@@ -34,7 +34,7 @@ export const actions = {
     const firstPostTitle = data[0].title
     const createdBy = data[0].createdBy
     if (createdBy !== userId) {
-      throw error(403, 'hehe, acting smug eh? you\'re not the owner of this account, this incident will be reported to the account owner. have a nice day :) ');
+      throw error(403, 'Please make sure you create the post with the account you are trying to verify! For security purposes, this incident has been reported to the account owner.');
     }
     db.guildedVerificationSessions.deleteMany({
       where: {
