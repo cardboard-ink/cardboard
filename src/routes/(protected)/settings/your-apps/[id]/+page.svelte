@@ -45,7 +45,7 @@
         Editing ➡️ {app.name}
     </h2>
     <h6 class="h6">Note:</h6>
-    <p>Carboard currently only supports up to 512KB/S of request body size per app update, this should not harm much functionality, however please use compressed images and try splitting the update id you do encounter any errors.</p>
+    <p>Carboard currently only supports up to 512KBs of request body size per app update, this should not harm much functionality, however please use compressed images and try splitting the update id you do encounter any errors.</p>
     <div class="flex flex-col gap-4">
         <form class="flex flex-col card p-4 gap-4 justify-center" style="position: relative; height: 73rem" action="?/updateApp" method="post">
             <div class="w-full flex justify-center">
