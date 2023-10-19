@@ -2,7 +2,7 @@ import { API } from "sveltekit-api";
 import { version, author } from "../../package.json";
 
 export default new API(import.meta.glob("./**/*.ts"), {
-    openapi: "3.0.0",
+    openapi: "3.1.0",
     info: {
         title: "Cardboard API",
         version: version,

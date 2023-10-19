@@ -1,8 +1,8 @@
 version: "3.3"
 
 services:
-  db:
-    container_name: db
+  cb-db:
+    container_name: cb-db
     image: postgres:15.4-alpine
     restart: always
     environment:
@@ -11,14 +11,14 @@ services:
       - ./prisma/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
-  app:
-    container_name: app
+  cb-app:
+    container_name: cb-app
     build: 
       context: .
       dockerfile: app.prod.dockerfile
     restart: always
     depends_on:
-      - db
+      - cb-db
     ports:
       - 5555:5555
       - 3000:3000
@@ -26,7 +26,7 @@ services:
       - ./:/app
     environment:
       - SALT-ROUNDS=10 # change this to something very random and hard to guess
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD-password}@db:5432/postgres
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD-password}@cb-db:5432/postgres
       - ORIGIN=https://cardboard.ink
       - PROTOCOL_HEADER=x-forwarded-proto # remove this if you're not using a reverse proxy (nginx, cloudflare etc.)
       - HOST_HEADER=x-forwarded-host # remove this if you're not using a reverse proxy (nginx, cloudflare etc.)

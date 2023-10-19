@@ -50,6 +50,7 @@
 		"zod": "^3.21.4"
 	},
 	"dependencies": {
+		"@asteasolutions/zod-to-openapi": "^6.2.0",
 		"@prisma/client": "^4.11.0",
 		"bcrypt": "^5.1.0",
 		"dotenv": "^16.0.3",

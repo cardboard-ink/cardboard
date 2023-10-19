@@ -14,6 +14,13 @@
   dependencies:
     openapi3-ts "^4.1.2"
 
+"@asteasolutions/zod-to-openapi@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@asteasolutions/zod-to-openapi/-/zod-to-openapi-6.2.0.tgz#8ffe9f989b9431e715ffca95b17e45be5a703573"
+  integrity sha512-OhHyV/IxbDKJQJ9NJKRV5kcCyFDbZ/4HvZQXaqihWup8TirLp5od7t7idgQgj9/Gs0ltJ1Q/HLCH1eWeX/oEYg==
+  dependencies:
+    openapi3-ts "^4.1.2"
+
 "@esbuild/android-arm64@0.17.19":
   version "0.17.19"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.17.19.tgz#bafb75234a5d3d1b690e7c2956a599345e84a2fd"
