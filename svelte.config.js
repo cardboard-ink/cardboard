@@ -27,6 +27,9 @@ const config = {
 		csrf: {
 			checkOrigin: false,
 		},
+		// alias: {
+		// 	$api: "src/api",
+		// },
 		version: {
             name: child_process.execSync('git rev-parse HEAD').toString().trim(),
 			pollInterval: 10000

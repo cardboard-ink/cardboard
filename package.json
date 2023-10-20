@@ -2,6 +2,10 @@
 	"name": "my-skeleton-app",
 	"version": "0.0.1",
 	"private": true,
+	"author": {
+		"name": "TooMuchHam",
+		"email": "ham@kodski.com"
+	},
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "vite build",
@@ -45,6 +49,7 @@
 		"zod": "^3.21.4"
 	},
 	"dependencies": {
+		"@asteasolutions/zod-to-openapi": "^6.2.0",
 		"@prisma/client": "^4.11.0",
 		"bcrypt": "^5.1.0",
 		"dotenv": "^16.0.3",
