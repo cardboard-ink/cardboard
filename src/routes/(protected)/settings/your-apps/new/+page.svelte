@@ -18,12 +18,12 @@
 
     function handleRedirectUri(this: any) {
         removePrefix(this)
-        redirectUri = document.getElementsByName('redirectUri')[0].innerText + document.getElementsByName('redirectUri')[1].value
+        redirectUri = document.getElementsByName(this.name)[0].innerText + document.getElementsByName(this.name)[1].value
     }
 
     function handleSupportServer(this: any) {
         removePrefix(this)
-        supportServer = document.getElementsByName('supportServer')[0].innerText + document.getElementsByName('supportServer')[1].value
+        supportServer = document.getElementsByName(this.name)[0].innerText + document.getElementsByName(this.name)[1].value
     }
 
     function handleVanityCode(this: any) {
@@ -31,15 +31,33 @@
         vanityCode = document.getElementsByName('vanityCode')[1].value
     }
 
-    async function submit() {
-        console.log(name + " " + redirectUri + " " + supportServer + " " + vanityCode)
-        
-    }
+    async function handleSubmit () {
+		const data = new URLSearchParams()
+        data.append("name", name)
+        data.append("redirectUri", redirectUri)
+        data.append("supportServer", supportServer)
+        if (vanityCode) {
+            data.append("vanityCode", vanityCode)
+        }
+		let response = await fetch("new?/newApp", {
+			method: 'POST',
+            headers: {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",},
+			body: data
+		})
+        if (response.status != 400) {
+            window.location.replace(response.url);
+        } else {
+            //TODO: Rerender HTML correctly
+            console.log(response)
+            document.write(await response.text())
+        }
+	}
+
 </script>
 <h1 class="h1">
     Create an app
 </h1>
-<form id="app-creation" class="flex flex-col gap-4"  >
+<form id="app-creation" class="flex flex-col gap-4"  on:submit|preventDefault={handleSubmit}>
     <label for="name" class="label">
         <span>App Name</span>
         <input class="input" type="text" name="name" required bind:value="{name}" {...$constraints.name} placeholder="Enter app name..." />
@@ -77,7 +95,7 @@
             <p class="p text-error-500">{$errors.vanityCode}</p>
         {/if}
     </label>
-    <button class="btn variant-ghost-primary" type="submit" on:click={submit}>
+    <button class="btn variant-ghost-primary" type="submit">
         Create App
     </button>
 </form>
