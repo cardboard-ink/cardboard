@@ -322,13 +322,12 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@skeletonlabs/skeleton@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-1.5.1.tgz#298e94280566456e44172c6ab1629fa916e0dc82"
-  integrity sha512-b5D6vyUgE69XRbe9D3ImqJZHIRzEKwIa4HQik6LckjzgrfgUmTSeZXRdZeCuEVNI+6hdDcgTx4Brg9/8phcEeg==
+"@skeletonlabs/skeleton@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@skeletonlabs/skeleton/-/skeleton-2.4.0.tgz#a055d19f13386ceacb076f668c60e5c41f923968"
+  integrity sha512-8IVspCMarg1h4yMV6GFSaVqh9jIeQXV3XPNUnVONjkUofHkcKuLYTR4jGlR1ICF5CmIl+z746q3+Cj8rLAtAag==
   dependencies:
-    esm-env "^1.0.0"
-    svelte "^3.58.0"
+    esm-env "1.0.0"
 
 "@sveltejs/adapter-auto@^2.0.0":
   version "2.1.0"
@@ -1090,7 +1089,7 @@ eslint@^8.28.0:
     strip-json-comments "^3.1.0"
     text-table "^0.2.0"
 
-esm-env@^1.0.0:
+esm-env@1.0.0, esm-env@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/esm-env/-/esm-env-1.0.0.tgz#b124b40b180711690a4cb9b00d16573391950413"
   integrity sha512-Cf6VksWPsTuW01vU9Mk/3vRue91Zevka5SjyNf3nEpokFRuqt/KjUQoGAwq9qMmhpLTHmXzSIrFRw8zxWzmFBA==
@@ -2480,7 +2479,7 @@ svelte-preprocess@^5.0.3:
     sorcery "^0.11.0"
     strip-indent "^3.0.0"
 
-svelte@^3.54.0, svelte@^3.58.0:
+svelte@^3.54.0:
   version "3.59.1"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.59.1.tgz#3de3d56b9165748f32f3131589b8d183cabe7449"
   integrity sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==
