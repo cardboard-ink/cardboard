@@ -12,7 +12,7 @@
 	// Page from here
 	import { page } from '$app/stores'
 	import Avatar from '$lib/client/ui/Avatar.svelte'
-	import { LightSwitch, Toast, Modal, AppShell, initializeStores, storePopup, ListBox, ListBoxItem, getDrawerStore, getToastStore, popup } from '@skeletonlabs/skeleton';
+	import { LightSwitch, Toast, Modal, AppShell, initializeStores, storePopup, ListBox, ListBoxItem, getDrawerStore, popup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	let modalVisible = false
 	const toggleModalVisibility = () => {
@@ -48,7 +48,6 @@
         // { type: 'seasonal', name: 'Seasonal', icon: '🎆' }
         // { type: 'test', name: 'Test', icon: '🚧' },
 	];
-	const toastStore = getToastStore()
 	let sidebar: string = 'sidebar'
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
