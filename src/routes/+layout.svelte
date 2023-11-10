@@ -12,19 +12,43 @@
 	// Page from here
 	import { page } from '$app/stores'
 	import Avatar from '$lib/client/ui/Avatar.svelte'
-	import { LightSwitch, Toast, Modal, AppShell } from '@skeletonlabs/skeleton';
-	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
-
+	import { LightSwitch, Toast, Modal, AppShell, initializeStores, storePopup, ListBox, ListBoxItem, getDrawerStore, getToastStore, popup } from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	let modalVisible = false
 	const toggleModalVisibility = () => {
 		modalVisible = !modalVisible
 	}
-
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css'
-	import '@skeletonlabs/skeleton/styles/skeleton.css'
+	import Icon from '@iconify/svelte';
 	import '../app.postcss';
 	import { goto } from '$app/navigation';
-
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { storeTheme } from '$lib/stores/stores';
+	import { enhance } from '$app/forms';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	initializeStores()
+	const drawerStore = getDrawerStore();
+	const setTheme: SubmitFunction = ({ data }) => {
+		const theme = data.get('theme')?.toString();
+		if (theme) {
+			document.body.setAttribute('data-theme', theme);
+			$storeTheme = theme;
+		}
+	};
+	const themes = [
+        { type: 'skeleton', name: 'Skeleton', icon: '💀' },
+        { type: 'wintry', name: 'Wintry', icon: '🌨️' },
+        { type: 'modern', name: 'Modern', icon: '🤖' },
+        { type: 'rocket', name: 'Rocket', icon: '🚀' },
+        { type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️' },
+        { type: 'vintage', name: 'Vintage', icon: '📺' },
+        { type: 'sahara', name: 'Sahara', icon: '🏜️' },
+        { type: 'hamlindigo', name: 'Hamlindigo', icon: '👔' },
+        { type: 'gold-nouveau', name: 'Gold Nouveau', icon: '💫' },
+        { type: 'crimson', name: 'Crimson', icon: '⭕' }
+        // { type: 'seasonal', name: 'Seasonal', icon: '🎆' }
+        // { type: 'test', name: 'Test', icon: '🚧' },
+	];
+	const toastStore = getToastStore()
 	let sidebar: string = 'sidebar'
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
@@ -48,7 +72,43 @@
 				</h1>
 				<div class="rhs">
 					{#if !$page.data.user}
-						<LightSwitch />
+					<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}>
+						<Icon icon="fa6-solid:palette" class="text-lg" />
+						<span class="hidden md:inline-block">Theme</span>
+						<Icon icon="fa-solid:caret-down" class="opacity-50" />
+					</button>
+					<!-- popup -->
+					<div class="card p-4 w-60 shadow-xl" data-popup="theme">
+						<div class="space-y-4">
+							<section class="flex justify-between items-center">
+								<h6 class="h6">Mode</h6>
+								<LightSwitch />
+							</section>
+							<hr />
+							<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
+								<form method="post" action="/?/setTheme" use:enhance={setTheme}>
+									<ul>
+										<!-- , badge -->
+										{#each themes as { icon, name, type }}
+											<li>
+												<button
+													class="option w-full h-full"
+													type="submit"
+													name="theme"
+													value={type}
+													class:bg-primary-active-token={$storeTheme === type}
+												>
+													<span>{icon}</span>
+													<span class="flex-auto text-left">{name}</span>
+													<!-- {#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if} -->
+												</button>
+											</li>
+										{/each}
+									</ul>
+								</form>
+							</nav>
+						</div>
+					</div>
 						<a href="/login">Login with Guilded</a>
 					{/if}
 					
@@ -59,7 +119,43 @@
 								<Avatar src={$page.data.user.avatar} size={50}></Avatar>
 							</button>
 							<div class="modal card bg-inital z-10" class:visible="{modalVisible}" on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
-								<LightSwitch />
+								<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}>
+									<Icon icon="fa6-solid:palette" class="text-lg" />
+									<span class="hidden md:inline-block">Theme</span>
+									<Icon icon="fa-solid:caret-down" class="opacity-50" />
+								</button>
+								<!-- popup -->
+								<div class="card p-4 w-60 shadow-xl" data-popup="theme">
+									<div class="space-y-4">
+										<section class="flex justify-between items-center">
+											<h6 class="h6">Mode</h6>
+											<LightSwitch />
+										</section>
+										<hr />
+										<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
+											<form method="post" action="/?/setTheme" use:enhance={setTheme}>
+												<ul>
+													<!-- , badge -->
+													{#each themes as { icon, name, type }}
+														<li>
+															<button
+																class="option w-full h-full"
+																type="submit"
+																name="theme"
+																value={type}
+																class:bg-primary-active-token={$storeTheme === type}
+															>
+																<span>{icon}</span>
+																<span class="flex-auto text-left">{name}</span>
+																<!-- {#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if} -->
+															</button>
+														</li>
+													{/each}
+												</ul>
+											</form>
+										</nav>
+									</div>
+								</div>
 								<div class="lg:hidden">
 									<nav class="list-nav flex flex-col gap-2">
 										<a href="/" class="{classesActive('/')}">🏠 Home</a>

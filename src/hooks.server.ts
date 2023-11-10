@@ -2,37 +2,17 @@ import type { Handle } from '@sveltejs/kit'
 import { db } from '$lib/server/database'
 import { cleanupAuths } from '$lib/server/authclean'
 
-/*
-	You can use a custom redirect if you want...
-
-	function redirect(location: string) {
-		return new Response(undefined, {
-			status: 303,
-			headers: { location },
-		})
-	}
-
-	...and redirect pages inside hooks.server.ts
-
-	if (!session) {
-		if (event.url.pathname === '/admin') {
-			return redirect('/')
-		}
-
-		return await resolve(event)
-	}
-
-	...but doing it inside `load` for the protected
-	routes you can invalidate the data on the page
-*/
-
 export const handle: Handle = async ({ event, resolve }) => {
-	// get cookies from browser
-	// const session = event.cookies.get('session')
-
 	cleanupAuths()
+	let theme = '';
+	const cookieTheme = event.cookies.get('theme');
 	const session = event.cookies.get('guildedAuthSession')
-
+	if (cookieTheme) {
+		theme = cookieTheme
+	} else {
+		event.cookies.set('theme', 'skeleton');
+		theme = 'modern'
+	}
 	if (!session) {
 		// if there is no session load page as normal
 		return await resolve(event)
@@ -50,7 +30,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 			path: '/',
 			expires: new Date(0),
 		})
-		return await resolve(event)
+		return await resolve(event, {
+			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		});
 	}
 
 	// if the session has expired
@@ -61,7 +43,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 			path: '/',
 			expires: new Date(0),
 		})
-		return await resolve(event)
+		return await resolve(event, {
+			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		});
 	}
 
 	const sessionUser = user.user
@@ -78,5 +62,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 	// load page as normal
-	return await resolve(event)
+	return await resolve(event, {
+		transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+	});
 }
