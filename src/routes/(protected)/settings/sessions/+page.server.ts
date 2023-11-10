@@ -1,8 +1,6 @@
 import { redirect } from '@sveltejs/kit'
 
 import { db } from '$lib/server/database'
-
-import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton'
 import type { GuildedAuthSession } from '@prisma/client'
 
 export const load = async ({ locals, cookies }) => {
@@ -48,12 +46,6 @@ export const actions = {
     const id = data.get('identifier') as string
 
     if (id === cookies.get('guildedAuthSession')) {
-      const t: ToastSettings = {
-        message: "Can't terminate current session.",
-        background: 'variant-filled-error',
-        timeout: 3000,
-      }
-      toastStore.trigger(t);
       throw redirect(302, '/settings/sessions')
     }
 

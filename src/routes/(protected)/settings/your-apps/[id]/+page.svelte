@@ -1,10 +1,10 @@
 <script lang="ts">
 	import AvatarInput from '$lib/client/ui/AvatarInput.svelte';
 	import BannerInput from '$lib/client/ui/BannerInput.svelte';
-	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
     import {clipboard} from '@skeletonlabs/skeleton'
-
+    const toastStore = getToastStore();
     export let data;
 
     const {app} = data
@@ -23,7 +23,7 @@
         })
         );
         if (!req) return;
-        const data = await req.json().catch(() => {
+        const data = await (req as Response).json().catch(() => {
         toastStore.trigger({
             message: 'Failed to update secret, please update again!',
             background: 'variant-filled-error',

@@ -1,12 +1,10 @@
 <script lang="ts">
   import { Avatar, clipboard } from '@skeletonlabs/skeleton';
-  import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
   export let data: PageData;
 
   const {myApps} = data;
-
 </script>
 
 <div class="flex s"></div>
