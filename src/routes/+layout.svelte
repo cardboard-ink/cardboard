@@ -108,7 +108,7 @@
 							</nav>
 						</div>
 					</div>
-						<a href="/login">Login with Guilded</a>
+						<a href="/login">Link Guilded</a>
 					{/if}
 					
 					{#if $page.data.user}
@@ -161,6 +161,7 @@
 										<a href="/settings/sessions" class="{classesActive('/settings/sessions')}">🏛️ Sessions</a>
 										<a href="/settings/your-apps" class="{classesActive('/settings/your-apps')}">💻 Your Apps</a>
 										<a href="/settings/authorized-apps" class="{classesActive('/settings/authorized-apps')}">🔑 Authorized Apps</a>
+										<a href="/info" target="_blank" class="{classesActive('/settings/authorized-apps')}">ℹ️ Info</a>
 									</nav>
 								</div>
 								<form class="flex-col flex gap-4" action="/logout" method="POST">

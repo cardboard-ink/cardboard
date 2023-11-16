@@ -17,7 +17,7 @@
     Are you really who you say you are?
   </h1>
   <p class="p">
-    We need to verify your identity!
+    We need to <strong>verify</strong> your identity!
     Please complete following steps to confirm your identity:
   </p>
   <ol class="list-decimal">

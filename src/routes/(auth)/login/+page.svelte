@@ -50,7 +50,19 @@
     {message}
   </p>
   {/if}
-  <h2 class="h1">Login to Guilded</h2>
+  <h2 class="h1">Link Guilded</h2>
+  <p class="p">
+    We need to <strong>verify</strong> your identity!
+    Please complete following steps to confirm your identity:
+  </p>
+  <ol class="list-decimal">
+    <li>
+      Make sure you are signed in to <strong>Guilded</strong> with the <strong>Guilded</strong> account you choose on this page.
+    </li>
+    <li>
+      Why do we need you to do this? <a href="/info" target="_blank">Read Here</a>.
+    </li>
+  </ol>
   <div class="md:w-full lg:w-1/2">
     <label class="label snap-center" for="Guilded Username">Guilded Username</label>
     <input class="input" id="Guilded Username" name="Guilded Username" type="text" placeholder="Username" bind:value={userSearch} on:keyup={() => searchForUsername()} />

@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	let theme = '';
 	const cookieTheme = event.cookies.get('theme');
 	const session = event.cookies.get('guildedAuthSession')
-	if (cookieTheme) {
+	if (cookieTheme && cookieTheme != '' && ['skeleton', 'wintry', 'modern', 'rocket', 'seafoam', 'vintage', 'sahara', 'hamlindigo', 'gold-nouveau', 'crimson'].includes(theme)) {
 		theme = cookieTheme
 	} else {
 		event.cookies.set('theme', 'modern');
@@ -15,7 +15,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	if (!session) {
 		// if there is no session load page as normal
-		return await resolve(event)
+		return await resolve(event, {
+			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		});
 	}
 
 	// find the user based on the session
