@@ -1,4 +1,5 @@
 import { db } from "$lib/server/database"
+import { guildedMediaLink } from "$lib/utils/guilded-media"
 import { error } from "@sveltejs/kit"
 
 export const GET = async ({request}) => {
@@ -41,8 +42,8 @@ export const GET = async ({request}) => {
         name: userData.name,
         subdomain: userData.subdomain,
         aliases: userData.aliases,
-        avatar: userData.profilePictureLg,
-        banner: userData.profileBannerLg,
+        avatar: guildedMediaLink(userData.profilePictureLg),
+        banner: guildedMediaLink(userData.profileBannerLg),
         createdAt: userData.joinedAt,
         userStatus: userData.userStatus,
         moderationStatus: userData.moderationStatus,

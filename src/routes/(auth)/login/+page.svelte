@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import { guildedMediaLink } from "$lib/utils/guilded-media";
 	import { Avatar } from "@skeletonlabs/skeleton";
 	import { onMount } from "svelte";
 
@@ -25,6 +26,12 @@
     fetch(`https://www.guilded.gg/api/search?query=${userSearch}&entityType=user&maxResultsPerType=20`, {method: "GET"}).then(async(res) => {
       const data = await res.json()
       users = data.results.users;
+      users = users.map((user: User) => {
+        return {
+          ...user,
+          profilePicture: guildedMediaLink(user.profilePicture ?? "/poop.png")
+        }
+      })
       if (userSearch == "") {
         users = [];
       }
@@ -75,7 +82,7 @@
         <label for="guildedId" />
         <input type="text" class="hidden" name="guildedId" value={user.id} />
         <button class="btn w-full flex flex-row card card-hover variant-glass" type="submit">
-          <Avatar src={user.profilePicture} fallback={"/poop.png"} />
+          <Avatar src={guildedMediaLink(user.profilePicture ?? "/poop.png")} fallback={"/poop.png"} />
           <span class="flex-auto">
             <dt>{user.name}</dt>
             <dl>{user.id}</dl>

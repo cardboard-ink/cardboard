@@ -1,4 +1,5 @@
 import { db } from '$lib/server/database';
+import { guildedMediaLink } from '$lib/utils/guilded-media';
 import type { GuildedVerificationSessions } from '@prisma/client';
 import { error, redirect } from '@sveltejs/kit';
 
@@ -66,8 +67,8 @@ export const actions = {
         data: {
           id: userId,
           username: me.name,
-          avatar: me.profilePictureLg ? me.profilePictureLg : undefined,
-          banner: me.profileBannerLg ? me.profileBannerLg : undefined,
+          avatar: me.profilePictureLg ? guildedMediaLink(me.profilePictureLg) : undefined,
+          banner: me.profileBannerLg ? guildedMediaLink(me.profileBannerLg): undefined,
         }
       })
     } else {
@@ -78,8 +79,8 @@ export const actions = {
         },
         data: {
           username: me.name,
-          avatar: me.profilePictureLg ? me.profilePictureLg : undefined,
-          banner: me.profileBannerLg ? me.profileBannerLg : undefined,
+          avatar: me.profilePictureLg ? guildedMediaLink(me.profilePictureLg) : undefined,
+          banner: me.profileBannerLg ? guildedMediaLink(me.profileBannerLg): undefined,
         }
       })
     }

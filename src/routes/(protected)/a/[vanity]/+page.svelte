@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import { guildedMediaLink } from '$lib/utils/guilded-media';
 import { Avatar } from '@skeletonlabs/skeleton';
 
     export let data
@@ -58,7 +59,7 @@ import { Avatar } from '@skeletonlabs/skeleton';
     <footer class="p-4">
         <div class="flex flex-col gap-4 h-auto sm:flex-row justify-between">
             <div class="flex gap-4 items-center">
-                <Avatar src={app.ownerUser.avatar} width="w-[75px]" />
+                <Avatar src={guildedMediaLink(app.ownerUser.avatar)} width="w-[75px]" />
                 <div class="flex flex-col">
                     <small>
                         Created By: {app.ownerUser.username}

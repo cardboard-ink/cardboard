@@ -1,10 +1,11 @@
 <script lang="ts">
   import {page} from '$app/stores'
+	import { guildedMediaLink } from '$lib/utils/guilded-media';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
   $: displayName = $page.data.user.displayName
-  $: avatar = $page.data.user.avatar
-  $: banner = $page.data.user.banner
+  $: avatar = guildedMediaLink($page.data.user.avatar)
+  $: banner = guildedMediaLink($page.data.user.banner)
 </script>
 
 
@@ -26,7 +27,6 @@
     </div>
     <footer>
       <hr class="opacity-50">
-      
     </footer>
   </div>
 </div>

@@ -24,6 +24,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { storeTheme } from '$lib/stores/stores';
 	import { enhance } from '$app/forms';
+	import { guildedMediaLink } from '$lib/utils/guilded-media';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	initializeStores()
 	const drawerStore = getDrawerStore();
@@ -115,7 +116,7 @@
 						<a href="/profile">{$page.data.user.displayName}</a>
 						<div class="settingsContainer">
 							<button on:click={() => toggleModalVisibility()} on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
-								<Avatar src={$page.data.user.avatar} size={50}></Avatar>
+								<Avatar src={guildedMediaLink($page.data.user.avatar)} size={50}></Avatar>
 							</button>
 							<div class="modal card bg-inital z-10" class:visible="{modalVisible}" on:mouseenter={() => modalVisible = true} on:mouseleave={() => modalVisible = false}>
 								<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}>

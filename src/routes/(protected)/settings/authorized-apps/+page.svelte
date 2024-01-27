@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { guildedMediaLink } from '$lib/utils/guilded-media';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
     export let data
@@ -38,7 +39,7 @@
                     <footer class="p-4">
                         <div class="flex justify-between">
                             <div class="flex gap-4 items-center">
-                                <Avatar src={appManager.app.ownerUser.avatar} width="w-[75px]" />
+                                <Avatar src={guildedMediaLink(appManager.app.ownerUser.avatar)} width="w-[75px]" />
                                 <div class="flex flex-col">
                                     <small>
                                         Created By: {appManager.app.ownerUser.username}
