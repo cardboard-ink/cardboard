@@ -22,6 +22,9 @@
 
   let users: User[] = [];
 
+  const typingDelay = 750;
+  var typingTimer: NodeJS.Timeout;
+
   const searchForUsername = async() => {
     fetch(`https://www.guilded.gg/api/search?query=${userSearch}&entityType=user&maxResultsPerType=20`, {method: "GET"}).then(async(res) => {
       const data = await res.json()
@@ -72,7 +75,12 @@
   </ol>
   <div class="md:w-full lg:w-1/2">
     <label class="label snap-center" for="Guilded Username">Guilded Username</label>
-    <input class="input" id="Guilded Username" name="Guilded Username" type="text" placeholder="Username" bind:value={userSearch} on:keyup={() => searchForUsername()} />
+    <input class="input" id="Guilded Username" name="Guilded Username" type="text" placeholder="Username" bind:value={userSearch} on:keyup={() => {
+      if (userSearch) {
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(searchForUsername, typingDelay)
+      }
+    }} on:keydown={() => clearTimeout(typingTimer)} />
   </div>
   
   <div class="max-h-80 overflow-y-auto w-full lg:w-1/2 overflow-x-visible">
