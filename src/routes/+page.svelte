@@ -16,16 +16,15 @@
 
 </script>
 
-<main class="px-4">
-  <h2 class="h2">Home</h2>
+<main class="px-4z">
   {#if $page.data.user}
     <p class="p">{greeting()}, {$page.data.user.displayName}! 👋</p>
   {:else}
-    <h2 class="p">{greeting()}, visitor! 👋</h2>
-    <p>Welcome to CardBoard, the all in one Guilded authentication serivce. Get started by Linking your profile!</p>
+  <h2 class="h2 font-custom font-semibold">{greeting()}, visitor! 👋</h2>
+    <p class="font-custom font-medium mt-2">Welcome to CardBoard, the all in one Guilded authentication serivce. <br /> Get started by Linking your profile!</p>
     <a href="/login"><button class="rounded bg-primary-500 p-3 mr-2 mt-2">Link Guilded. 🔑</button></a>
     <a href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610" target="_blank">
-      <button class="rounded bg-primary-500 p-3 mt-2">Learn the ropes of CardBoard. ✨</button>
+      <button class="rounded bg-primary-500 p-3 mr-2 mt-2">Learn the ropes of CardBoard. ✨</button>
     </a>
     <a href="/info" target="_blank">
       <button class="rounded bg-primary-500 p-3">

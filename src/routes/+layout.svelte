@@ -65,7 +65,7 @@
 		<header>
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<h1 class=" h1 a cursor-pointer flex gap-1" on:click={() => goto('/')}>📜 
+				<h1 class="h3 font-custom font-semibold a cursor-pointer flex gap-1" on:click={() => goto('/')}>📜 
 					<span class="hidden lg:block">
 						CardBoard
 					</span>
@@ -84,32 +84,9 @@
 								<h6 class="h6">Mode</h6>
 								<LightSwitch />
 							</section>
-							<hr />
-							<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
-								<form method="post" action="/?/setTheme" use:enhance={setTheme}>
-									<ul>
-										<!-- , badge -->
-										{#each themes as { icon, name, type }}
-											<li>
-												<button
-													class="option w-full h-full"
-													type="submit"
-													name="theme"
-													value={type}
-													class:bg-primary-active-token={$storeTheme === type}
-												>
-													<span>{icon}</span>
-													<span class="flex-auto text-left">{name}</span>
-													<!-- {#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if} -->
-												</button>
-											</li>
-										{/each}
-									</ul>
-								</form>
-							</nav>
 						</div>
 					</div>
-						<a href="/login">Link Guilded</a>
+						<a class="btn variant-filled-primary" href="/login">Link Guilded</a>
 					{/if}
 					
 					{#if $page.data.user}
