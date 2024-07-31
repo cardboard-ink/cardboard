@@ -10,7 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (cookieTheme && cookieTheme != '' && ['skeleton', 'wintry', 'modern', 'rocket', 'seafoam', 'vintage', 'sahara', 'hamlindigo', 'gold-nouveau', 'crimson'].includes(theme)) {
 		theme = cookieTheme
 	} else {
-		/* @migration task: add path argument */ event.cookies.set('theme', 'modern');
+		event.cookies.set('theme', 'modern', { path: '/' });
 		theme = 'modern'
 	}
 	if (!session) {
