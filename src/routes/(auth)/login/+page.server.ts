@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { db } from '$lib/server/database';
 import { handleIdLoginRedirect } from '$lib/server/loginredirect.js';
 
@@ -11,7 +12,7 @@ const linkGuildedSchema = z.object({
 
 export const load = async () => {
 	// Server API:
-	const form = await superValidate(linkGuildedSchema);
+	const form = await superValidate(zod(linkGuildedSchema));
 
 	// Always return { form } in load and form actions.
 	return { form };

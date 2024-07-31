@@ -2,6 +2,7 @@ import { db } from '$lib/server/database';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { setError, superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 
 const schema = z.object({
 	name: z.string(),
@@ -30,7 +31,7 @@ export const load = async ({ locals, params }) => {
 		redirect(302, '/settings/your-apps');
 	}
 
-	const form = await superValidate(app, schema);
+	const form = await superValidate(app, zod(schema));
 	return { app, form };
 };
 
@@ -95,7 +96,7 @@ export const actions = {
 		if (app.ownerId !== locals.user.id) {
 			redirect(302, '/settings/your-apps');
 		}
-		let form = await superValidate(request, schema);
+		let form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -126,7 +127,7 @@ export const actions = {
 				vanityCode: form.data.vanityCode ? form.data.vanityCode : undefined
 			}
 		});
-		form = await superValidate(updatedApp, schema);
+		form = await superValidate(updatedApp, zod(schema));
 		return { app: updatedApp, form };
 	}
 };

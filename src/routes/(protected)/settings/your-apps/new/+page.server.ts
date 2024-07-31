@@ -1,5 +1,6 @@
 import { db } from '$lib/server/database';
 import { fail, redirect } from '@sveltejs/kit';
+import { zod } from 'sveltekit-superforms/adapters';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
@@ -14,13 +15,13 @@ export const load = async ({ locals }) => {
 	if (!locals.user) {
 		redirect(302, '/');
 	}
-	const form = await superValidate(newAppSchema);
+	const form = await superValidate(zod(newAppSchema));
 	return { form };
 };
 
 export const actions = {
 	newApp: async ({ request, locals }) => {
-		const form = await superValidate(request, newAppSchema);
+		const form = await superValidate(request, zod(newAppSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
