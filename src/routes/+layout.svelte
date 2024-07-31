@@ -3,6 +3,23 @@
 	import { beforeNavigate } from '$app/navigation';
     import { updated } from '$app/stores';
 
+	import { setupViewTransition } from 'sveltekit-view-transition';
+
+	setupViewTransition();
+
+	import { onNavigate } from '$app/navigation';
+
+onNavigate((navigation) => {
+	if (!document.startViewTransition) return;
+
+	return new Promise((resolve) => {
+		document.startViewTransition(async () => {
+			resolve();
+			await navigation.complete;
+		});
+	});
+});
+
     beforeNavigate(({ willUnload, to }) => {
         if ($updated && !willUnload && to?.url) {
             location.href = to.url.href;
@@ -72,7 +89,7 @@
 				</h1>
 				<div class="rhs">
 					{#if !$page.data.user}
-					<button class="btn hover:variant-soft-primary" use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}>
+					<button class="btn variant-ghost-primary" use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}>
 						<Icon icon="fa6-solid:palette" class="text-lg" />
 						<span class="hidden md:inline-block">Theme</span>
 						<Icon icon="fa-solid:caret-down" class="opacity-50" />
@@ -86,7 +103,7 @@
 							</section>
 						</div>
 					</div>
-						<a class="btn variant-filled-primary" href="/login">Link Guilded</a>
+						<a class="btn variant-ghost-primary" href="/login">Link Guilded</a>
 					{/if}
 					
 					{#if $page.data.user}

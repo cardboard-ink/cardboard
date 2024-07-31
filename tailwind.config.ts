@@ -1,33 +1,27 @@
-import { join } from 'path';
-import type { Config } from 'tailwindcss';
+import { join } from 'path'
+import type { Config } from 'tailwindcss'
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
-import { skeleton } from '@skeletonlabs/tw-plugin';
-import { myCustomTheme } from './my-custom-theme';
+import { skeleton } from '@skeletonlabs/tw-plugin'
 
 export default {
-	darkMode: 'class',
+	darkMode: 'class', // <--
 	content: ['./src/**/*.{html,js,svelte,ts}', join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')],
 	theme: {
 		extend: {},
-		fontFamily: {
-			'custom': ['Inter', 'sans-serif'],
-			'sans': ['ui-sans-serif', 'system-ui'],
-			'serif': ['ui-serif', 'Georgia'],
-			'mono': ['ui-monospace', 'SFMono-Regular'],
-			'display': ['Oswald'],
-			'body': ['"Open Sans'],
-		}
 	},
 	plugins: [
+		forms,
+		typography,
 		skeleton({
 			themes: {
-				custom: [
-					myCustomTheme
-				]
-			}
+				preset: [
+					{
+						name: 'crimson',
+						enhancements: true,
+					},
+				],
+			},
 		}),
-		forms,
-		typography
-	]
+	],
 } satisfies Config;
