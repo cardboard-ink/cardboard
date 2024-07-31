@@ -3,6 +3,19 @@
 	import { beforeNavigate } from '$app/navigation';
 	import { updated } from '$app/stores';
 
+	import { onNavigate } from '$app/navigation';
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
+
 	beforeNavigate(({ willUnload, to }) => {
 		if ($updated && !willUnload && to?.url) {
 			location.href = to.url.href;
@@ -76,14 +89,17 @@
 		<header>
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<h1 class=" h1 a cursor-pointer flex gap-1" on:click={() => goto('/')}>
+				<h1
+					class="h3 inter font-custom font-semibold a cursor-pointer flex gap-1"
+					on:click={() => goto('/')}
+				>
 					📜
 					<span class="hidden lg:block"> CardBoard </span>
 				</h1>
 				<div class="rhs">
 					{#if !$page.data.user}
 						<button
-							class="btn hover:variant-soft-primary"
+							class="btn variant-ghost-primary"
 							use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}
 						>
 							<Icon icon="fa6-solid:palette" class="text-lg" />
@@ -97,32 +113,9 @@
 									<h6 class="h6">Mode</h6>
 									<LightSwitch />
 								</section>
-								<hr />
-								<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
-									<form method="post" action="/?/setTheme" use:enhance={setTheme}>
-										<ul>
-											<!-- , badge -->
-											{#each themes as { icon, name, type }}
-												<li>
-													<button
-														class="option w-full h-full"
-														type="submit"
-														name="theme"
-														value={type}
-														class:bg-primary-active-token={$storeTheme === type}
-													>
-														<span>{icon}</span>
-														<span class="flex-auto text-left">{name}</span>
-														<!-- {#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if} -->
-													</button>
-												</li>
-											{/each}
-										</ul>
-									</form>
-								</nav>
 							</div>
 						</div>
-						<a href="/login">Link Guilded</a>
+						<a class="btn variant-ghost-primary" href="/login">Link Guilded</a>
 					{/if}
 
 					{#if $page.data.user}
@@ -215,7 +208,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.user}
-			<ListBox class="pr-4 pl-8 flex-col gap-2 hidden lg:flex">
+			<ListBox class="btn pr-4 pl-8 flex-col gap-2 hidden lg:flex">
 				<h2 class="h2">Browse</h2>
 				<ListBoxItem
 					class={classesActive('/')}

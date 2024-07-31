@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,7 @@
 html,
 body {
 	@apply h-full;
+	font-family: 'Inter';
 }
 
 @font-face {
@@ -18,4 +21,8 @@ body {
 :root {
 	--theme-font-family-base: 'Inter', sans-serif;
 	--theme-font-family-heading: 'Inter', sans-serif;
+}
+
+.inter {
+	font-family: 'Inter';
 }
