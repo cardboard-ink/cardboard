@@ -62,6 +62,6 @@ export const actions = {
     console.log(url)
     // successfully redirect to userId path of login flow
     // throw redirect(302, `/login/${guildedId}`);
-    throw redirect(302, handleIdLoginRedirect(guildedId, redirectTo))
+    redirect(302, handleIdLoginRedirect(guildedId, redirectTo));
 	},
 }

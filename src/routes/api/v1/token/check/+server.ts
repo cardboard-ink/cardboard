@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export const POST = async ({ request }) => {
 	const data = await request.formData().catch(() => {
-		throw error(400, `invalid format, needs to be multipart/form-data`);
+		error(400, `invalid format, needs to be multipart/form-data`);
 	});
 
 	const token = data.get('token');
@@ -19,7 +19,7 @@ export const POST = async ({ request }) => {
 		typeof clientSecret !== 'string' ||
 		typeof token !== 'string'
 	) {
-		throw error(400, 'invalid request');
+		error(400, 'invalid request');
 	}
 
 	let validity = false;

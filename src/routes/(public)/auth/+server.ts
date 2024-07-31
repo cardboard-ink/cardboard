@@ -11,7 +11,7 @@ export const GET = async ({ url }) => {
 	console.log(redirect_uri, response_type, scope, state);
 
 	if (!client_id || typeof client_id !== 'string') {
-		throw error(400, 'client_id is required');
+		error(400, 'client_id is required');
 	}
 
 	const app = await db.app.findUnique({
@@ -21,11 +21,11 @@ export const GET = async ({ url }) => {
 	});
 
 	if (!app) {
-		throw error(404, `app not found!, ${client_id}, ${app}`);
+		error(404, `app not found!, ${client_id}, ${app}`);
 	}
 
-	throw redirect(
-		302,
-		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
-	);
+	redirect(
+    		302,
+    		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
+    	);
 };

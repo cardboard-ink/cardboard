@@ -5,7 +5,7 @@ import { error, redirect } from '@sveltejs/kit';
 export const load = async ({ locals, params, url }) => {
 	// redirect user if logged in
 	if (!locals.user) {
-		throw redirect(302, handleLoginRedirect(url, 'You must login to authorize the app.'));
+		redirect(302, handleLoginRedirect(url, 'You must login to authorize the app.'));
 	}
 	const vanity = params.vanity;
 
@@ -38,7 +38,7 @@ export const load = async ({ locals, params, url }) => {
 		}
 	});
 	if (!app) {
-		throw error(404, 'App not found');
+		error(404, 'App not found');
 	}
 
 	if (redirect_uri) {
@@ -46,14 +46,14 @@ export const load = async ({ locals, params, url }) => {
 			const app_redirect_uri = new URL(app.redirectUri);
 			redirect_uri = new URL(redirect_uri);
 			if (redirect_uri.origin !== app_redirect_uri.origin) {
-				throw error(
-					400,
-					`Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`
-				);
+				error(
+                					400,
+                					`Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`
+                				);
 			}
 			redirect_uri = redirect_uri.toString();
 		} catch (e) {
-			throw error(400, `Invalid redirect_uri,\n${e}`);
+			error(400, `Invalid redirect_uri,\n${e}`);
 		}
 	}
 
@@ -63,7 +63,7 @@ export const load = async ({ locals, params, url }) => {
 export const actions = {
 	authorizeApp: async ({ locals, params, url }) => {
 		if (!locals.user) {
-			throw redirect(302, '/');
+			redirect(302, '/');
 		}
 
 		const redirect_uri = url.searchParams.get('redirect_uri');
@@ -84,7 +84,7 @@ export const actions = {
 		});
 
 		if (!appExists) {
-			throw error(404, 'App not found');
+			error(404, 'App not found');
 		}
 
 		const user = await db.guildedUser.findUnique({
@@ -94,7 +94,7 @@ export const actions = {
 		});
 
 		if (!user) {
-			throw error(404, 'User not found');
+			error(404, 'User not found');
 		}
 
 		let manager = await db.userAppManager.findFirst({
@@ -121,9 +121,9 @@ export const actions = {
 			}
 		});
 		if (!redirect_uri) {
-			throw redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
+			redirect(302, `${appExists.redirectUri}?code=${newSession.authToken}`);
 		}
-		throw redirect(302, `${redirect_uri}?code=${newSession.authToken}&state=${state}`);
+		redirect(302, `${redirect_uri}?code=${newSession.authToken}&state=${state}`);
 	},
 	toggleAppVerification: async ({ locals, params }) => {
 		const appExists = await db.app.findUnique({
@@ -138,7 +138,7 @@ export const actions = {
 		});
 
 		if (!appExists) {
-			throw error(404, 'App not found');
+			error(404, 'App not found');
 		}
 
 		const user = await db.guildedUser.findUnique({
@@ -148,11 +148,11 @@ export const actions = {
 		});
 
 		if (!user) {
-			throw error(404, 'User not found');
+			error(404, 'User not found');
 		}
 
 		if (user.role !== "ADMIN") {
-			throw error(403, 'You must be an admin to toggle app verification.')
+			error(403, 'You must be an admin to toggle app verification.');
 		}
 
 		await db.app.update({

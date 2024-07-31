@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 export const POST = async ({request}) => {
     console.log(request)
     const data = await request.formData().catch(() => {
-        throw error(400, `invalid format, needs to be multipart/form-data`)
+        error(400, `invalid format, needs to be multipart/form-data`);
     })
     const clientId = data.get('client_id')
     const clientSecret = data.get('client_secret')
@@ -23,12 +23,12 @@ export const POST = async ({request}) => {
         typeof clientSecret !== 'string'
         ) 
     {
-        throw error(400, 'invalid request')
+        error(400, 'invalid request');
     }
 
     if (grantType === 'authorization_code') {
         if (!authToken || typeof authToken !== 'string') {
-            throw error(400, 'invalid request')
+            error(400, 'invalid request');
         }
         const app = await db.app.findUnique({
             where: {
@@ -40,14 +40,14 @@ export const POST = async ({request}) => {
             }
         })
         if (!app) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         if(!app.secret) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         const comparision = await bcrypt.compare(clientSecret, app.secret)
         if (!comparision) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         const pre = await db.authorizedAppSession.findUnique({
             where: {
@@ -67,10 +67,10 @@ export const POST = async ({request}) => {
             }
         })
         if (!pre) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         if (!(pre.userAppManager.app.id === app.id)) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         const auth = await db.authorizedAppSession.update({
             where: {
@@ -96,7 +96,7 @@ export const POST = async ({request}) => {
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     } else if (grantType === 'refresh_token') {
         if (!refreshToken || typeof refreshToken !== 'string') {
-            throw error(400, 'invalid request')
+            error(400, 'invalid request');
         }
         const app = await db.app.findUnique({
             where: {
@@ -108,14 +108,14 @@ export const POST = async ({request}) => {
             }
         })
         if (!app) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         if(!app.secret) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         const comparision = await bcrypt.compare(clientSecret, app.secret)
         if (!comparision) {
-            throw error(400, 'invalid client')
+            error(400, 'invalid client');
         }
         const pre = await db.authorizedAppSession.findUnique({
             where: {
@@ -135,11 +135,11 @@ export const POST = async ({request}) => {
             }
         })
         if (!pre) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         const accessibleApp = pre.userAppManager.app.id === app.id
         if (!accessibleApp) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         const auth = await db.authorizedAppSession.update({
             where: {
@@ -164,5 +164,5 @@ export const POST = async ({request}) => {
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     }
-    throw error(400, 'unsupported grant_type')
+    error(400, 'unsupported grant_type');
 }

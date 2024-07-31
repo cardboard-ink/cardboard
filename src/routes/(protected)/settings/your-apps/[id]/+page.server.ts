@@ -15,7 +15,7 @@ const schema = z.object({
 
 export const load = async ({locals, params}) => {
     if (!locals.user) {
-          throw redirect(302, '/')
+          redirect(302, '/');
       }
     const appId = params.id;
     const app = await db.app.findUnique({
@@ -24,10 +24,10 @@ export const load = async ({locals, params}) => {
         }
     })
     if (!app) {
-        throw redirect(302, '/settings/your-apps')
+        redirect(302, '/settings/your-apps');
     }
     if (app.ownerId !== locals.user.id) {
-        throw redirect(302, '/settings/your-apps')
+        redirect(302, '/settings/your-apps');
     }
 
     const form = await superValidate(app, schema)
@@ -43,10 +43,10 @@ export const actions = {
             }
         })
         if (!app) {
-            throw redirect(302, '/settings/your-apps')
+            redirect(302, '/settings/your-apps');
         }
         if (app.ownerId !== locals.user.id) {
-            throw redirect(302, '/settings/your-apps')
+            redirect(302, '/settings/your-apps');
         }
 
         const appManagers = await db.authorizedAppSession.findMany({
@@ -80,7 +80,7 @@ export const actions = {
             }
         })
 
-        throw redirect(302, '/settings/your-apps')
+        redirect(302, '/settings/your-apps');
     },
     updateApp: async ({request, locals, params}) => {
         const appId = params.id;
@@ -90,10 +90,10 @@ export const actions = {
             }
         })
         if (!app) {
-            throw redirect(302, '/settings/your-apps')
+            redirect(302, '/settings/your-apps');
         }
         if (app.ownerId !== locals.user.id) {
-            throw redirect(302, '/settings/your-apps')
+            redirect(302, '/settings/your-apps');
         }
         let form = await superValidate(request, schema)
         if (!form.valid) {

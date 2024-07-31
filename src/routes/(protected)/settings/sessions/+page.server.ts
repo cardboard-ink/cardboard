@@ -6,7 +6,7 @@ import type { GuildedAuthSession } from '@prisma/client'
 export const load = async ({ locals, cookies }) => {
 	// redirect user if logged in
 	if (!locals.user) {
-		throw redirect(302, '/')
+		redirect(302, '/');
 	}
 
   const sessions = await db.guildedUser.findUnique({
@@ -17,11 +17,11 @@ export const load = async ({ locals, cookies }) => {
   })
 
   if (!sessions) {
-    throw redirect(302, '/')
+    redirect(302, '/');
   }
 
   if (!sessions.sessions) {
-    throw redirect(302, '/')
+    redirect(302, '/');
   }
   
   type ActiveSession = GuildedAuthSession & { current: boolean }
@@ -29,7 +29,7 @@ export const load = async ({ locals, cookies }) => {
   const activeSessions = sessions.sessions as ActiveSession[]
 
   if (!activeSessions) {
-    throw redirect(302, '/')
+    redirect(302, '/');
   }
 
   activeSessions.forEach(session => {
@@ -46,11 +46,11 @@ export const actions = {
     const id = data.get('identifier') as string
 
     if (id === cookies.get('guildedAuthSession')) {
-      throw redirect(302, '/settings/sessions')
+      redirect(302, '/settings/sessions');
     }
 
 		if (!id) {
-			throw redirect(302, '/settings/sessions')
+			redirect(302, '/settings/sessions');
 		}
 
 		//remove from db
@@ -60,6 +60,6 @@ export const actions = {
 		await db.guildedAuthSession.deleteMany({ where: { expiresAt: { lt: new Date() } } })
 
 		// redirect the user
-		throw redirect(302, '/settings/sessions')
+		redirect(302, '/settings/sessions');
 	},
 }

@@ -35,7 +35,7 @@ export const actions = {
     const firstPostTitle = data[0].title
     const createdBy = data[0].createdBy
     if (createdBy !== userId) {
-      throw error(403, 'Please make sure you create the post with the account you are trying to verify! For security purposes, this incident has been reported to the account owner.');
+      error(403, 'Please make sure you create the post with the account you are trying to verify! For security purposes, this incident has been reported to the account owner.');
     }
     db.guildedVerificationSessions.deleteMany({
       where: {
@@ -54,7 +54,7 @@ export const actions = {
     }
     sessionAuthToken = sessionAuthToken?.id;
     if (firstPostTitle !== sessionAuthToken) {
-      throw redirect(302, '/login');
+      redirect(302, '/login');
     } 
     let user = await db.guildedUser.findUnique({
       where: {
@@ -105,8 +105,8 @@ export const actions = {
 		})
     const redirectTo = url.searchParams.get('redirectTo');
     if (redirectTo) {
-      throw redirect(302, `/${redirectTo.slice(1)}`)
+      redirect(302, `/${redirectTo.slice(1)}`);
     }
-    throw redirect(302, '/');
+    redirect(302, '/');
   }
 }
