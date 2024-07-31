@@ -25,7 +25,7 @@ export const GET = async ({ url }) => {
 	}
 
 	redirect(
-    		302,
-    		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
-    	);
+		302,
+		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
+	);
 };

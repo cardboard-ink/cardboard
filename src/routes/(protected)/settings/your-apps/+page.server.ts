@@ -1,16 +1,16 @@
-import { db } from "$lib/server/database";
-import { redirect } from "@sveltejs/kit";
+import { db } from '$lib/server/database';
+import { redirect } from '@sveltejs/kit';
 
-export const load = async ({locals, params}) => {
-    if (!locals.user) {
-            redirect(302, '/');
-        }
+export const load = async ({ locals, params }) => {
+	if (!locals.user) {
+		redirect(302, '/');
+	}
 
-    const myApps = await db.app.findMany({
-        where:{
-            ownerId: locals.user.id
-        }
-    })
+	const myApps = await db.app.findMany({
+		where: {
+			ownerId: locals.user.id
+		}
+	});
 
-    return {myApps}
-    }
+	return { myApps };
+};

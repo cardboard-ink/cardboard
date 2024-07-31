@@ -16,6 +16,7 @@ To begin contributing, please follow these steps:
 8. Commit your changes with a descriptive commit message: git commit -m "Add feature: your feature name".
 9. Push your changes to your forked repository: git push origin feature/your-feature-name.
 10. Open a pull request from your forked repository to the main repository.
+
 ## Code Quality
 
 Maintaining code quality is crucial for our project's success. We expect all contributors, regardless of their experience level, to follow the established coding standards and specifications. Here are some guidelines to keep in mind:
@@ -26,6 +27,7 @@ Maintaining code quality is crucial for our project's success. We expect all con
 4. Follow the project's indentation and formatting conventions.
 5. Avoid code duplication and strive for reusability.
 6. Write unit tests whenever possible to ensure code correctness.
+
 ## Review Process
 
 Once you have submitted a pull request, the project maintainers will review your changes. They will provide feedback, suggestions, and guidance to help you improve your contribution. Please be patient during the review process, as it may take some time.

@@ -47,9 +47,9 @@ export const load = async ({ locals, params, url }) => {
 			redirect_uri = new URL(redirect_uri);
 			if (redirect_uri.origin !== app_redirect_uri.origin) {
 				error(
-                					400,
-                					`Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`
-                				);
+					400,
+					`Invalid redirect_uri, must be on the same domain as the app config redirect_uri! Contact app developer if you believe this is a mistake.`
+				);
 			}
 			redirect_uri = redirect_uri.toString();
 		} catch (e) {
@@ -151,7 +151,7 @@ export const actions = {
 			error(404, 'User not found');
 		}
 
-		if (user.role !== "ADMIN") {
+		if (user.role !== 'ADMIN') {
 			error(403, 'You must be an admin to toggle app verification.');
 		}
 
@@ -162,7 +162,6 @@ export const actions = {
 			data: {
 				isVerified: !appExists.isVerified
 			}
-		})
-
+		});
 	}
 };

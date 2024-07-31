@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Cardboard is currently an alpha and development is rapid and swift, you can say that only the most recent commit is the supported version. 
+Cardboard is currently an alpha and development is rapid and swift, you can say that only the most recent commit is the supported version.
 
 ## Reporting a Vulnerability
 

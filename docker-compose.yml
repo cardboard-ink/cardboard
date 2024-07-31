@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 
 services:
   cb-db:
@@ -13,7 +13,7 @@ services:
       - 5432:5432
   cb-app:
     container_name: cb-app
-    build: 
+    build:
       context: .
       dockerfile: app.dockerfile
     restart: always
@@ -26,4 +26,3 @@ services:
       - ./:/app
     environment:
       - DATABASE_URL=postgresql://postgres:password@cb-db:5432/postgres
-      
