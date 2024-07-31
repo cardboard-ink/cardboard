@@ -4,7 +4,7 @@ import { redirect } from "@sveltejs/kit";
 export const load = async ({ params, locals }) => {
   	// redirect user if logged in
 	if (!locals.user) {
-		throw redirect(302, '/')
+		redirect(302, '/');
 	}  
   const appId = params.id;
   const appName = await db.app.findUnique({
@@ -22,7 +22,7 @@ export const load = async ({ params, locals }) => {
   })
 
   if (!appName) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
   }
 
   const appManager = await db.userAppManager.findFirst({
@@ -36,7 +36,7 @@ export const load = async ({ params, locals }) => {
     })
 
     if (!appManager) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     }
 
     const appSessions = await db.authorizedAppSession.findMany({
@@ -60,7 +60,7 @@ export const actions = {
     const user = locals.user.id;
 
     if (!authAppId) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     }
 
     const confAuthAppOwner = await db.authorizedAppSession.findUnique({
@@ -75,15 +75,15 @@ export const actions = {
         }
       }
     }).catch(() => {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     })
 
     if (!confAuthAppOwner) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     }
 
     if (confAuthAppOwner.userAppManager.userId !== user) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     }
 
     await db.authorizedAppSession.delete({
@@ -105,7 +105,7 @@ export const actions = {
     })
     console.log(managerId)
     if (!managerId) {
-      throw redirect(302, '/settings/authorized-apps')
+      redirect(302, '/settings/authorized-apps');
     }
     if (managerId.authorizedSessions.length > 0) {
       await db.authorizedAppSession.deleteMany({
@@ -119,6 +119,6 @@ export const actions = {
         id: managerId.id,
       }
     })
-    throw redirect(302, '/settings/authorized-apps')
+    redirect(302, '/settings/authorized-apps');
   }
 }

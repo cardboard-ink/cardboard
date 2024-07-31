@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export const POST = async ({request}) => {
     const data = await request.formData().catch(() => {
-        throw error(400, `invalid format, needs to be multipart/form-data`)
+        error(400, `invalid format, needs to be multipart/form-data`);
     })
     const clientId = data.get('client_id')
     const clientSecret = data.get('client_secret')
@@ -19,7 +19,7 @@ export const POST = async ({request}) => {
         typeof clientSecret !== 'string'
         ) 
     {
-        throw error(400, 'invalid request')
+        error(400, 'invalid request');
     }
 
     const app = await db.app.findUnique({
@@ -32,13 +32,13 @@ export const POST = async ({request}) => {
         }
     })
     if (!app) {
-        throw error(400, 'invalid app')
+        error(400, 'invalid app');
     }
     if(!app.secret) {
-        throw error(400, 'invalid client')
+        error(400, 'invalid client');
     }
     if (!bcrypt.compare(clientSecret, app.secret)) {
-        throw error(400, 'invalid client')
+        error(400, 'invalid client');
     }
     const pre = await db.authorizedAppSession.findUnique({
         where: {
@@ -58,10 +58,10 @@ export const POST = async ({request}) => {
         }
     })
     if (!pre) {
-        throw error(400, 'invalid token')
+        error(400, 'invalid token');
     }
     if (app.id !== pre.userAppManager.app.id) {
-        throw error(400, 'invalid token')
+        error(400, 'invalid token');
     }
     await db.authorizedAppSession.delete({
         where: {

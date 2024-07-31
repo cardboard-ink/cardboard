@@ -3,10 +3,6 @@
 	import { beforeNavigate } from '$app/navigation';
     import { updated } from '$app/stores';
 
-	import { setupViewTransition } from 'sveltekit-view-transition';
-
-	setupViewTransition();
-
 	import { onNavigate } from '$app/navigation';
 
 onNavigate((navigation) => {
@@ -20,6 +16,7 @@ onNavigate((navigation) => {
 	});
 });
 
+	
     beforeNavigate(({ willUnload, to }) => {
         if ($updated && !willUnload && to?.url) {
             location.href = to.url.href;

@@ -5,7 +5,7 @@ import { db } from "$lib/server/database";
 
 export const PATCH = async ({locals, params}) => {
     if (!locals.user) {
-        throw redirect(302, '/login')
+        redirect(302, '/login');
     }
 
     const appId = params.id;
@@ -18,10 +18,10 @@ export const PATCH = async ({locals, params}) => {
         }
     })
     if (!app) {
-        throw redirect(302, '/settings/your-apps')
+        redirect(302, '/settings/your-apps');
     }
     if (app.ownerId !== locals.user.id) {
-        throw redirect(302, '/settings/your-apps')
+        redirect(302, '/settings/your-apps');
     }
 
     await db.app.update({

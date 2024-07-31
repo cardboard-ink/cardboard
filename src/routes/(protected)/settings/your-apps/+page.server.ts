@@ -3,7 +3,7 @@ import { redirect } from "@sveltejs/kit";
 
 export const load = async ({locals, params}) => {
     if (!locals.user) {
-            throw redirect(302, '/')
+            redirect(302, '/');
         }
 
     const myApps = await db.app.findMany({

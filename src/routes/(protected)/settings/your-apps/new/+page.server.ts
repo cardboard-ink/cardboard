@@ -12,7 +12,7 @@ const newAppSchema = z.object({
 
 export const load = async ({locals}) => {
   if (!locals.user) {
-		throw redirect(302, '/')
+		redirect(302, '/');
 	}
   const form = await superValidate(newAppSchema)
   return {form}
@@ -47,6 +47,6 @@ export const actions = {
       }
     })
 
-    throw redirect(302, `/settings/your-apps/${app.id}`)
+    redirect(302, `/settings/your-apps/${app.id}`);
   },
 }

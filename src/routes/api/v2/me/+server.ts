@@ -6,10 +6,10 @@ export const GET = async ({request}) => {
     const headers = request.headers
     let authToken = headers.get('authorization')
     if (!authToken || typeof authToken !== 'string') {
-        throw error(400, 'invalid header')
+        error(400, 'invalid header');
     }
     if (!authToken.startsWith('Bearer ')) {
-        throw error(400, 'invalid header format')
+        error(400, 'invalid header format');
     }
     authToken = authToken.slice(7)
     const verify = await db.authorizedAppSession.findUnique({
@@ -30,11 +30,11 @@ export const GET = async ({request}) => {
         }
     })
     if (!verify) {
-        throw error(401, 'invalid token')
+        error(401, 'invalid token');
     }
     const userId = verify.userAppManager.user.id
     const data = await fetch(`https://www.guilded.gg/api/users/${userId}/profilev3`, {method: 'GET'}).catch((e) => {
-        throw error(500, `internal server error: ${e}`)
+        error(500, `internal server error: ${e}`);
     })
     const userData = await data.json()
     const resData = {

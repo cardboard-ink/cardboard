@@ -5,7 +5,7 @@ import { randomUUID } from "crypto"
 export const POST = async ({request}) => {
     console.log(request)
     const data = await request.formData().catch(() => {
-        throw error(400, `invalid format, needs to be multipart/form-data`)
+        error(400, `invalid format, needs to be multipart/form-data`);
     })
     const grantType = data.get('grant_type')
     const authToken = data.get('code')
@@ -13,12 +13,12 @@ export const POST = async ({request}) => {
 
     if (!grantType || typeof grantType !== 'string') 
     {
-        throw error(400, 'invalid request')
+        error(400, 'invalid request');
     }
 
     if (grantType === 'authorization_code') {
         if (!authToken || typeof authToken !== 'string') {
-            throw error(400, 'invalid request')
+            error(400, 'invalid request');
         }
         const pre = await db.authorizedAppSession.findUnique({
             where: {
@@ -38,7 +38,7 @@ export const POST = async ({request}) => {
             }
         })
         if (!pre) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         const auth = await db.authorizedAppSession.update({
             where: {
@@ -64,7 +64,7 @@ export const POST = async ({request}) => {
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     } else if (grantType === 'refresh_token') {
         if (!refreshToken || typeof refreshToken !== 'string') {
-            throw error(400, 'invalid request')
+            error(400, 'invalid request');
         }
         const pre = await db.authorizedAppSession.findUnique({
             where: {
@@ -84,7 +84,7 @@ export const POST = async ({request}) => {
             }
         })
         if (!pre) {
-            throw error(400, 'invalid code, has it expired?')
+            error(400, 'invalid code, has it expired?');
         }
         const auth = await db.authorizedAppSession.update({
             where: {
@@ -109,7 +109,7 @@ export const POST = async ({request}) => {
         }
         return new Response(JSON.stringify(data), {headers: {'Content-Type': 'application/json'}})
     }
-    throw error(400, 'unsupported grant_type')
+    error(400, 'unsupported grant_type');
 }
 
 // import api from "$api";

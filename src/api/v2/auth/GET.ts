@@ -43,8 +43,8 @@ export default async function (
     throw Error[404]
   }
 
-	throw redirect(
-		302,
-		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
-	);
+	redirect(
+    		302,
+    		`/a/${app.vanityCode}?redirect_uri=${redirect_uri}&scope=${scope}&state=${state}&response_type=${response_type}`
+    	);
 }
