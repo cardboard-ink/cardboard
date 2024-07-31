@@ -1,6 +1,7 @@
 # 📄 [Cardboard.ink](https://Cardboard.ink)
 
 <!-- Stats -->
+
 ![GitHub issues](https://img.shields.io/github/issues-raw/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) <!-- --> ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) <!-- --> ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) <!-- --> ![GitHub contributors](https://img.shields.io/github/contributors/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) <!-- --> ![GitHub last commit](https://img.shields.io/github/last-commit/sohamjaiswal/cardboard?color=yellow&style=for-the-badge) <!-- --> ![GitHub top language](https://img.shields.io/github/languages/top/sohamjaiswal/cardboard?color=yellow&style=for-the-badge)
 
 ## 🐛 How to contribute.

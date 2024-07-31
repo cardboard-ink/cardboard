@@ -1,6 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-node';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import * as child_process from 'node:child_process';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -22,18 +22,18 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
-			precompress: true,
+			precompress: true
 		}),
 		csrf: {
-			checkOrigin: false,
+			checkOrigin: false
 		},
 		// alias: {
 		// 	$api: "src/api",
 		// },
 		version: {
-            name: child_process.execSync('git rev-parse HEAD').toString().trim(),
+			name: child_process.execSync('git rev-parse HEAD').toString().trim(),
 			pollInterval: 10000
-		},
+		}
 	}
 };
 export default config;
