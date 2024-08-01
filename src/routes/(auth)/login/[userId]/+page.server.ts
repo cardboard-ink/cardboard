@@ -39,7 +39,7 @@ export const actions = {
 		if (createdBy !== userId) {
 			error(
 				403,
-				'Please make sure you create the post with the account you are trying to verify! For security purposes, this incident has been reported to the account owner.'
+				'Please make sure you create the post with the account you are trying to verify!'
 			);
 		}
 		db.guildedVerificationSessions.deleteMany({

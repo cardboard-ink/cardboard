@@ -35,7 +35,7 @@
 			users = users.map((user: User) => {
 				return {
 					...user,
-					profilePicture: guildedMediaLink(user.profilePicture ?? '/poop.png')
+					profilePicture: "https://photobox.cardboard.ink/user/avatar/" + user.id
 				};
 			});
 			if (userSearch == '') {
@@ -56,28 +56,18 @@
 	});
 </script>
 
-<main class="px-8 flex flex-col gap-4">
+<main class="px-8 flex flex-col items-center text-center">
 	{#if message}
 		<p class="text-error-500">
 			{message}
 		</p>
 	{/if}
-	<h2 class="h1">Link Guilded</h2>
+	<h2 class="h1 text-4xl font-bold ">Link Guilded</h2>
 	<p class="p">
-		We need to <strong>verify</strong> your identity! Please complete following steps to confirm your
-		identity:
+		In order to <strong>verify</strong> your identity, please provide your Guilded username or ID.
 	</p>
-	<ol class="list-decimal">
-		<li>
-			Make sure you are signed in to <strong>Guilded</strong> with the <strong>Guilded</strong> account
-			you choose on this page.
-		</li>
-		<li>
-			Why do we need you to do this? <a href="/info" target="_blank">Read Here</a>.
-		</li>
-	</ol>
-	<div class="md:w-full lg:w-1/2">
-		<label class="label snap-center" for="Guilded Username">Guilded Username</label>
+	<div class="w-full mt-[3rem] md:w-1/2">
+		<label class="label" for="Guilded Username">Guilded Username</label>
 		<input
 			class="input"
 			id="Guilded Username"
@@ -95,19 +85,20 @@
 		/>
 	</div>
 
-	<div class="max-h-80 overflow-y-auto w-full lg:w-1/2 overflow-x-visible">
+	<div class="max-h-80 overflow-y-auto w-full lg:w-1/2 overflow-x-hidden">
 		<dl class="list-dl mt-5">
 			{#each users as user}
 				<form
 					action={`?/linkGuilded${redirectTo ? '&redirectTo=' + redirectTo : ''}`}
 					method="POST"
+					class="w-full"
 				>
 					<label for="guildedId" />
 					<input type="text" class="hidden" name="guildedId" value={user.id} />
-					<button class="btn w-full flex flex-row card card-hover variant-glass" type="submit">
+					<button class="btn w-full flex flex-row card variant-glass overflow-hidden" type="submit">
 						<Avatar
 							src={guildedMediaLink(user.profilePicture ?? '/poop.png')}
-							fallback={'/poop.png'}
+							initials="?"
 						/>
 						<span class="flex-auto">
 							<dt>{user.name}</dt>
@@ -120,7 +111,6 @@
 								viewBox="0 0 512 512"
 								class="fill-token"
 							>
-								<!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
 								<path
 									d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"
 								/>
@@ -132,7 +122,8 @@
 		</dl>
 	</div>
 
-	<h3 class="h3">Or</h3>
+	<div class="divider font-bold text-2xl my-8 w-full lg:w-1/2">OR</div>
+
 	<form
 		action={`?/linkGuilded${redirectTo ? '&redirectTo=' + redirectTo : ''}`}
 		method="post"
@@ -140,8 +131,10 @@
 	>
 		<label for="guildedId">
 			Enter your Guilded ID directly
-			<input type="text" name="guildedId" class="input" placeholder="EdV9p2a4" />
+			<input type="text" name="guildedId" class="input" placeholder="Ann6LewA" />
 		</label>
-		<button class="btn variant-ghost-surface" type="submit">Link Guilded</button>
+		<button class="btn variant-ghost-primary bg-primary-500 w-full" type="submit"
+			>Link Guilded</button
+		>
 	</form>
 </main>

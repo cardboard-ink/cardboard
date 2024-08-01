@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	// Greeter function
 	function greeting() {
@@ -15,50 +16,35 @@
 	}
 </script>
 
-<main class="px-4">
-	<h2 class="h2">Home</h2>
+<main class="flex flex-col items-left justify-left ml-5 mb-4 min-h-[80vh] text-left px-4">
 	{#if $page.data.user}
-		<p class="p">{greeting()}, {$page.data.user.displayName}! 👋</p>
+		<p class="h3 font-bold ">{greeting()}, {$page.data.user.displayName}! 👋</p>
+		<p class="font-custom font-medium mt-2">
+			Welcome to the dashboard for CardBoard, the all-in-one Guilded authentication service. <br /> Get started by linking
+			creating a <a class="anchor" href="/settings/your-apps">app</a>
+		</p>
 	{:else}
-		<h2 class="p">{greeting()}, visitor! 👋</h2>
-		<p>
-			Welcome to CardBoard, the all in one Guilded authentication serivce. Get started by Linking
+		<h2 class="h2 font-semibold">{greeting()}, visitor! 👋</h2>
+		<p class="font-custom font-medium mt-2">
+			Welcome to CardBoard, the all-in-one Guilded authentication service. <br /> Get started by linking
 			your profile!
 		</p>
-		<a href="/login"
-			><button class="rounded bg-primary-500 p-3 mr-2 mt-2">Link Guilded. 🔑</button></a
-		>
-		<a
-			href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610"
-			target="_blank"
-		>
-			<button class="rounded bg-primary-500 p-3 mt-2">Learn the ropes of CardBoard. ✨</button>
-		</a>
-		<a href="/info" target="_blank">
-			<button class="rounded bg-primary-500 p-3"> ℹ️ Info </button>
-		</a>
+		<div class="flex w-[13rem] flex-col gap-4 mt-4 w-full">
+			<a href="/login" class="w-full">
+				<button class="btn w-[15rem] variant-ghost-primary p-3 w-full">Link Guilded 🔑</button>
+			</a>
+		</div>
 	{/if}
-	<div class="flex flex-col gap-4 mb-4 md-4 relative">
+	<div class="mb-[20rem] flex flex-row gap-2 mt-4">
 		{#if $page.data.user}
-			<br />
 			<a
-				href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610"
+				href="https://www.guilded.gg/CardBoard?i=ArB9z1qA"
 				target="_blank"
 			>
-				<button class="rounded bg-primary-500 p-3">Learn the ropes of CardBoard. ✨</button>
+				<button class="w-[12rem] rounded-full variant-ghost-primary bg-primary-500 p-3">Documentation</button>
 			</a>
-			<br />
-			<a
-				href="https://www.guilded.gg/CardBoard/groups/3y446Rmz/channels/4539a4f9-fb51-4a23-b014-0fcaeaf062d3/docs/374610"
-				target="_blank"
-			>
-				<button class="rounded bg-primary-500 p-3"
-					>Get started with developing on CardBoard. 💻</button
-				>
-			</a>
-			<a href="/info" target="_blank">
-				<button class="rounded bg-primary-500 p-3"> ℹ️ Info </button>
-			</a>
+			
+			<button class="w-[12rem] variant-ghost-primary rounded-full bg-primary-500 p-3" on:click={() => goto('/info')}>FAQ</button>
 		{/if}
 	</div>
 </main>
