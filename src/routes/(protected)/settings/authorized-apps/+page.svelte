@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h2 class="h2 inter font-bold">Authorized Apps</h2>
+	<h2 class="h2 font-bold">Authorized Apps</h2>
 	<div class="flex justify-evenly flex-wrap gap-1">
 		{#each appManagers as appManager}
 			<a
@@ -26,13 +26,13 @@
 						<div class="grid justify-center">
 							<Avatar src={appManager.app.icon} width="w-[100px]" />
 						</div>
-						<h2 class="h2 inter font-bold flex items-center">
+						<h2 class="h2 font-bold flex items-center">
 							{appManager.app.name}
 						</h2>
 					</div>
 					<div class="-translate-y-20">
-						<h4 class="h4 inter font-bold">Description</h4>
-						<p class="p inter">
+						<h4 class="h4 font-bold">Description</h4>
+						<p class="p">
 							{appManager.app.description}
 						</p>
 					</div>

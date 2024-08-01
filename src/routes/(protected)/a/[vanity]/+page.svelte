@@ -9,7 +9,7 @@
 	const { app, redirect_uri, scope, state, response_type } = data;
 </script>
 
-<h2 class="h2 inter font-bold text-left">Authorizing</h2>
+<h2 class="h2 font-bold text-left">Authorizing</h2>
 
 <div class="flex justify-center mt-4">
 	<div class="card card-hover container bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center">
@@ -46,7 +46,7 @@
 			</div>
 			<div class="-translate-y-20 min-h-[150px] overflow-y-auto text-left">
 				<div class="card p-4 mt-5 variant-ghost-surface">
-					<h3 class="h3 font-bold inter mb-2">Authentication</h3>
+					<h3 class="h3 font-bold mb-2">Authentication</h3>
 					<p class="mb-2">By authenticating, you allow <strong> {app.name} </strong> to access the following information:</p>
 					<ul class="list-disc list-inside">
 						<li>Access to your username and avatar.</li>

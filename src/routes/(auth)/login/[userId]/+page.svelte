@@ -25,12 +25,12 @@
 </script>
 
 <main class="px-8 flex flex-col items-left w-full gap-4 text-centlefter">
-	<h1 class="h1 text-3xl font-bold inter">Is this <i>really</i> you?</h1>
+	<h1 class="h1 text-3xl font-bold ">Is this <i>really</i> you?</h1>
 	<p class="p">Before you can access CardBoard we need to verify that you own this account, follow the steps below to verify.</p>
 
 	<ol class="text-left">
 		{#if currentStep === 1}
-			<p class="h1 inter text-2xl font-bold">Step 1:</p>
+			<p class="h1 text-2xl font-bold">Step 1:</p>
 			<li>
 				Go to <a href={`https://www.guilded.gg/profile/${data.userId}`} target="_blank" class="font-bold"
 					>your profile</a
@@ -44,7 +44,7 @@
 			<button class="btn variant-ghost-primary mt-5" on:click={showNextStep}>Next</button>
 		{:else if currentStep === 2}
 			<li>
-				<p class="h1 inter text-2xl font-bold">Step 2:</p>
+				<p class="h1 text-2xl font-bold">Step 2:</p>
 				Once in the post creator set your post's title to the code below, then click post.
 				<CodeBlock
 					language="cardboard"

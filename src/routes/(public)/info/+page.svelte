@@ -2,7 +2,7 @@
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 </script>
 
-<h1 class="h1 inter font-bold">Cardboard FAQ</h1>
+<h1 class="h1 font-bold">Cardboard FAQ</h1>
 
 <div class="flex mt-[3rem] w-[20rem] md:w-[50rem] flex-col gap-8">
   <div class="block">

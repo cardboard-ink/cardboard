@@ -91,7 +91,7 @@
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<h1
-					class="h3 inter font-custom font-semibold a cursor-pointer flex gap-1"
+					class="h3 inter font-semibold a cursor-pointer flex gap-1"
 					on:click={() => goto('/')}
 				>
 					📜

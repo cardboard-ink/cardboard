@@ -4,7 +4,7 @@
 	const sessions = data.activeSessions;
 </script>
 
-<h2 class="h2 inter font-bold">Manage Your Cardboard Sessions</h2>
+<h2 class="h2  font-bold">Manage Your Cardboard Sessions</h2>
 
 {#if sessions.length === 0}
 	<p class="p">You have no active sessions.</p>

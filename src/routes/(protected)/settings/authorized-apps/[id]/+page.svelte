@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex justify-between items-center">
-	<h2 class="h2 font-bold inter">
+	<h2 class="h2 font-bold ">
 		Manage Your Sessions
 	</h2>
 	<form action={`?/revokeAuth`} method="post">
@@ -23,7 +23,7 @@
 </div>
 
 {#if sessions.length === 0}
-	<p class="p inter">
+	<p class="p ">
 		You have no active sessions of {appName?.name}.
 	</p>
 {:else}

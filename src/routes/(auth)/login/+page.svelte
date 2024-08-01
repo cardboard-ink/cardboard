@@ -62,7 +62,7 @@
 			{message}
 		</p>
 	{/if}
-	<h2 class="h1 text-4xl font-bold inter">Link Guilded</h2>
+	<h2 class="h1 text-4xl font-bold ">Link Guilded</h2>
 	<p class="p">
 		In order to <strong>verify</strong> your identity, please provide your Guilded username or ID.
 	</p>

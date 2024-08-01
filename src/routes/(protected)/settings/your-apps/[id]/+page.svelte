@@ -40,10 +40,10 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h2 class="h2 inter font-bold">
+	<h2 class="h2  font-bold">
 		Editing ➡️ {app.name}
 	</h2>
-	<h6 class="h6 inter">Note:</h6>
+	<h6 class="h6 ">Note:</h6>
 	<p>
 		Carboard currently only supports up to 512KBs of request body size per app update, this should
 		not harm much functionality, however please use compressed images and try splitting the update

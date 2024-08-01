@@ -18,13 +18,13 @@
 
 <main class="flex flex-col items-left justify-left ml-5 mb-4 min-h-[80vh] text-left px-4">
 	{#if $page.data.user}
-		<p class="h3 font-bold inter">{greeting()}, {$page.data.user.displayName}! 👋</p>
+		<p class="h3 font-bold ">{greeting()}, {$page.data.user.displayName}! 👋</p>
 		<p class="font-custom font-medium mt-2">
 			Welcome to the dashboard for CardBoard, the all-in-one Guilded authentication service. <br /> Get started by linking
 			creating a <a class="anchor" href="/settings/your-apps">app</a>
 		</p>
 	{:else}
-		<h2 class="h2 inter font-semibold">{greeting()}, visitor! 👋</h2>
+		<h2 class="h2 font-semibold">{greeting()}, visitor! 👋</h2>
 		<p class="font-custom font-medium mt-2">
 			Welcome to CardBoard, the all-in-one Guilded authentication service. <br /> Get started by linking
 			your profile!
