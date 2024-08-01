@@ -91,7 +91,7 @@
 			<nav class="nav p-8">
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<h1
-					class="h3 inter font-semibold a cursor-pointer flex gap-1"
+					class="h3 font-semibold a cursor-pointer flex gap-1"
 					on:click={() => goto('/')}
 				>
 					📜
@@ -128,7 +128,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.user}
 			<ListBox class="btn pr-4 justify-left flex-col gap-2 hidden lg:flex">
-				<h2 class="h3 inter font-bold">Browse</h2>
+				<h2 class="h3 font-bold">Browse</h2>
 				<ListBoxItem
 					class={isActive('/') ? 'selected' : ''}
 					name="route"
