@@ -7,7 +7,7 @@ export const myCustomTheme: CustomThemeConfig = {
         // =~= Theme Properties =~=
         '--theme-font-family-base':
 			"Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,\n\t\t'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
-		'--theme-font-family-heading': 'system-ui',
+		'--theme-font-family-heading': 'Inter, system-ui',
 		'--theme-font-color-base': 'var(--color-surface-900)',
 		'--theme-font-color-dark': 'var(--color-surface-50)',
 		'--theme-rounded-base': '24px',
