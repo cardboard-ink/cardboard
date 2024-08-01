@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h2 class="h2">Authorized Apps</h2>
+	<h2 class="h2 inter font-bold">Authorized Apps</h2>
 	<div class="flex justify-evenly flex-wrap gap-1">
 		{#each appManagers as appManager}
 			<a

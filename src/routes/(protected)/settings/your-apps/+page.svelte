@@ -9,7 +9,7 @@
 
 <div class="flex s" />
 <div class="flex w-full gap-4 items-center">
-	<h2 class="h2">Your Apps</h2>
+	<h2 class="h2 inter font-bold">Your Apps</h2>
 	<a class="btn-icon w-16" href="/settings/your-apps/new">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="32px" class="fill-token">
 			<path
@@ -36,13 +36,13 @@
 					class="flex justify-center flex-col lg:flex-row lg:justify-start gap-4 w-full lg:w-max items-center"
 				>
 					<Avatar src={app.icon} />
-					<h3 class="h3">
+					<h3 class="h3 inter">
 						{app.name}
 					</h3>
 				</header>
 				<main class="flex flex-col lg:flex-row items-center justify-end w-full gap-4 pl-4 pr-4">
 					<div class="flex flex-col lg:flex-row py-2 gap-4 items-center">
-						<h5 class="h5">
+						<h5 class="h5 inter">
 							{app.id}
 						</h5>
 						<button
@@ -65,7 +65,7 @@
 				<footer class="flex align-middle w-full lg:w-fit justify-center py-4">
 					<div class="flex gap-4">
 						<a
-							class="btn variant-ghost-secondary rounded-md py-0"
+							class="inter btn variant-ghost-secondary rounded-md py-0"
 							href={`/settings/your-apps/${app.id}`}
 						>
 							Edit
@@ -90,7 +90,7 @@
 </div>
 {#if myApps.length === 0}
 	<div class="card p-4">
-		<h3 class="h3">You don't have any apps yet.</h3>
+		<h3 class="h3 inter">You don't have any apps yet.</h3>
 		<p>Create one by clicking the + icon above.</p>
 	</div>
 {/if}

@@ -2,7 +2,6 @@
 	// Handling Live Updates
 	import { beforeNavigate } from '$app/navigation';
 	import { updated } from '$app/stores';
-
 	import { onNavigate } from '$app/navigation';
 
 	onNavigate((navigation) => {
@@ -59,23 +58,25 @@
 			$storeTheme = theme;
 		}
 	};
-	const themes = [
-		{ type: 'skeleton', name: 'Skeleton', icon: '💀' },
-		{ type: 'wintry', name: 'Wintry', icon: '🌨️' },
-		{ type: 'modern', name: 'Modern', icon: '🤖' },
-		{ type: 'rocket', name: 'Rocket', icon: '🚀' },
-		{ type: 'seafoam', name: 'Seafoam', icon: '🧜‍♀️' },
-		{ type: 'vintage', name: 'Vintage', icon: '📺' },
-		{ type: 'sahara', name: 'Sahara', icon: '🏜️' },
-		{ type: 'hamlindigo', name: 'Hamlindigo', icon: '👔' },
-		{ type: 'gold-nouveau', name: 'Gold Nouveau', icon: '💫' },
-		{ type: 'crimson', name: 'Crimson', icon: '⭕' }
-		// { type: 'seasonal', name: 'Seasonal', icon: '🎆' }
-		// { type: 'test', name: 'Test', icon: '🚧' },
-	];
-	let sidebar: string = 'sidebar';
 
-	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
+	// Remove the sidebar variable
+	// let sidebar: string = 'sidebar';
+
+	// Add a function to check if the route is active
+	$: isActive = (href: string) => href === $page.url.pathname;
+
+	function handleFocus(node) {
+		function onFocus(event) {
+			event.preventDefault();
+			node.blur();
+		}
+		node.addEventListener('focus', onFocus);
+		return {
+			destroy() {
+				node.removeEventListener('focus', onFocus);
+			}
+		};
+	}
 </script>
 
 <svelte:head>
@@ -97,109 +98,27 @@
 					<span class="hidden lg:block"> CardBoard </span>
 				</h1>
 				<div class="rhs">
-					{#if !$page.data.user}
-						<button
-							class="btn variant-ghost-primary"
-							use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}
-						>
-							<Icon icon="fa6-solid:palette" class="text-lg" />
-							<span class="hidden md:inline-block">Theme</span>
-							<Icon icon="fa-solid:caret-down" class="opacity-50" />
-						</button>
-						<!-- popup -->
-						<div class="card p-4 w-60 shadow-xl" data-popup="theme">
-							<div class="space-y-4">
-								<section class="flex justify-between items-center">
-									<h6 class="h6">Mode</h6>
-									<LightSwitch />
-								</section>
-							</div>
-						</div>
-						<a class="btn variant-ghost-primary" href="/login">Link Guilded</a>
-					{/if}
-
 					{#if $page.data.user}
-						<a href="/profile">{$page.data.user.displayName}</a>
+						<a href="/profile" class="user-display-name">{$page.data.user.displayName}</a>
 						<div class="settingsContainer">
 							<button
+								class="avatar-container"
 								on:click={() => toggleModalVisibility()}
 								on:mouseenter={() => (modalVisible = true)}
 								on:mouseleave={() => (modalVisible = false)}
 							>
 								<Avatar src={guildedMediaLink($page.data.user.avatar)} size={50} />
 							</button>
-							<div
-								class="modal card bg-inital z-10"
-								class:visible={modalVisible}
-								on:mouseenter={() => (modalVisible = true)}
-								on:mouseleave={() => (modalVisible = false)}
-							>
-								<button
-									class="btn hover:variant-soft-primary"
-									use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}
-								>
-									<Icon icon="fa6-solid:palette" class="text-lg" />
-									<span class="hidden md:inline-block">Theme</span>
-									<Icon icon="fa-solid:caret-down" class="opacity-50" />
+						</div>
+						<div class="nav-actions">
+							<form class="flex-col flex gap-4" action="/logout" method="POST">
+								<button class="btn p-2 justify-center variant-ghost-surface" type="submit">
+									<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+									  </svg>									  
 								</button>
-								<!-- popup -->
-								<div class="card p-4 w-60 shadow-xl" data-popup="theme">
-									<div class="space-y-4">
-										<section class="flex justify-between items-center">
-											<h6 class="h6">Mode</h6>
-											<LightSwitch />
-										</section>
-										<hr />
-										<nav class="list-nav p-4 -m-4 max-h-64 lg:max-h-[500px] overflow-y-auto">
-											<form method="post" action="/?/setTheme" use:enhance={setTheme}>
-												<ul>
-													<!-- , badge -->
-													{#each themes as { icon, name, type }}
-														<li>
-															<button
-																class="option w-full h-full"
-																type="submit"
-																name="theme"
-																value={type}
-																class:bg-primary-active-token={$storeTheme === type}
-															>
-																<span>{icon}</span>
-																<span class="flex-auto text-left">{name}</span>
-																<!-- {#if badge}<span class="badge variant-filled-secondary">{badge}</span>{/if} -->
-															</button>
-														</li>
-													{/each}
-												</ul>
-											</form>
-										</nav>
-									</div>
-								</div>
-								<div class="lg:hidden">
-									<nav class="list-nav flex flex-col gap-2">
-										<a href="/" class={classesActive('/')}>🏠 Home</a>
-										<a href="/settings/sessions" class={classesActive('/settings/sessions')}
-											>🏛️ Sessions</a
-										>
-										<a href="/settings/your-apps" class={classesActive('/settings/your-apps')}
-											>💻 Your Apps</a
-										>
-										<a
-											href="/settings/authorized-apps"
-											class={classesActive('/settings/authorized-apps')}>🔑 Authorized Apps</a
-										>
-										<a
-											href="/info"
-											target="_blank"
-											class={classesActive('/settings/authorized-apps')}>ℹ️ Info</a
-										>
-									</nav>
-								</div>
-								<form class="flex-col flex gap-4" action="/logout" method="POST">
-									<button class="btn p-2 justify-center variant-ghost-surface" type="submit"
-										>Log out</button
-									>
-								</form>
-							</div>
+							</form>
+							<LightSwitch />
 						</div>
 					{/if}
 				</div>
@@ -208,43 +127,51 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		{#if $page.data.user}
-			<ListBox class="btn pr-4 pl-8 flex-col gap-2 hidden lg:flex">
-				<h2 class="h2">Browse</h2>
+			<ListBox class="btn pr-4 justify-left flex-col gap-2 hidden lg:flex">
+				<h2 class="h3 inter font-bold">Browse</h2>
 				<ListBoxItem
-					class={classesActive('/')}
-					bind:group={sidebar}
+					class={isActive('/') ? 'selected' : ''}
 					name="route"
 					value="/"
-					on:click={() => goto('/')}
+					on:click={(e) => {
+						e.preventDefault();
+						goto('/');
+					}}
 				>
-					🏠 Home
+					<span use:handleFocus>🏠 Home</span>
 				</ListBoxItem>
 				<ListBoxItem
-					class={classesActive('/settings/sessions')}
-					bind:group={sidebar}
+					class={isActive('/settings/sessions') ? 'selected' : ''}
 					name="route"
 					value="/settings/sessions"
-					on:click={() => goto('/settings/sessions')}
+					on:click={(e) => {
+						e.preventDefault();
+						goto('/settings/sessions');
+					}}
 				>
-					🏛️ Sessions
+					<span use:handleFocus>🏛️ Sessions</span>
 				</ListBoxItem>
 				<ListBoxItem
-					class={classesActive('/settings/your-apps')}
-					bind:group={sidebar}
+					class={isActive('/settings/your-apps') ? 'selected' : ''}
 					name="route"
 					value="/settings/your-apps"
-					on:click={() => goto('/settings/your-apps')}
+					on:click={(e) => {
+						e.preventDefault();
+						goto('/settings/your-apps');
+					}}
 				>
-					💻 Your Apps
+					<span use:handleFocus>💻 Your Apps</span>
 				</ListBoxItem>
 				<ListBoxItem
-					class={classesActive('/settings/authorized-apps')}
-					bind:group={sidebar}
+					class={isActive('/settings/authorized-apps') ? 'selected' : ''}
 					name="route"
 					value="/settings/authorized-apps"
-					on:click={() => goto('/settings/authorized-apps')}
+					on:click={(e) => {
+						e.preventDefault();
+						goto('/settings/authorized-apps');
+					}}
 				>
-					🔑 Authorized Apps
+					<span use:handleFocus>👍 Verified Apps</span>
 				</ListBoxItem>
 			</ListBox>
 		{/if}
@@ -300,5 +227,37 @@
 				}
 			}
 		}
+		.nav-actions {
+			display: flex;
+			gap: 16px;
+			align-items: center;
+		}
+	}
+	/* Hide ListBox, display name, and avatar on mobile */
+	@media (max-width: 1024px) {
+		:global(.list-nav) {
+			display: none;
+		}
+		.user-display-name {
+			display: none;
+		}
+		.avatar-container {
+			display: none;
+		}
+	}
+
+	:global(.listbox-item) {
+		transition: none !important;
+	}
+
+	:global(.listbox-item:focus),
+	:global(.listbox-item:active) {
+		background-color: inherit !important;
+		color: inherit !important;
+	}
+
+	:global(.listbox-item.selected) {
+		background-color: var(--color-primary-500);
+		color: var(--color-surface-50);
 	}
 </style>
