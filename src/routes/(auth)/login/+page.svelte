@@ -35,7 +35,7 @@
 			users = users.map((user: User) => {
 				return {
 					...user,
-					profilePicture: guildedMediaLink(user.profilePicture ?? '/poop.png')
+					profilePicture: "https://photobox.cardboard.ink/user/avatar/" + user.id
 				};
 			});
 			if (userSearch == '') {
@@ -64,7 +64,7 @@
 	{/if}
 	<h2 class="h1 text-4xl font-bold inter">Link Guilded</h2>
 	<p class="p">
-		in order to <strong>verify</strong> your identity, Please input your Username or ID below.
+		In order to <strong>verify</strong> your identity, please provide your Guilded username or ID.
 	</p>
 	<div class="w-full mt-[3rem] md:w-1/2">
 		<label class="label" for="Guilded Username">Guilded Username</label>
@@ -98,7 +98,7 @@
 					<button class="btn w-full flex flex-row card variant-glass overflow-hidden" type="submit">
 						<Avatar
 							src={guildedMediaLink(user.profilePicture ?? '/poop.png')}
-							fallback={'/poop.png'}
+							initials="?"
 						/>
 						<span class="flex-auto">
 							<dt>{user.name}</dt>
@@ -131,7 +131,7 @@
 	>
 		<label for="guildedId">
 			Enter your Guilded ID directly
-			<input type="text" name="guildedId" class="input" placeholder="EdV9p2a4" />
+			<input type="text" name="guildedId" class="input" placeholder="Ann6LewA" />
 		</label>
 		<button class="btn variant-ghost-primary bg-primary-500 w-full" type="submit"
 			>Link Guilded</button
