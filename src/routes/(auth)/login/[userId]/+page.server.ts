@@ -34,8 +34,11 @@ export const actions = {
 			method: 'GET'
 		});
 		const data = await posts.json();
+		console.log(data);
 		const firstPostTitle = data[0].title;
+		console.log(firstPostTitle);
 		const createdBy = data[0].createdBy;
+		console.log(createdBy);
 		if (createdBy !== userId) {
 			error(
 				403,
