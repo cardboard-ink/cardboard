@@ -30,15 +30,39 @@ export const load = async ({ params }) => {
 export const actions = {
 	check: async ({ cookies, params, url }) => {
 		const userId = params.userId;
-		const posts = await fetch(`https://www.guilded.gg/api/users/${userId}/posts?maxPosts=10`, {
-			method: 'GET'
+		const posts =
+			(await fetch(`https://www.guilded.gg/api/users/${userId}/posts?maxPosts=10`, {
+				method: 'GET'
+			})) || null;
+		if (!posts) {
+			error(
+				400,
+				'Could not find your Guilded Posts. Have you posted on your guilded profile page?'
+			);
+		}
+		const data = await posts.json().catch((e) => {
+			error(
+				400,
+				`Your posts couldnt be converted to a readable format, this is a guilded error, pls try later:\n${e}`
+			);
 		});
-		const data = await posts.json();
-		console.log(data);
+		if (!data) {
+			error(
+				400,
+				'Could not get data of your Guilded Posts. Are your recent posts using any sort of bugs? Please delete them if they are.'
+			);
+		}
+		if (!data[0].title) {
+			error(
+				400,
+				'Your most recent post does not have the aforementioned title, please ensure it does.'
+			);
+		}
 		const firstPostTitle = data[0].title;
-		console.log(firstPostTitle);
+		if (!data[0].createdBy) {
+			error(400, 'Your most recent post has not been created by you, please ensure it has been.');
+		}
 		const createdBy = data[0].createdBy;
-		console.log(createdBy);
 		if (createdBy !== userId) {
 			error(
 				403,
