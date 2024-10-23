@@ -7,8 +7,8 @@
 </script>
 
 <div class="flex justify-between items-center">
-	<h2 class="h2">
-		Manage Your {appName?.name} Sessions
+	<h2 class="h2 font-bold ">
+		Manage Your Sessions
 	</h2>
 	<form action={`?/revokeAuth`} method="post">
 		<input type="hidden" name="appId" />
@@ -23,7 +23,7 @@
 </div>
 
 {#if sessions.length === 0}
-	<p class="p">
+	<p class="p ">
 		You have no active sessions of {appName?.name}.
 	</p>
 {:else}
@@ -33,7 +33,7 @@
 				<div
 					class="card card-hover bg-initial modal p-4 m-2 gap-4 rounded-md md:flex-col md:h-fit lg:flex-row lg:h-24 flex items-center lg:w-fit"
 				>
-					<div class=" w-16" />
+					<div class="w-16" />
 					<div class="details">
 						<div class="flex flex-col gap-1 items-center lg:flex-row">
 							<span class="flex gap-1">

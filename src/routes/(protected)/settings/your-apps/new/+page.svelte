@@ -4,9 +4,9 @@
 	const { form, errors, constraints } = superForm(data.form);
 </script>
 
-<h1 class="h1">Create an app</h1>
+<h1 class="h1 font-bold">Create an app</h1>
 <form class="flex flex-col gap-4" method="post" action="?/newApp">
-	<label for="name" class="label">
+	<label for="name" class=" label">
 		<span>App Name</span>
 		<input
 			class="input"

@@ -8,7 +8,7 @@
 	$: banner = guildedMediaLink($page.data.user.banner);
 </script>
 
-<h1 class="h1">Your Profile</h1>
+<h1 class="h1 font-bold">Your Profile</h1>
 <div class="flex justify-center">
 	<div
 		class="card card-hover bg-initial overflow-hidden flex flex-col lg:w-[75%] md:w-full justify-self-center"
