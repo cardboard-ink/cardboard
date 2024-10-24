@@ -2,19 +2,19 @@ services:
   cb-db:
     container_name: cb-db
     image: postgres:15.4-alpine
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: password
     volumes:
       - ./prisma/db:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 6432:5432
   cb-app:
     container_name: cb-app
     build:
       context: .
       dockerfile: app.dockerfile
-    restart: always
+    restart: unless-stopped
     depends_on:
       - cb-db
     ports:
