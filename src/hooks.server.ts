@@ -21,7 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			'hamlindigo',
 			'gold-nouveau',
 			'crimson'
-		].includes(theme)
+		].includes(cookieTheme)
 	) {
 		theme = cookieTheme;
 	} else {
