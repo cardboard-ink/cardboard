@@ -3,22 +3,9 @@
 	import { guildedMediaLink } from '$lib/utils/guilded-media';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import type { User } from '$lib/dtos/user';
 
 	let userSearch = '';
-
-	type aboutInfo = {
-		bio: string;
-		tagline: string;
-	};
-
-	type User = {
-		id: string;
-		name: string;
-		lastOnline: string;
-		profilePicture?: string;
-		aboutInfo?: aboutInfo;
-		gameIds?: number[];
-	};
 
 	let users: User[] = [];
 
@@ -26,18 +13,8 @@
 	var typingTimer: NodeJS.Timeout;
 
 	const searchForUsername = async () => {
-		fetch(
-			`https://www.guilded.gg/api/search?query=${userSearch}&entityType=user&maxResultsPerType=20`,
-			{ method: 'GET' }
-		).then(async (res) => {
-			const data = await res.json();
-			users = data.results.users;
-			users = users.map((user: User) => {
-				return {
-					...user,
-					profilePicture: guildedMediaLink(user.profilePicture ?? '/poop.png')
-				};
-			});
+		fetch(`/api/v2/search?query=${userSearch}`, { method: 'GET' }).then(async (res) => {
+			users = await res.json();
 			if (userSearch == '') {
 				users = [];
 			}

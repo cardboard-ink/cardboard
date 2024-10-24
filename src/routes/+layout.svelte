@@ -38,9 +38,9 @@
 	import { guildedMediaLink } from '$lib/utils/guilded-media';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	initializeStores();
-	const drawerStore = getDrawerStore();
-	const setTheme: SubmitFunction = ({ data }) => {
-		const theme = data.get('theme')?.toString();
+	getDrawerStore();
+	const setTheme: SubmitFunction = ({ formData }) => {
+		const theme = formData.get('theme')?.toString();
 		if (theme) {
 			document.body.setAttribute('data-theme', theme);
 			$storeTheme = theme;
